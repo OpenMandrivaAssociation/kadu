@@ -27,7 +27,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.5.0
-Release:	%mkrel 5
+Release:	%mkrel 6
 License:	GPL
 Group:		Networking/Instant messaging
 Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
@@ -583,7 +583,7 @@ Nuvola icon theme for kadu created by David Vignoni.
 
 %prep
 
-%setup -q -n %{name}
+%setup -qn %{name}
 tar xzf %{SOURCE2} -C modules
 tar xjf %{SOURCE3} -C modules
 tar xjf %{SOURCE4} -C modules
@@ -650,6 +650,7 @@ install -D %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 #install icons to the right place
 mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,22x22,32x32,48x48,64x64,128x128}/apps
+
 mv -f %{buildroot}%{_datadir}/pixmaps/%{name}-16.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
 mv -f %{buildroot}%{_datadir}/pixmaps/%{name}-22.png %{buildroot}%{_iconsdir}/hicolor/22x22/apps/%{name}.png
 mv -f %{buildroot}%{_datadir}/pixmaps/%{name}.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
@@ -680,9 +681,9 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %files
 %defattr(644,root,root,755)
 %doc HISTORY README TODO VERSION THANKS AUTHORS COPYING FAQ
-%attr(755,root,root)%{_bindir}/kadu
-%attr(755,root,root)%{_bindir}/kadu-mozilla
-%attr(644,root,root)%{_datadir}/applications/%{name}.desktop
+%attr(755,root,root) %{_bindir}/kadu
+%attr(755,root,root) %{_bindir}/kadu-mozilla
+%{_datadir}/applications/%{name}.desktop
 
 #default directories
 %dir %{_libdir}/%{name}
@@ -968,5 +969,3 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %lang(en) %{_datadir}/%{name}/translations/qt_fr.qm
 %lang(it) %{_datadir}/%{name}/translations/qt_it.qm
 %lang(pl) %{_datadir}/%{name}/translations/qt_pl.qm
-
-
