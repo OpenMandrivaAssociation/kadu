@@ -27,7 +27,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.5.0
-Release:	%mkrel 7
+Release:	%mkrel 8
 License:	GPL
 Group:		Networking/Instant messaging
 Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
@@ -267,6 +267,7 @@ External application sound support module.
 Summary:	Falf module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
+Requires:	falf >= 1.0
 
 %description	module-falfp
 Module which allows showing in status description information about
