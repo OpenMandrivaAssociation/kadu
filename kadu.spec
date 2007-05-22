@@ -27,7 +27,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.5.0
-Release:	%mkrel 6
+Release:	%mkrel 7
 License:	GPL
 Group:		Networking/Instant messaging
 Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
@@ -632,11 +632,9 @@ popd
 
 %build
 %configure2_5x \
-	--enable-voice \
 	--enable-pheaders \
 	--enable-final \
-	--enable-dist-info=mdv \
-	--with-existing-libgadu=/usr
+	--with-existing-libgadu
 
 %make
 	
