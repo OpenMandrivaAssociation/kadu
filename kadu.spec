@@ -27,7 +27,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.5.0
-Release:	%mkrel 8
+Release:	%mkrel 9
 License:	GPL
 Group:		Networking/Instant messaging
 Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
@@ -107,9 +107,9 @@ The kadu-devel package contains the header files and some
 documentation needed to develop application with kadu.
 
 %files 		devel
-%defattr(644,root,root,755)
-%multiarch %attr(755,root,root) %{multiarch_bindir}/kadu-config
-%attr(755,root,root) %{_bindir}/kadu-config
+%defattr(-,root,root)
+%multiarch %{multiarch_bindir}/kadu-config
+%{_bindir}/kadu-config
 %dir %{_includedir}/kadu
 %dir %{_includedir}/kadu/modules
 %{_includedir}/kadu/*.h
@@ -129,12 +129,12 @@ BuildRequires:	libarts-devel
 aRts sound server support.
 
 %files		module-arts_sound
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/arts_sound.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/arts_sound.so
+%{_libdir}/%{name}/modules/arts_sound.so
 %dir %{_libdir}/%{name}/modules/bin/
 %dir %{_libdir}/%{name}/modules/bin/arts_sound
-%attr(755,root,root) %{_libdir}/%{name}/modules/bin/arts_sound/arts_connector
+%{_libdir}/%{name}/modules/bin/arts_sound/arts_connector
 
 #module_amarok
 %package 	module-amarok
@@ -148,12 +148,12 @@ Module which allows showing in status description information about
 the song currently played in Amarok.
 
 %files 		module-amarok
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/amarok/{README,ChangeLog}
 %dir %{_datadir}/%{name}/modules/data/amarok
 %{_datadir}/%{name}/modules/data/amarok/*
 %{_datadir}/%{name}/modules/amarok.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/amarok.so
+%{_libdir}/%{name}/modules/amarok.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/amarok_pl.qm
 %lang(de) %{_datadir}/%{name}/modules/translations/amarok_de.qm
 
@@ -168,9 +168,9 @@ BuildRequires:  libao-devel
 ao library sound module (ALSA, OSS, ESD, AIX, IRIX, NAS, Sun, NetBSD, OpenBSD).
 
 %files 		module-ao_sound
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/ao_sound.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/ao_sound.so
+%{_libdir}/%{name}/modules/ao_sound.so
 
 #module_dcopexport
 %package	module-dcopexport
@@ -183,13 +183,13 @@ BuildRequires:	kdelibs-devel
 Exports some functions via DCOP.
 
 %files		module-dcopexport
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %dir %{_libdir}/%{name}/modules/bin/dcopexport
 %dir %{_datadir}/%{name}/modules/data/dcopexport
 %{_datadir}/%{name}/modules/dcopexport.desc
 %{_datadir}/%{name}/modules/data/dcopexport/dcopexport.png
-%attr(755,root,root) %{_libdir}/%{name}/modules/bin/dcopexport/*
-%attr(755,root,root) %{_libdir}/%{name}/modules/dcopexport.so
+%{_libdir}/%{name}/modules/bin/dcopexport/*
+%{_libdir}/%{name}/modules/dcopexport.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/dcopexport_pl.qm
 
 #module_desktop_docking
@@ -202,9 +202,9 @@ Requires:	%{name} = %{version}-%{release}
 Always on top window docking module.
 
 %files		module-desktop_docking
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/desktop_docking.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/desktop_docking.so
+%{_libdir}/%{name}/modules/desktop_docking.so
 %lang(de) %{_datadir}/%{name}/modules/translations/desktop_docking_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/desktop_docking_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/desktop_docking_it.qm
@@ -220,9 +220,9 @@ Requires:	%{name} = %{version}-%{release}
 Direct /dev/dsp sound support (Open Sound System).
 
 %files		module-dsp_sound
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/dsp_sound.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/dsp_sound.so
+%{_libdir}/%{name}/modules/dsp_sound.so
 %lang(de) %{_datadir}/%{name}/modules/translations/dsp_sound_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/dsp_sound_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/dsp_sound_it.qm
@@ -240,9 +240,9 @@ BuildRequires:	libesound-devel
 ESD sound server support.
 
 %files 		module-esd_sound
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/esd_sound.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/esd_sound.so
+%{_libdir}/%{name}/modules/esd_sound.so
 
 #module_ext_sound
 %package        module-ext_sound
@@ -254,9 +254,9 @@ Requires:       %{name} = %{version}-%{release}
 External application sound support module.
 
 %files          module-ext_sound
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/ext_sound.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/ext_sound.so
+%{_libdir}/%{name}/modules/ext_sound.so
 %lang(de) %{_datadir}/%{name}/modules/translations/ext_sound_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/ext_sound_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/ext_sound_it.qm
@@ -274,11 +274,11 @@ Module which allows showing in status description information about
 the song currently played in Falf player.
 
 %files		module-falfp
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/falfp
 %{_datadir}/%{name}/modules/data/falfp/*.png
 %{_datadir}/%{name}/modules/falfp.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/falfp.so
+%{_libdir}/%{name}/modules/falfp.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/falfp_pl.qm
 	    
 #module_led_notif
@@ -291,10 +291,10 @@ Requires:	%{name} = %{version}-%{release}
 Notification by keyboard's LED.
 
 %files		module-led_notify
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/led_notify/Changelog
 %{_datadir}/%{name}/modules/led_notify.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/led_notify.so
+%{_libdir}/%{name}/modules/led_notify.so
 
 #module_miastoplusa_sms
 %package	module-miastoplusa_sms
@@ -308,12 +308,12 @@ BuildRequires:	libopenssl-devel
 Miasto Plusa SMS Gateway support module.
 
 %files		module-miastoplusa_sms
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/miastoplusa_sms/ChangeLog
 %dir %{_datadir}/%{name}/modules/data/miastoplusa_sms
 %{_datadir}/%{name}/modules/data/miastoplusa_sms/*
 %{_datadir}/%{name}/modules/miastoplusa_sms.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/miastoplusa_sms.so
+%{_libdir}/%{name}/modules/miastoplusa_sms.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/miastoplusa_sms_pl.qm
 
 #module_nas_sound
@@ -328,9 +328,9 @@ BuildRequires:	libnas-devel
 Network Audio System support.
 
 %files		 module-nas_sound
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/nas_sound.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/nas_sound.so
+%{_libdir}/%{name}/modules/nas_sound.so
 
 #module_pcspeaker
 %package 	module-pcspeaker
@@ -342,10 +342,10 @@ Requires:	%{name} = %{version}-%{release}
 PC-Speaker support module.
 
 %files		module-pcspeaker
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/pcspeaker/Changelog
 %{_datadir}/%{name}/modules/pcspeaker.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/pcspeaker.so
+%{_libdir}/%{name}/modules/pcspeaker.so
 %lang(de) %{_datadir}/%{name}/modules/translations/pcspeaker_de.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/pcspeaker_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/pcspeaker_pl.qm
@@ -360,7 +360,7 @@ Requires:	%{name} = %{version}-%{release}
 Powerkadu extends capabilities of Kadu.
 
 %files		module-powerkadu
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %dir %{_libdir}/%{name}/modules/bin/powerkadu
 %dir %{_datadir}/%{name}/modules/data/powerkadu
 %dir %{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons
@@ -371,8 +371,8 @@ Powerkadu extends capabilities of Kadu.
 %{_datadir}/%{name}/modules/data/powerkadu/*.data
 %{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons/*.png
 %{_datadir}/%{name}/modules/powerkadu.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/powerkadu.so
-%attr(755,root,root) %{_libdir}/%{name}/modules/bin/powerkadu/mimetex
+%{_libdir}/%{name}/modules/powerkadu.so
+%{_libdir}/%{name}/modules/bin/powerkadu/mimetex
 %lang(pl) %{_datadir}/%{name}/modules/translations/powerkadu_pl.qm
 
 #module_speech
@@ -386,9 +386,9 @@ Requires:	powiedz
 Speech synthesis support ("powiedz")
 
 %files 		module-speech
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/speech.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/speech.so
+%{_libdir}/%{name}/modules/speech.so
 %lang(de) %{_datadir}/%{name}/modules/translations/speech_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/speech_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/speech_it.qm
@@ -406,11 +406,11 @@ BuildRequires:	libaspell-devel
 Checker of spelling mistakes.
 
 %files 		module-spellchecker
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/spellchecker/{README,TODO,ChangeLog}
 %dir %{_datadir}/%{name}/modules/data/spellchecker
 %{_datadir}/%{name}/modules/spellchecker.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/spellchecker.so
+%{_libdir}/%{name}/modules/spellchecker.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/spellchecker_pl.qm
 %{_datadir}/%{name}/modules/data/spellchecker/config.png
 
@@ -424,12 +424,12 @@ Requires:	%{name} = %{version}-%{release}
 This module shows who from contact list is hiding against us.
 
 %files 		module-spy
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/spy/ChangeLog
 %dir %{_datadir}/%{name}/modules/data/spy
 %{_datadir}/%{name}/modules/data/spy/spy32.png
 %{_datadir}/%{name}/modules/spy.desc
-%attr(755,root,root)%{_libdir}/%{name}/modules/spy.so
+%{_libdir}/%{name}/modules/spy.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/spy_pl.qm
 
 #module_weather
@@ -442,7 +442,7 @@ Requires:	%{name} = %{version}-%{release}
 This module shows current weather for you and your contacts.
 
 %files		module-weather
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/weather
 %dir %{_datadir}/%{name}/modules/data/weather/icons
 %{_datadir}/%{name}/modules/data/weather/icons/*
@@ -450,7 +450,7 @@ This module shows current weather for you and your contacts.
 %{_datadir}/%{name}/modules/data/weather/onetweather.ini
 %{_datadir}/%{name}/modules/data/weather/pfweather.ini
 %{_datadir}/%{name}/modules/weather.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/weather.so
+%{_libdir}/%{name}/modules/weather.so
 	    
 #module_wmaker_docking
 %package	module-wmaker_docking
@@ -463,9 +463,9 @@ Requires: 	WindowMaker
 WindowMaker docking module.
 
 %files		module-wmaker_docking
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/wmaker_docking.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/wmaker_docking.so
+%{_libdir}/%{name}/modules/wmaker_docking.so
 
 #module_xmms
 %package 	module-xmms
@@ -480,12 +480,12 @@ Module which allows showing in status description information about
 the song currently played in XMMS.
 
 %files 		module-xmms
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/xmms/{README,ChangeLog}
 %dir %{_datadir}/%{name}/modules/data/xmms
 %{_datadir}/%{name}/modules/data/xmms/*
 %{_datadir}/%{name}/modules/xmms.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/xmms.so
+%{_libdir}/%{name}/modules/xmms.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/xmms_pl.qm
 
 %package	module-xosd_notify
@@ -499,14 +499,14 @@ BuildRequires: 	libxosd-devel
 Notification by XOSD module.
 
 %files		module-xosd_notify
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc modules/xosd_notify/{README,ChangeLog}
 %dir %{_libdir}/%{name}/modules/bin/xosd_notify
 %dir %{_datadir}/%{name}/modules/data/xosd_notify
 %{_datadir}/%{name}/modules/data/xosd_notify/xosdblue.png
 %{_datadir}/%{name}/modules/xosd_notify.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/xosd_notify.so
-%attr(755,root,root) %{_libdir}/%{name}/modules/bin/xosd_notify/gtkfontdialog
+%{_libdir}/%{name}/modules/xosd_notify.so
+%{_libdir}/%{name}/modules/bin/xosd_notify/gtkfontdialog
 
 #module_xqf
 %package 	module-xqf
@@ -520,9 +520,9 @@ Module which allows showing in status description information about
 the game and ip of a gameserver currently played.
 
 %files 		module-xqf
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %{_datadir}/%{name}/modules/qf.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/qf.so
+%{_libdir}/%{name}/modules/qf.so
 
 #----------Icons----------
 
@@ -538,12 +538,12 @@ Crystal icon theme for kadu created by arcisz.
 
 #icons_crystal
 %files		icons_crystal
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc varia/themes/icons/crystal16/README
 %dir %{_datadir}/%{name}/themes/icons/crystal16
 %dir %{_datadir}/%{name}/themes/icons/crystal22
-%attr(644,root,root) %{_datadir}/%{name}/themes/icons/crystal16/*
-%attr(644,root,root) %{_datadir}/%{name}/themes/icons/crystal22/*
+%{_datadir}/%{name}/themes/icons/crystal16/*
+%{_datadir}/%{name}/themes/icons/crystal22/*
 
 #icons_glass
 %package	icons_glass
@@ -556,11 +556,11 @@ Requires:	%{name} = %{version}-%{release}
 Glass icon theme for kadu created by Mariusz Waluga.
 
 %files		icons_glass
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %dir %{_datadir}/%{name}/themes/icons/glass16
 %dir %{_datadir}/%{name}/themes/icons/glass22
-%attr(644,root,root) %{_datadir}/%{name}/themes/icons/glass16/*
-%attr(644,root,root) %{_datadir}/%{name}/themes/icons/glass22/*
+%{_datadir}/%{name}/themes/icons/glass16/*
+%{_datadir}/%{name}/themes/icons/glass22/*
 
 #icons_nuvola
 %package	icons_nuvola
@@ -573,12 +573,12 @@ Requires:	%{name} = %{version}-%{release}
 Nuvola icon theme for kadu created by David Vignoni.
 
 %files		icons_nuvola
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc varia/themes/icons/nuvola16/Copyright
 %dir %{_datadir}/%{name}/themes/icons/nuvola16
 %dir %{_datadir}/%{name}/themes/icons/nuvola22
-%attr(644,root,root) %{_datadir}/%{name}/themes/icons/nuvola16/*
-%attr(644,root,root) %{_datadir}/%{name}/themes/icons/nuvola22/*
+%{_datadir}/%{name}/themes/icons/nuvola16/*
+%{_datadir}/%{name}/themes/icons/nuvola22/*
 
 #--------------------------------------------------------------
 
@@ -644,7 +644,7 @@ popd
 
 %makeinstall_std
 
-install -D %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -D -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
 %multiarch_binaries %{buildroot}%{_bindir}/kadu-config
 
 #install icons to the right place
@@ -678,10 +678,10 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %files
-%defattr(644,root,root,755)
+%defattr(-,root,root)
 %doc HISTORY README TODO VERSION THANKS AUTHORS COPYING FAQ
-%attr(755,root,root) %{_bindir}/kadu
-%attr(755,root,root) %{_bindir}/kadu-mozilla
+%{_bindir}/kadu
+%{_bindir}/kadu-mozilla
 %{_datadir}/applications/%{name}.desktop
 
 #default directories
@@ -706,200 +706,176 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %{_datadir}/%{name}/THANKS
 
 #module_account_management
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/account_management.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/account_management.so
+%{_libdir}/%{name}/modules/account_management.so
 %lang(de) %{_datadir}/%{name}/modules/translations/account_management_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/account_management_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/account_management_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/account_management_pl.qm
 
 #module_adavanced_userlist
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/%{name}/modules/advanced_userlist.so
+%{_libdir}/%{name}/modules/advanced_userlist.so
 %{_datadir}/%{name}/modules/advanced_userlist.desc
 %lang(pl) %{_datadir}/%{name}/modules/translations/advanced_userlist_pl.qm
 
 #module_alsa_sound
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/alsa_sound.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/alsa_sound.so
+%{_libdir}/%{name}/modules/alsa_sound.so
 %lang(de) %{_datadir}/%{name}/modules/translations/alsa_sound_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/alsa_sound_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/alsa_sound_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/alsa_sound_pl.qm
 
 #module_autoaway
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/autoaway.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/autoaway.so
+%{_libdir}/%{name}/modules/autoaway.so
 %lang(de) %{_datadir}/%{name}/modules/translations/autoaway_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/autoaway_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/autoaway_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/autoaway_pl.qm
 
 #module_autoresponder
-%defattr(644,root,root,755)
-%{_datadir}/%{name}//modules/autoresponder.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/autoresponder.so
+%{_datadir}/%{name}/modules/autoresponder.desc
+%{_libdir}/%{name}/modules/autoresponder.so
 %lang(de) %{_datadir}/%{name}/modules/translations/autoresponder_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/autoresponder_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/autoresponder_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/autoresponder_pl.qm
 
 #module_config_wizard
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/config_wizard
 %dir %{_datadir}/%{name}/modules/data/config_wizard/joi
 %dir %{_datadir}/%{name}/modules/data/config_wizard/ronk2
 %{_datadir}/%{name}/modules/data/config_wizard/joi/*
 %{_datadir}/%{name}/modules/data/config_wizard/ronk2/*
 %{_datadir}/%{name}/modules/config_wizard.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/config_wizard.so
+%{_libdir}/%{name}/modules/config_wizard.so
 %lang(de) %{_datadir}/%{name}/modules/translations/config_wizard_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/config_wizard_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/config_wizard_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/config_wizard_pl.qm
 
 #module_dcc
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/dcc.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/dcc.so
+%{_libdir}/%{name}/modules/dcc.so
 %lang(de) %{_datadir}/%{name}/modules/translations/dcc_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/dcc_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/dcc_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/dcc_pl.qm
 
 #module_default_sms
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/default_sms.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/default_sms.so
+%{_libdir}/%{name}/modules/default_sms.so
 %lang(de) %{_datadir}/%{name}/modules/translations/default_sms_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/default_sms_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/default_sms_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/default_sms_pl.qm
 
 #module_encryption
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/encryption.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/encryption.so
+%{_libdir}/%{name}/modules/encryption.so
 %lang(de) %{_datadir}/%{name}/modules/translations/encryption_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/encryption_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/encryption_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/encryption_pl.qm
 
 #module_exec_notify
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/ext_info
 %{_datadir}/%{name}/modules/data/ext_info/*
 %{_datadir}/%{name}/modules/exec_notify.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/exec_notify.so
+%{_libdir}/%{name}/modules/exec_notify.so
 
 #module_ext_info
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/ext_info.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/ext_info.so
+%{_libdir}/%{name}/modules/ext_info.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/ext_info_pl.qm
 
 #module_filedesc
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/filedesc
 %{_datadir}/%{name}/modules/data/filedesc/*
 %{_datadir}/%{name}/modules/filedesc.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/filedesc.so
+%{_libdir}/%{name}/modules/filedesc.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/filedesc_pl.qm
 
 #module_filtering
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/filtering
 %{_datadir}/%{name}/modules/data/filtering/*
 %{_datadir}/%{name}/modules/filtering.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/filtering.so
+%{_libdir}/%{name}/modules/filtering.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/filtering.qm
 
 #module_firewall
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/firewall
 %{_datadir}/%{name}/modules/firewall.desc
 %{_datadir}/%{name}/modules/data/firewall/firewall.png
-%attr(755,root,root) %{_libdir}/%{name}/modules/firewall.so
+%{_libdir}/%{name}/modules/firewall.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/firewall_pl.qm
 
 #module_iwait4u
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/iwait4u.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/iwait4u.so
+%{_libdir}/%{name}/modules/iwait4u.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/iwait4u_pl.qm
 
 #module_hints
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/hints.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/hints.so
+%{_libdir}/%{name}/modules/hints.so
 %lang(de) %{_datadir}/%{name}/modules/translations/hints_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/hints_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/hints_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/hints_pl.qm
 
 #module_mail
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/mail.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/mail.so
+%{_libdir}/%{name}/modules/mail.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/mail_pl.qm
 
 #module_migration
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/migration.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/migration.so
+%{_libdir}/%{name}/modules/migration.so
 %lang(de) %{_datadir}/%{name}/modules/translations/migration_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/migration_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/migration_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/migration_pl.qm
 
 #module_osdhints_notify
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/osdhints_notify
 %{_datadir}/%{name}/modules/data/osdhints_notify/*.png
 %{_datadir}/%{name}/modules/osdhints_notify.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/osdhints_notify.so
+%{_libdir}/%{name}/modules/osdhints_notify.so
 
 #module_profiles
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/profiles.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/profiles.so
+%{_libdir}/%{name}/modules/profiles.so
 %lang(de) %{_datadir}/%{name}/modules/translations/profiles_de.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/profiles_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/profiles_pl.qm
 
 #module_screenshot
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/screenshot
 %{_datadir}/%{name}/modules/screenshot.desc
 %{_datadir}/%{name}/modules/data/screenshot/camera.png
 %{_datadir}/%{name}/modules/data/screenshot/camera_small.png
-%attr(755,root,root) %{_libdir}/%{name}/modules/screenshot.so
+%{_libdir}/%{name}/modules/screenshot.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/screenshot_pl.qm
 
 #module_sms
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/sms.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/sms.so
+%{_libdir}/%{name}/modules/sms.so
 %lang(de) %{_datadir}/%{name}/modules/translations/sms_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/sms_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/sms_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/sms_pl.qm
 
 #module_tabs
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/modules/data/tabs
 %{_datadir}/%{name}/modules/data/tabs/*
 %{_datadir}/%{name}/modules/tabs.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/tabs.so
+%{_libdir}/%{name}/modules/tabs.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/tabs_pl.qm
 
 #module_window_notify
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/window_notify.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/window_notify.so
+%{_libdir}/%{name}/modules/window_notify.so
 %lang(de) %{_datadir}/%{name}/modules/translations/*notify_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/*notify_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/*notify_it.qm
@@ -907,16 +883,15 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_voice
 %{_datadir}/%{name}/modules/voice.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/voice.so
+%{_libdir}/%{name}/modules/voice.so
 %lang(de) %{_datadir}/%{name}/modules/translations/voice_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/voice_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/voice_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/voice_pl.qm
 
 #module_x11_docking
-%defattr(644,root,root,755)
 %{_datadir}/%{name}/modules/x11_docking.desc
-%attr(755,root,root) %{_libdir}/%{name}/modules/x11_docking.so
+%{_libdir}/%{name}/modules/x11_docking.so
 %lang(de) %{_datadir}/%{name}/modules/translations/x11_docking_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/x11_docking_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/x11_docking_it.qm
@@ -924,15 +899,13 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #icons_default
 %dir %{_datadir}/%{name}/themes/icons/default
-%attr(644,root,root) %{_datadir}/%{name}/themes/icons/default/*
+%{_datadir}/%{name}/themes/icons/default/*
 
 #emoticons_penguins
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/themes/emoticons/penguins
-%attr(644,root,root)%{_datadir}/%{name}/themes/emoticons/penguins/*
+%{_datadir}/%{name}/themes/emoticons/penguins/*
 
 #sounds_default
-%defattr(644,root,root,755)
 %dir %{_datadir}/%{name}/themes/sounds/default
 %{_datadir}/%{name}/themes/sounds/default/*
 %lang(de) %{_datadir}/%{name}/modules/translations/sound_de.qm
