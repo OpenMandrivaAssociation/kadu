@@ -28,7 +28,7 @@ Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.5.0
 Release:	%mkrel 9
-License:	GPL
+License:	GPLv2+
 Group:		Networking/Instant messaging
 Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
@@ -530,7 +530,7 @@ the game and ip of a gameserver currently played.
 %package	icons_crystal
 Summary: 	Crystal icons for Kadu
 Group:		Networking/Instant messaging
-License:	LGPL
+License:	LGPLv2+
 Requires:	%{name} = %{version}-%{release}
 
 %Description 	icons_crystal
@@ -549,7 +549,7 @@ Crystal icon theme for kadu created by arcisz.
 %package	icons_glass
 Summary: 	Glass icons for Kadu
 Group:		Networking/Instant messaging
-License:	GPL
+License:	GPLv2+
 Requires:	%{name} = %{version}-%{release}
 
 %Description 	icons_glass
@@ -566,7 +566,7 @@ Glass icon theme for kadu created by Mariusz Waluga.
 %package	icons_nuvola
 Summary: 	Nuvola icons for Kadu
 Group:		Networking/Instant messaging
-License:	LGPL
+License:	LGPLv2+
 Requires:	%{name} = %{version}-%{release}
 
 %Description 	icons_nuvola
@@ -636,7 +636,6 @@ popd
 	--enable-pheaders \
 	--enable-final \
 	--with-existing-libgadu
-
 %make
 	
 %install
@@ -679,7 +678,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 %files
 %defattr(-,root,root)
-%doc HISTORY README TODO VERSION THANKS AUTHORS COPYING FAQ
+%doc HISTORY README TODO VERSION THANKS AUTHORS FAQ
 %{_bindir}/kadu
 %{_bindir}/kadu-mozilla
 %{_datadir}/applications/%{name}.desktop
