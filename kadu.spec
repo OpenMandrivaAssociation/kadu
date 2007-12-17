@@ -84,7 +84,6 @@ BuildRequires:	X11-devel		>= 7.1.0
 BuildRequires:	qt3-devel 		>= 3.3.6
 BuildRequires:	libopenssl-devel	>= 0.9.8d-3
 Requires: 	qt3-common 		>= 3.3.7
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 Kadu is a dynamically evolving instant messenger 
