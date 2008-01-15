@@ -54,7 +54,7 @@ Source16: 	http://www.kadu.net/~patryk/powerkadu/powerkadu-%{_powerkadu_ver}.tar
 Source17: 	http://www.kadu.net/~dorr/kadu-profiles-%{_profiles_ver}.tar.gz
 Source18: 	http://scripts.one.pl/screenshot/devel/0.5.0/screenshot-%{_screenshot_ver}.tar.gz
 Source19: 	http://scripts.one.pl/spellchecker/devel/0.5.0/spellchecker-%{_spellchecker_ver}.tar.gz
-Source20: 	http://www.kadu.net/download/modules_mirror/tabs-%{_tabs_ver}.tar.bz2
+Source20: 	http://kadu.net/~arvenil/tabs/download/0.6.0/kadu-tabs-%{_tabs_ver}.tar.bz2
 Source21: 	http://www.kadu.net/~blysk/weather-%{_weather_ver}.tar.bz2
 Source22: 	http://scripts.one.pl/xmms/devel/0.5.0/xmms-%{_xmms_ver}.tar.gz
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{_xosd_notify_ver}.tar.bz2
