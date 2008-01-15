@@ -8,7 +8,7 @@
 %define		_falfpver			20071225
 %define		_filedesc_ver			20071221
 %define		_filtering_ver			0.3.6-20061220-0.5.0
-%define		_firewall_ver			0.6.4
+%define		_firewall_ver			0.7.0
 %define		_iwait4u_ver			1.3
 %define		_led_notify_ver			0.15
 %define		_mail_ver			current
@@ -44,7 +44,7 @@ Source5: 	http://www.kadu.net/~joi/exec_notify/packages/exec_notify-%{_exec_noti
 Source6: 	http://www.kadu.net/~dzwiedziu/pub/ext_info-%{_ext_info_ver}.tar.bz2
 Source7: 	http://www.kadu.net/download/modules_extra/filedesc/filedesc-%{_filedesc_ver}.tar.bz2
 Source8: 	http://alan.umcs.lublin.pl/~pinkworm/filtering/filtering-%{_filtering_ver}.tar.bz2
-Source9: 	http://www.kadu.net/~pan_wojtas/firewall/download/kadu-firewall-%{_firewall_ver}.tar.gz
+Source9:	http://www.kadu.net/~dorr/kadu-firewall-%{_firewall_ver}.tar.bz2
 Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{_iwait4u_ver}.tar.gz
 Source11: 	http://www.kadu.net/~blysk/led_notify-%{_led_notify_ver}.tar.bz2
 Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{_mail_ver}.tar.gz
@@ -590,7 +590,7 @@ Nuvola icon theme for kadu created by David Vignoni.
 %prep
 
 %setup -qn %{name}
-tar xzf %{SOURCE2} -C modules
+tar xjf %{SOURCE2} -C modules
 tar xjf %{SOURCE3} -C modules
 #tar xjf %{SOURCE4} -C modules
 #tar xjf %{SOURCE5} -C modules
