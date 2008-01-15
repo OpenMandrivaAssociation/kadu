@@ -3,26 +3,26 @@
 %define		_ao_sound_ver			20060424
 %define		_dcopexport_ver			0.11.3-20070102-0.5.0
 %define		_exec_notify_ver		20070101
-%define		_ext_info_ver			2.0beta9
+%define		_ext_info_ver			2.0beta12
 %define		_falfpver			1.3
 %define		_filedesc_ver			1.12
 %define		_filtering_ver			0.3.6-20061220-0.5.0
 %define		_firewall_ver			0.6.4
 %define		_iwait4u_ver			1.3
-%define		_led_notify_ver			0.9
+%define		_led_notify_ver			0.15
 %define		_mail_ver			current
 %define		_miastoplusa_sms_ver		0.5-1.3.5
 %define		_osdhints_notify_ver		0.3.2.1
 %define		_pcspeaker_ver			current
 %define		_powerkadu_ver			20061109
 %define		_profiles_ver			current
-%define		_screenshot_ver			0.4.4
+%define		_screenshot_ver			0.5.0
 %define		_spellchecker_ver		0.19
 %define		_spyver				0.0.8-3
-%define		_tabs_ver			20061223
-%define		_weather_ver			3.04
-%define		_xmms_ver			1.33
-%define		_xosd_notify_ver		20060424
+%define		_tabs_ver			1.1.3
+%define		_weather_ver			3.10
+%define		_xmms_ver			1.36
+%define		_xosd_notify_ver		20070111
 
 %define prel rc1
 
@@ -66,10 +66,11 @@ Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
 Source25:	http://www.kadu.net/download/additions/kadu-theme-crystal-22.tar.bz2
-Source26:	http://www.kadu.net/download/additions/kadu-theme-glass_16.tar.gz
-Source27:	http://www.kadu.net/download/additions/kadu-theme-glass_22.tar.gz
+Source26:	http://www.kadu.net/download/additions/kadu-0.6-theme-glass-16.tar.gz
+Source27:	http://www.kadu.net/download/additions/kadu-0.6-theme-glass-22.tar.gz
 Source28:	http://www.kadu.net/download/additions/kadu-theme-nuvola-16.tar.gz
 Source29:	http://www.kadu.net/download/additions/kadu-theme-nuvola-22.tar.gz
+Source34:	http://www.kadu.net/download/additions/kadu-0.6-theme-tango-16.tar.gz
 
 Patch0:		%{name}-config-enable-modular-build.patch
 Patch2: 	%{name}-makefile-disable-desktop-file.patch
