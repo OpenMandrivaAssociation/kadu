@@ -24,13 +24,15 @@
 %define		_xmms_ver			1.33
 %define		_xosd_notify_ver		20060424
 
+%define prel rc1
+
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
-Version:	0.5.0
-Release:	%mkrel 9
+Version:	0.6.0
+Release:	%mkrel 0.%{prel}.1
 License:	GPLv2+
 Group:		Networking/Instant messaging
-Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
+Source0:	http://kadu.net/download/stable/%{name}-%{version}-%{prel}.tar.bz2
 Source1:	%{name}.desktop
 
 #Modules sources
