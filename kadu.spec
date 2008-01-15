@@ -1,27 +1,28 @@
-%define		_amarok_ver			1.19
+%define		_agent_ver			0.4.3
+%define		_amarok_ver			20071220
 %define		_advanced_userlist		20070101
 %define		_ao_sound_ver			20060424
-%define		_dcopexport_ver			0.11.3-20070102-0.5.0
+%define		_dcopexport_ver			0.11.3-20070321-0.5.0
 %define		_exec_notify_ver		20070101
 %define		_ext_info_ver			2.0beta12
-%define		_falfpver			1.3
-%define		_filedesc_ver			1.12
+%define		_falfpver			20071225
+%define		_filedesc_ver			20071221
 %define		_filtering_ver			0.3.6-20061220-0.5.0
 %define		_firewall_ver			0.6.4
 %define		_iwait4u_ver			1.3
 %define		_led_notify_ver			0.15
 %define		_mail_ver			current
-%define		_miastoplusa_sms_ver		0.5-1.3.5
-%define		_osdhints_notify_ver		0.3.2.1
+%define		_mediaplayer_ver		20080104
+%define		_miastoplusa_sms_ver		0.6-1.3.9
+%define		_osdhints_notify_ver		0.3.2.3
 %define		_pcspeaker_ver			current
-%define		_powerkadu_ver			20061109
-%define		_profiles_ver			current
-%define		_screenshot_ver			0.5.0
-%define		_spellchecker_ver		0.19
-%define		_spyver				0.0.8-3
+%define		_powerkadu_ver			20070506
+%define		_profiles_ver			0.3.1
+%define		_screenshot_ver			20080104
+%define		_spellchecker_ver		20071230
 %define		_tabs_ver			1.1.3
 %define		_weather_ver			3.10
-%define		_xmms_ver			1.36
+%define		_xmms_ver			20071220
 %define		_xosd_notify_ver		20070111
 
 %define prel rc1
@@ -36,32 +37,33 @@ Source0:	http://kadu.net/download/stable/%{name}-%{version}-%{prel}.tar.bz2
 Source1:	%{name}.desktop
 
 #Modules sources
-Source2: 	http://scripts.one.pl/amarok/devel/0.5.0/amarok-%{_amarok_ver}.tar.gz
+Source2: 	http://www.kadu.net/download/modules_extra/amarok_mediaplayer/amarok_mediaplayer-%{_amarok_ver}.tar.bz2
 Source3: 	http://www.kadu.net/~joi/ao_sound/packages/ao_sound-%{_ao_sound_ver}.tar.bz2
 Source4: 	http://alan.umcs.lublin.pl/~pinkworm/dcopexport/dcopexport-%{_dcopexport_ver}.tar.bz2
 Source5: 	http://www.kadu.net/~joi/exec_notify/packages/exec_notify-%{_exec_notify_ver}.tar.bz2
 Source6: 	http://www.kadu.net/~dzwiedziu/pub/ext_info-%{_ext_info_ver}.tar.bz2
-Source7: 	http://scripts.one.pl/filedesc/devel/0.5.0/filedesc-%{_filedesc_ver}.tar.gz
+Source7: 	http://www.kadu.net/download/modules_extra/filedesc/filedesc-%{_filedesc_ver}.tar.bz2
 Source8: 	http://alan.umcs.lublin.pl/~pinkworm/filtering/filtering-%{_filtering_ver}.tar.bz2
 Source9: 	http://www.kadu.net/~pan_wojtas/firewall/download/kadu-firewall-%{_firewall_ver}.tar.gz
 Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{_iwait4u_ver}.tar.gz
 Source11: 	http://www.kadu.net/~blysk/led_notify-%{_led_notify_ver}.tar.bz2
 Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{_mail_ver}.tar.gz
 Source13: 	http://www.kadu.net/~patryk/miastoplusa_sms/miastoplusa_sms-%{_miastoplusa_sms_ver}.tar.gz
-Source14: 	http://www.kadu.net/~pan_wojtas/osdhints_notify/download/kadu-osdhints_notify-%{_osdhints_notify_ver}.tar.gz
+Source14: 	http://www.kadu.net/~pan_wojtas/osdhints_notify/download/kadu-osdhints_notify-%{_osdhints_notify_ver}-kadu-0.6.tar.gz
 Source15: 	http://kadu.net/~dorr/pcspeaker_%{_pcspeaker_ver}.tar.gz
-Source16: 	http://www.kadu.net/~patryk/powerkadu/powerkadu-%{_powerkadu_ver}.tar.bz2
-Source17: 	http://www.kadu.net/~dorr/kadu-profiles-%{_profiles_ver}.tar.gz
-Source18: 	http://scripts.one.pl/screenshot/devel/0.5.0/screenshot-%{_screenshot_ver}.tar.gz
-Source19: 	http://scripts.one.pl/spellchecker/devel/0.5.0/spellchecker-%{_spellchecker_ver}.tar.gz
+Source16: 	http://www.kadu.net/~patryk/powerkadu/powerkadu-%{_powerkadu_ver}.tar.gz
+Source17: 	http://www.kadu.net/~dorr/kadu-profiles-%{_profiles_ver}.tar.bz2
+Source18: 	http://www.kadu.net/download/modules_extra/screenshot/screenshot-%{_screenshot_ver}.tar.bz2
+Source19: 	http://scripts.one.pl/spellchecker/devel/0.5.0/spellchecker-%{_spellchecker_ver}.tar.bz2
 Source20: 	http://kadu.net/~arvenil/tabs/download/0.6.0/kadu-tabs-%{_tabs_ver}.tar.bz2
 Source21: 	http://www.kadu.net/~blysk/weather-%{_weather_ver}.tar.bz2
-Source22: 	http://scripts.one.pl/xmms/devel/0.5.0/xmms-%{_xmms_ver}.tar.gz
+Source22: 	http://www.kadu.net/download/modules_extra/xmms_mediaplayer/xmms_mediaplayer-%{_xmms_ver}.tar.bz2
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{_xosd_notify_ver}.tar.bz2
 Source30:	http://www.kadu.net/~joi/advanced_userlist/packages/advanced_userlist-%{_advanced_userlist}.tar.bz2
-Source31:	http://downloads.sourceforge.net/falf/falfp%{_falfpver}.tar.bz2
-Source32:	http://student.agh.edu.pl/neeo/kadu-spy-%{_spyver}.tar.bz2
+Source31:	http://www.kadu.net/download/modules_extra/falf_mediaplayer/falf_mediaplayer-%{_falfpver}.tar.bz2
+Source32:	http://misiek.jah.pl/assets/2007/12/27/agent-%{_agent_ver}.tar.gz
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
+Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{_mediaplayer_ver}.tar.bz2
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
@@ -74,7 +76,6 @@ Source34:	http://www.kadu.net/download/additions/kadu-0.6-theme-tango-16.tar.gz
 
 Patch0:		%{name}-config-enable-modular-build.patch
 Patch2: 	%{name}-makefile-disable-desktop-file.patch
-Patch3:		%{name}-configure-disable-autodownload.patch
 Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 URL:		http://www.kadu.net
@@ -417,23 +418,24 @@ Checker of spelling mistakes.
 %lang(pl) %{_datadir}/%{name}/modules/translations/spellchecker_pl.qm
 %{_datadir}/%{name}/modules/data/spellchecker/config.png
 
-#module_spy
-%package 	module-spy
+#module_agent
+%package 	module-agent
 Summary:	Spy module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
+Obsoletes:	kadu-module-spy
 
-%description 	module-spy
+%description 	module-agent
 This module shows who from contact list is hiding against us.
 
-%files 		module-spy
+%files 		module-agent
 %defattr(-,root,root)
-%doc modules/spy/ChangeLog
-%dir %{_datadir}/%{name}/modules/data/spy
-%{_datadir}/%{name}/modules/data/spy/spy32.png
-%{_datadir}/%{name}/modules/spy.desc
-%{_libdir}/%{name}/modules/spy.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/spy_pl.qm
+#%doc modules/spy/ChangeLog
+#%dir %{_datadir}/%{name}/modules/data/agent
+#%{_datadir}/%{name}/modules/data/spy/spy32.png
+%{_datadir}/%{name}/modules/agent.desc
+%{_libdir}/%{name}/modules/agent.so
+#%lang(pl) %{_datadir}/%{name}/modules/translations/spy_pl.qm
 
 #module_weather
 %package 	module-weather
@@ -590,30 +592,31 @@ Nuvola icon theme for kadu created by David Vignoni.
 %setup -qn %{name}
 tar xzf %{SOURCE2} -C modules
 tar xjf %{SOURCE3} -C modules
-tar xjf %{SOURCE4} -C modules
-tar xjf %{SOURCE5} -C modules
-tar xjf %{SOURCE6} -C modules
-tar xzf %{SOURCE7} -C modules
-tar xjf %{SOURCE8} -C modules
-tar xzf %{SOURCE9} -C modules
-tar xzf %{SOURCE10} -C modules
+#tar xjf %{SOURCE4} -C modules
+#tar xjf %{SOURCE5} -C modules
+#tar xjf %{SOURCE6} -C modules
+tar xjf %{SOURCE7} -C modules
+#tar xjf %{SOURCE8} -C modules
+#tar xzf %{SOURCE9} -C modules
+#tar xzf %{SOURCE10} -C modules
 tar xjf %{SOURCE11} -C modules
 tar xzf %{SOURCE12} -C modules
 tar xzf %{SOURCE13} -C modules
-tar xzf %{SOURCE14} -C modules
-tar xzf %{SOURCE15} -C modules
-tar xjf %{SOURCE16} -C modules
-tar xzf %{SOURCE17} -C modules
-tar xzf %{SOURCE18} -C modules
-tar xzf %{SOURCE19} -C modules
+#tar xzf %{SOURCE14} -C modules
+#tar xzf %{SOURCE15} -C modules
+#tar xzf %{SOURCE16} -C modules
+tar xjf %{SOURCE17} -C modules
+tar xjf %{SOURCE18} -C modules
+tar xjf %{SOURCE19} -C modules
 tar xjf %{SOURCE20} -C modules
 tar xjf %{SOURCE21} -C modules
-tar xzf %{SOURCE22} -C modules
-tar xjf %{SOURCE23} -C modules
-tar xjf %{SOURCE30} -C modules
-tar xjf	%{SOURCE31} -C modules
-tar xjf	%{SOURCE32} -C modules
-tar xjf %{SOURCE33} -C modules
+#tar xjf %{SOURCE22} -C modules
+#tar xjf %{SOURCE23} -C modules
+#tar xjf %{SOURCE30} -C modules
+#tar xjf %{SOURCE31} -C modules
+tar xzf %{SOURCE32} -C modules
+#tar xjf %{SOURCE33} -C modules
+tar xjf %{SOURCE35} -C modules
 
 tar xjf %{SOURCE24} -C varia/themes/icons
 tar xjf %{SOURCE25} -C varia/themes/icons
@@ -629,16 +632,15 @@ done
 popd
 
 %patch0 -p1 -b .%{name}-config-enable-modular-build.patch
-%patch2 -p1 -b .%{name}-makefile-disable-desktop-file.patch
-%patch3 -p1 -b .%{name}-configure-disable-autodownload.patch
-%patch4 -p1 -b .%{name}-use-alsa-by-default.patch
-%patch5 -p1 -b .%{name}-disbale-ext_sound-autoload.patch
+#%patch2 -p1 -b .%{name}-makefile-disable-desktop-file.patch
+#%patch4 -p1 -b .%{name}-use-alsa-by-default.patch
+#%patch5 -p1 -b .%{name}-disbale-ext_sound-autoload.patch
 
 %build
 %configure2_5x \
 	--enable-pheaders \
-	--enable-final \
-	--with-existing-libgadu
+	--with-existing-libgadu \
+	--disable-autodownload
 %make
 	
 %install
