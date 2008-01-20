@@ -2,13 +2,13 @@
 %define		_amarok_ver			20071220
 %define		_advanced_userlist		20070101
 %define		_ao_sound_ver			20060424
-%define		_dcopexport_ver			0.11.3-20070321-0.5.0
+%define		_dcopexport_ver			0.11.3-20071129-0.6.0
 %define		_exec_notify_ver		20070101
 %define		_ext_info_ver			2.0beta12
 %define		_falfpver			20071225
 %define		_filedesc_ver			20071221
-%define		_filtering_ver			0.3.6-20061220-0.5.0
-%define		_firewall_ver			0.7.0
+%define		_filtering_ver			20080108
+%define		_firewall_ver			0.7.3
 %define		_iwait4u_ver			1.3
 %define		_led_notify_ver			0.15
 %define		_mail_ver			current
@@ -22,7 +22,7 @@
 %define		_spellchecker_ver		20071230
 %define		_tabs_ver			1.1.3
 %define		_weather_ver			3.10
-%define		_xmms_ver			20071220
+%define		_xmms_ver			20080116
 %define		_xosd_notify_ver		20070111
 
 %define prel rc1
@@ -87,6 +87,7 @@ BuildRequires:	libsndfile-devel 	>= 1.0.17
 BuildRequires:	X11-devel		>= 7.1.0
 BuildRequires:	qt3-devel 		>= 3.3.6
 BuildRequires:	libopenssl-devel	>= 0.9.8d-3
+BuildRequires:	desktop-file-utils
 Requires: 	qt3-common 		>= 3.3.7
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -121,6 +122,25 @@ documentation needed to develop application with kadu.
 
 #----------Modules----------
 
+#module_agent
+%package 	module-agent
+Summary:	Spy module for Kadu
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
+Obsoletes:	kadu-module-spy
+
+%description 	module-agent
+This module shows who from contact list is hiding against us.
+
+%files 		module-agent
+%defattr(-,root,root)
+#%doc modules/spy/ChangeLog
+#%dir %{_datadir}/%{name}/modules/data/agent
+#%{_datadir}/%{name}/modules/data/spy/spy32.png
+%{_datadir}/%{name}/modules/agent.desc
+%{_libdir}/%{name}/modules/agent.so
+%lang(pl) %{_datadir}/%{name}/modules/translations/agent_pl.qm
+
 #module-arts_sound
 %package 	module-arts_sound
 Summary:	Arts module for Kadu
@@ -140,26 +160,7 @@ aRts sound server support.
 %dir %{_libdir}/%{name}/modules/bin/arts_sound
 %{_libdir}/%{name}/modules/bin/arts_sound/arts_connector
 
-#module_amarok
-%package 	module-amarok
-Summary:	Amarok module for Kadu
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
-Requires:	amarok
 
-%description 	module-amarok
-Module which allows showing in status description information about
-the song currently played in Amarok.
-
-%files 		module-amarok
-%defattr(-,root,root)
-%doc modules/amarok/{README,ChangeLog}
-%dir %{_datadir}/%{name}/modules/data/amarok
-%{_datadir}/%{name}/modules/data/amarok/*
-%{_datadir}/%{name}/modules/amarok.desc
-%{_libdir}/%{name}/modules/amarok.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/amarok_pl.qm
-%lang(de) %{_datadir}/%{name}/modules/translations/amarok_de.qm
 
 #module-ao_sound
 %package 	module-ao_sound
@@ -208,6 +209,7 @@ Always on top window docking module.
 %files		module-desktop_docking
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/desktop_docking.desc
+%{_datadir}/%{name}/modules/configuration/desktop_docking.ui
 %{_libdir}/%{name}/modules/desktop_docking.so
 %lang(de) %{_datadir}/%{name}/modules/translations/desktop_docking_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/desktop_docking_fr.qm
@@ -226,6 +228,7 @@ Direct /dev/dsp sound support (Open Sound System).
 %files		module-dsp_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/dsp_sound.desc
+%{_datadir}/%{name}/modules/configuration/dsp_sound.ui
 %{_libdir}/%{name}/modules/dsp_sound.so
 %lang(de) %{_datadir}/%{name}/modules/translations/dsp_sound_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/dsp_sound_fr.qm
@@ -260,30 +263,13 @@ External application sound support module.
 %files          module-ext_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/ext_sound.desc
+%{_datadir}/%{name}/modules/configuration/ext_sound.ui
 %{_libdir}/%{name}/modules/ext_sound.so
 %lang(de) %{_datadir}/%{name}/modules/translations/ext_sound_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/ext_sound_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/ext_sound_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/ext_sound_pl.qm
 
-#module_falfp
-%package	module-falfp
-Summary:	Falf module for Kadu
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
-Requires:	falf >= 1.0
-
-%description	module-falfp
-Module which allows showing in status description information about
-the song currently played in Falf player.
-
-%files		module-falfp
-%defattr(-,root,root)
-%dir %{_datadir}/%{name}/modules/data/falfp
-%{_datadir}/%{name}/modules/data/falfp/*.png
-%{_datadir}/%{name}/modules/falfp.desc
-%{_libdir}/%{name}/modules/falfp.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/falfp_pl.qm
 	    
 #module_led_notif
 %package 	module-led_notify
@@ -298,7 +284,90 @@ Notification by keyboard's LED.
 %defattr(-,root,root)
 %doc modules/led_notify/Changelog
 %{_datadir}/%{name}/modules/led_notify.desc
+%{_datadir}/%{name}/modules/configuration/led_notify.ui
 %{_libdir}/%{name}/modules/led_notify.so
+
+%package	module-mediaplayer
+Summary:	Mediaplayer module for kadu
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
+
+%description	module-mediaplayer
+Mediaplayer module for kadu.
+
+%files		module-mediaplayer
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/modules/data/mediaplayer
+%{_libdir}/%{name}/modules/mediaplayer.so
+%{_datadir}/%{name}/modules/mediaplayer.desc
+%{_datadir}/%{name}/modules/configuration/mediaplayer.ui
+%{_datadir}/%{name}/modules/data/mediaplayer/mediaplayer.png
+%lang(pl) %{_datadir}/%{name}/modules/translations/mediaplayer_pl.qm
+
+#module_amarok
+%package 	module-mediaplayer-amarok
+Summary:	Amarok module for Kadu
+Group:		Networking/Instant messaging
+Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+Obsoletes:	%{name}-module-amarok
+Requires:	amarok
+
+%description 	module-mediaplayer-amarok
+Module which allows showing in status description information about
+the song currently played in Amarok.
+
+%files 		module-mediaplayer-amarok
+%defattr(-,root,root)
+#%doc modules/amarok/{README,ChangeLog}
+#%dir %{_datadir}/%{name}/modules/data/amarok
+#%{_datadir}/%{name}/modules/data/amarok/*
+%{_datadir}/%{name}/modules/amarok_mediaplayer.desc
+#%{_libdir}/%{name}/modules/amarok.so
+%{_libdir}/%{name}/modules/amarok_mediaplayer.so
+#%lang(pl) %{_datadir}/%{name}/modules/translations/amarok_pl.qm
+#%lang(de) %{_datadir}/%{name}/modules/translations/amarok_de.qm
+
+#module_falfp
+#%package	module-mediaplayer-falfp
+#Summary:	Falf module for Kadu
+#Group:		Networking/Instant messaging
+#Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+#Obsoletes:	%{name}-module-falf
+#Requires:	falf >= 1.0
+
+#%description	module-mediaplayer-falfp
+#Module which allows showing in status description information about
+#the song currently played in Falf player.
+
+#%files		module-mediaplayer-falfp
+#%defattr(-,root,root)
+#%dir %{_datadir}/%{name}/modules/data/falfp
+#%{_datadir}/%{name}/modules/data/falfp/*.png
+#%{_datadir}/%{name}/modules/falfp.desc
+#%{_libdir}/%{name}/modules/falfp.so
+#%lang(pl) %{_datadir}/%{name}/modules/translations/falfp_pl.qm
+
+#module_xmms
+%package 	module-mediaplayer-xmms
+Summary:	XMMS module for Kadu
+Group:		Networking/Instant messaging
+Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+Obsoletes:	%{name}-module-xmms
+Requires:	xmms
+BuildRequires:	libxmms-devel
+
+%description 	module-mediaplayer-xmms
+Module which allows showing in status description information about
+the song currently played in XMMS.
+
+%files 		module-mediaplayer-xmms
+%defattr(-,root,root)
+#%doc modules/xmms/{README,ChangeLog}
+#%dir %{_datadir}/%{name}/modules/data/xmms
+#%{_datadir}/%{name}/modules/data/xmms/*
+%{_datadir}/%{name}/modules/xmms_mediaplayer.desc
+%{_libdir}/%{name}/modules/xmms_mediaplayer.so
+#%lang(pl) %{_datadir}/%{name}/modules/translations/xmms_pl.qm
 
 #module_miastoplusa_sms
 %package	module-miastoplusa_sms
@@ -317,6 +386,7 @@ Miasto Plusa SMS Gateway support module.
 %dir %{_datadir}/%{name}/modules/data/miastoplusa_sms
 %{_datadir}/%{name}/modules/data/miastoplusa_sms/*
 %{_datadir}/%{name}/modules/miastoplusa_sms.desc
+%{_datadir}/%{name}/modules/configuration/miastoplusa_sms.ui
 %{_libdir}/%{name}/modules/miastoplusa_sms.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/miastoplusa_sms_pl.qm
 
@@ -337,47 +407,47 @@ Network Audio System support.
 %{_libdir}/%{name}/modules/nas_sound.so
 
 #module_pcspeaker
-%package 	module-pcspeaker
-Summary:	PC-Speaker support
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
+#%package 	module-pcspeaker
+#Summary:	PC-Speaker support
+#Group:		Networking/Instant messaging
+#Requires:	%{name} = %{version}-%{release}
 
-%description 	module-pcspeaker
-PC-Speaker support module.
+#%description 	module-pcspeaker
+#PC-Speaker support module.
 
-%files		module-pcspeaker
-%defattr(-,root,root)
-%doc modules/pcspeaker/Changelog
-%{_datadir}/%{name}/modules/pcspeaker.desc
-%{_libdir}/%{name}/modules/pcspeaker.so
-%lang(de) %{_datadir}/%{name}/modules/translations/pcspeaker_de.qm
-%lang(it) %{_datadir}/%{name}/modules/translations/pcspeaker_it.qm
-%lang(pl) %{_datadir}/%{name}/modules/translations/pcspeaker_pl.qm
+#%files		module-pcspeaker
+#%defattr(-,root,root)
+#%doc modules/pcspeaker/Changelog
+#%{_datadir}/%{name}/modules/pcspeaker.desc
+#%{_libdir}/%{name}/modules/pcspeaker.so
+#%lang(de) %{_datadir}/%{name}/modules/translations/pcspeaker_de.qm
+#%lang(it) %{_datadir}/%{name}/modules/translations/pcspeaker_it.qm
+#%lang(pl) %{_datadir}/%{name}/modules/translations/pcspeaker_pl.qm
 
 #module_powerkadu
-%package	module-powerkadu
-Summary:	Powerkadu
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
+#%package	module-powerkadu
+#Summary:	Powerkadu
+#Group:		Networking/Instant messaging
+#Requires:	%{name} = %{version}-%{release}
 
-%description	module-powerkadu
-Powerkadu extends capabilities of Kadu.
+#%description	module-powerkadu
+#Powerkadu extends capabilities of Kadu.
 
-%files		module-powerkadu
-%defattr(-,root,root)
-%dir %{_libdir}/%{name}/modules/bin/powerkadu
-%dir %{_datadir}/%{name}/modules/data/powerkadu
-%dir %{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons
-%{_datadir}/%{name}/modules/data/powerkadu/AU*
-%{_datadir}/%{name}/modules/data/powerkadu/Ch*
-%{_datadir}/%{name}/modules/data/powerkadu/*.conf
-%{_datadir}/%{name}/modules/data/powerkadu/*.png
-%{_datadir}/%{name}/modules/data/powerkadu/*.data
-%{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons/*.png
-%{_datadir}/%{name}/modules/powerkadu.desc
-%{_libdir}/%{name}/modules/powerkadu.so
-%{_libdir}/%{name}/modules/bin/powerkadu/mimetex
-%lang(pl) %{_datadir}/%{name}/modules/translations/powerkadu_pl.qm
+#%files		module-powerkadu
+#%defattr(-,root,root)
+#%dir %{_libdir}/%{name}/modules/bin/powerkadu
+#%dir %{_datadir}/%{name}/modules/data/powerkadu
+#%dir %{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons
+#%{_datadir}/%{name}/modules/data/powerkadu/AU*
+#%{_datadir}/%{name}/modules/data/powerkadu/Ch*
+#%{_datadir}/%{name}/modules/data/powerkadu/*.conf
+#%{_datadir}/%{name}/modules/data/powerkadu/*.png
+#%{_datadir}/%{name}/modules/data/powerkadu/*.data
+#%{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons/*.png
+#%{_datadir}/%{name}/modules/powerkadu.desc
+#%{_libdir}/%{name}/modules/powerkadu.so
+#%{_libdir}/%{name}/modules/bin/powerkadu/mimetex
+#%lang(pl) %{_datadir}/%{name}/modules/translations/powerkadu_pl.qm
 
 #module_speech
 %package 	module-speech
@@ -392,6 +462,7 @@ Speech synthesis support ("powiedz")
 %files 		module-speech
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/speech.desc
+%{_datadir}/%{name}/modules/configuration/speech.ui
 %{_libdir}/%{name}/modules/speech.so
 %lang(de) %{_datadir}/%{name}/modules/translations/speech_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/speech_fr.qm
@@ -414,28 +485,10 @@ Checker of spelling mistakes.
 %doc modules/spellchecker/{README,TODO,ChangeLog}
 %dir %{_datadir}/%{name}/modules/data/spellchecker
 %{_datadir}/%{name}/modules/spellchecker.desc
+%{_datadir}/%{name}/modules/configuration/spellchecker.ui
 %{_libdir}/%{name}/modules/spellchecker.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/spellchecker_pl.qm
 %{_datadir}/%{name}/modules/data/spellchecker/config.png
-
-#module_agent
-%package 	module-agent
-Summary:	Spy module for Kadu
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
-Obsoletes:	kadu-module-spy
-
-%description 	module-agent
-This module shows who from contact list is hiding against us.
-
-%files 		module-agent
-%defattr(-,root,root)
-#%doc modules/spy/ChangeLog
-#%dir %{_datadir}/%{name}/modules/data/agent
-#%{_datadir}/%{name}/modules/data/spy/spy32.png
-%{_datadir}/%{name}/modules/agent.desc
-%{_libdir}/%{name}/modules/agent.so
-#%lang(pl) %{_datadir}/%{name}/modules/translations/spy_pl.qm
 
 #module_weather
 %package 	module-weather
@@ -455,8 +508,10 @@ This module shows current weather for you and your contacts.
 %{_datadir}/%{name}/modules/data/weather/onetweather.ini
 %{_datadir}/%{name}/modules/data/weather/pfweather.ini
 %{_datadir}/%{name}/modules/weather.desc
+%{_datadir}/%{name}/modules/configuration/weather.ui
 %{_libdir}/%{name}/modules/weather.so
-	    
+%lang(pl) %{_datadir}/%{name}/modules/translations/weather_pl.qm
+
 #module_wmaker_docking
 %package	module-wmaker_docking
 Summary: 	WindowMaker docking module
@@ -472,27 +527,6 @@ WindowMaker docking module.
 %{_datadir}/%{name}/modules/wmaker_docking.desc
 %{_libdir}/%{name}/modules/wmaker_docking.so
 
-#module_xmms
-%package 	module-xmms
-Summary:	XMMS module for Kadu
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
-Requires:	xmms
-BuildRequires:	libxmms-devel
-
-%description 	module-xmms
-Module which allows showing in status description information about
-the song currently played in XMMS.
-
-%files 		module-xmms
-%defattr(-,root,root)
-%doc modules/xmms/{README,ChangeLog}
-%dir %{_datadir}/%{name}/modules/data/xmms
-%{_datadir}/%{name}/modules/data/xmms/*
-%{_datadir}/%{name}/modules/xmms.desc
-%{_libdir}/%{name}/modules/xmms.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/xmms_pl.qm
-
 %package	module-xosd_notify
 Summary: 	Notification by XOSD
 Group:		Networking/Instant messaging
@@ -507,27 +541,28 @@ Notification by XOSD module.
 %defattr(-,root,root)
 %doc modules/xosd_notify/{README,ChangeLog}
 %dir %{_libdir}/%{name}/modules/bin/xosd_notify
-%dir %{_datadir}/%{name}/modules/data/xosd_notify
-%{_datadir}/%{name}/modules/data/xosd_notify/xosdblue.png
+#%dir %{_datadir}/%{name}/modules/data/xosd_notify
+#%{_datadir}/%{name}/modules/data/xosd_notify/xosdblue.png
 %{_datadir}/%{name}/modules/xosd_notify.desc
+%{_datadir}/%{name}/modules/configuration/xosd_notify.ui
 %{_libdir}/%{name}/modules/xosd_notify.so
 %{_libdir}/%{name}/modules/bin/xosd_notify/gtkfontdialog
 
 #module_xqf
-%package 	module-xqf
-Summary:	XQF module for Kadu
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
-Requires:	xqf
+#%package 	module-xqf
+#Summary:	XQF module for Kadu
+#Group:		Networking/Instant messaging
+#Requires:	%{name} = %{version}-%{release}
+#Requires:	xqf
 
-%description 	module-xqf
-Module which allows showing in status description information about
-the game and ip of a gameserver currently played.
+#%description 	module-xqf
+#Module which allows showing in status description information about
+#the game and ip of a gameserver currently played.
 
-%files 		module-xqf
-%defattr(-,root,root)
-%{_datadir}/%{name}/modules/qf.desc
-%{_libdir}/%{name}/modules/qf.so
+#%files 		module-xqf
+#%defattr(-,root,root)
+#%{_datadir}/%{name}/modules/qf.desc
+#%{_libdir}/%{name}/modules/qf.so
 
 #----------Icons----------
 
@@ -592,12 +627,12 @@ Nuvola icon theme for kadu created by David Vignoni.
 %setup -qn %{name}
 tar xjf %{SOURCE2} -C modules
 tar xjf %{SOURCE3} -C modules
-#tar xjf %{SOURCE4} -C modules
+tar xjf %{SOURCE4} -C modules
 #tar xjf %{SOURCE5} -C modules
 #tar xjf %{SOURCE6} -C modules
 tar xjf %{SOURCE7} -C modules
-#tar xjf %{SOURCE8} -C modules
-#tar xzf %{SOURCE9} -C modules
+tar xjf %{SOURCE8} -C modules
+tar xjf %{SOURCE9} -C modules
 #tar xzf %{SOURCE10} -C modules
 tar xjf %{SOURCE11} -C modules
 tar xzf %{SOURCE12} -C modules
@@ -610,7 +645,7 @@ tar xjf %{SOURCE18} -C modules
 tar xjf %{SOURCE19} -C modules
 tar xjf %{SOURCE20} -C modules
 tar xjf %{SOURCE21} -C modules
-#tar xjf %{SOURCE22} -C modules
+tar xjf %{SOURCE22} -C modules
 #tar xjf %{SOURCE23} -C modules
 #tar xjf %{SOURCE30} -C modules
 #tar xjf %{SOURCE31} -C modules
@@ -637,10 +672,14 @@ popd
 #%patch5 -p1 -b .%{name}-disbale-ext_sound-autoload.patch
 
 %build
+%{__sed} -i 's,dataPath("kadu/modules/*,("%{_libdir}/kadu/modules/,g' kadu-core/modules.cpp
+
 %configure2_5x \
 	--enable-pheaders \
 	--with-existing-libgadu \
-	--disable-autodownload
+	--disable-autodownload \
+	--enable-dist-info=Mandriva
+
 %make
 	
 %install
@@ -648,21 +687,15 @@ popd
 
 %makeinstall_std
 
-install -D -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
+#install -D -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
 %multiarch_binaries %{buildroot}%{_bindir}/kadu-config
 
-#install icons to the right place
-mkdir -p %{buildroot}%{_iconsdir}/hicolor/{16x16,22x22,32x32,48x48,64x64,128x128}/apps
+sed -i -e 's/^Icon=%{name}.png$/Icon=%{name}/g' %{buildroot}%{_datadir}/applnk/Internet/*
 
-mv -f %{buildroot}%{_datadir}/pixmaps/%{name}-16.png %{buildroot}%{_iconsdir}/hicolor/16x16/apps/%{name}.png
-mv -f %{buildroot}%{_datadir}/pixmaps/%{name}-22.png %{buildroot}%{_iconsdir}/hicolor/22x22/apps/%{name}.png
-mv -f %{buildroot}%{_datadir}/pixmaps/%{name}.png %{buildroot}%{_iconsdir}/hicolor/32x32/apps/%{name}.png
-mv -f %{buildroot}%{_datadir}/pixmaps/%{name}-48.png %{buildroot}%{_iconsdir}/hicolor/48x48/apps/%{name}.png
-mv -f %{buildroot}%{_datadir}/pixmaps/%{name}-64.png %{buildroot}%{_iconsdir}/hicolor/64x64/apps/%{name}.png
-mv -f %{buildroot}%{_datadir}/pixmaps/%{name}-128.png %{buildroot}%{_iconsdir}/hicolor/128x128/apps/%{name}.png
+desktop-file-install \
+	--dir %{buildroot}%{_datadir}/applications/ %{buildroot}%{_datadir}/applnk/Internet/*
 
-rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-24.png
-rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
+rm -rf `find %{buildroot} -name CVS`
 
 %post
 %{update_menus}
@@ -701,13 +734,17 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %dir %{_datadir}/%{name}/themes/emoticons
 %dir %{_datadir}/%{name}/themes/icons
 %dir %{_datadir}/%{name}/themes/sounds
-%{_iconsdir}/hicolor/*/apps/%{name}.png
+%{_datadir}/%{name}/syntax
+%{_datadir}/pixmaps/*.png
 %{_datadir}/%{name}/HISTORY
 %{_datadir}/%{name}/README
 %{_datadir}/%{name}/AUTHORS
 %{_datadir}/%{name}/ChangeLog
 %{_datadir}/%{name}/COPYING
 %{_datadir}/%{name}/THANKS
+%{_datadir}/%{name}/configuration/dialog-look-chat-advanced.ui
+%{_datadir}/%{name}/configuration/dialog.ui
+/usr/share/applnk/Internet/kadu.desktop
 
 #module_account_management
 %{_datadir}/%{name}/modules/account_management.desc
@@ -720,10 +757,15 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 #module_adavanced_userlist
 %{_libdir}/%{name}/modules/advanced_userlist.so
 %{_datadir}/%{name}/modules/advanced_userlist.desc
+%{_datadir}/%{name}/modules/configuration/advanced_userlist.ui
+%lang(de) %{_datadir}/%{name}/modules/translations/advanced_userlist_de.qm
+%lang(fr) %{_datadir}/%{name}/modules/translations/advanced_userlist_fr.qm
+%lang(it) %{_datadir}/%{name}/modules/translations/advanced_userlist_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/advanced_userlist_pl.qm
 
 #module_alsa_sound
 %{_datadir}/%{name}/modules/alsa_sound.desc
+%{_datadir}/%{name}/modules/configuration/alsa_sound.ui
 %{_libdir}/%{name}/modules/alsa_sound.so
 %lang(de) %{_datadir}/%{name}/modules/translations/alsa_sound_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/alsa_sound_fr.qm
@@ -732,6 +774,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_autoaway
 %{_datadir}/%{name}/modules/autoaway.desc
+%{_datadir}/%{name}/modules/configuration/autoaway.ui
 %{_libdir}/%{name}/modules/autoaway.so
 %lang(de) %{_datadir}/%{name}/modules/translations/autoaway_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/autoaway_fr.qm
@@ -740,6 +783,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_autoresponder
 %{_datadir}/%{name}/modules/autoresponder.desc
+%{_datadir}/%{name}/modules/configuration/autoresponder.ui
 %{_libdir}/%{name}/modules/autoresponder.so
 %lang(de) %{_datadir}/%{name}/modules/translations/autoresponder_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/autoresponder_fr.qm
@@ -761,6 +805,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_dcc
 %{_datadir}/%{name}/modules/dcc.desc
+%{_datadir}/%{name}/modules/configuration/dcc.ui
 %{_libdir}/%{name}/modules/dcc.so
 %lang(de) %{_datadir}/%{name}/modules/translations/dcc_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/dcc_fr.qm
@@ -769,6 +814,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_default_sms
 %{_datadir}/%{name}/modules/default_sms.desc
+%{_datadir}/%{name}/modules/configuration/default_sms.ui
 %{_libdir}/%{name}/modules/default_sms.so
 %lang(de) %{_datadir}/%{name}/modules/translations/default_sms_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/default_sms_fr.qm
@@ -777,6 +823,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_encryption
 %{_datadir}/%{name}/modules/encryption.desc
+%{_datadir}/%{name}/modules/configuration/encryption.ui
 %{_libdir}/%{name}/modules/encryption.so
 %lang(de) %{_datadir}/%{name}/modules/translations/encryption_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/encryption_fr.qm
@@ -784,44 +831,48 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %lang(pl) %{_datadir}/%{name}/modules/translations/encryption_pl.qm
 
 #module_exec_notify
-%dir %{_datadir}/%{name}/modules/data/ext_info
-%{_datadir}/%{name}/modules/data/ext_info/*
 %{_datadir}/%{name}/modules/exec_notify.desc
 %{_libdir}/%{name}/modules/exec_notify.so
 
 #module_ext_info
-%{_datadir}/%{name}/modules/ext_info.desc
-%{_libdir}/%{name}/modules/ext_info.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/ext_info_pl.qm
+#%dir %{_datadir}/%{name}/modules/data/ext_info
+#%{_datadir}/%{name}/modules/data/ext_info/*
+#%{_datadir}/%{name}/modules/ext_info.desc
+#%{_libdir}/%{name}/modules/ext_info.so
+#%lang(pl) %{_datadir}/%{name}/modules/translations/ext_info_pl.qm
 
 #module_filedesc
 %dir %{_datadir}/%{name}/modules/data/filedesc
 %{_datadir}/%{name}/modules/data/filedesc/*
+%{_datadir}/%{name}/modules/configuration/filedesc.ui
 %{_datadir}/%{name}/modules/filedesc.desc
 %{_libdir}/%{name}/modules/filedesc.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/filedesc_pl.qm
 
 #module_filtering
 %dir %{_datadir}/%{name}/modules/data/filtering
-%{_datadir}/%{name}/modules/data/filtering/*
+%{_datadir}/%{name}/modules/data/filtering/*.png
 %{_datadir}/%{name}/modules/filtering.desc
+%{_datadir}/%{name}/modules/configuration/filtering.ui
 %{_libdir}/%{name}/modules/filtering.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/filtering.qm
+%lang(pl) %{_datadir}/%{name}/modules/translations/filtering_pl.qm
 
 #module_firewall
-%dir %{_datadir}/%{name}/modules/data/firewall
+#%dir %{_datadir}/%{name}/modules/data/firewall
 %{_datadir}/%{name}/modules/firewall.desc
-%{_datadir}/%{name}/modules/data/firewall/firewall.png
+#%{_datadir}/%{name}/modules/data/firewall/firewall.png
+%{_datadir}/%{name}/modules/configuration/firewall.ui
 %{_libdir}/%{name}/modules/firewall.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/firewall_pl.qm
 
 #module_iwait4u
-%{_datadir}/%{name}/modules/iwait4u.desc
-%{_libdir}/%{name}/modules/iwait4u.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/iwait4u_pl.qm
+#%{_datadir}/%{name}/modules/iwait4u.desc
+#%{_libdir}/%{name}/modules/iwait4u.so
+#%lang(pl) %{_datadir}/%{name}/modules/translations/iwait4u_pl.qm
 
 #module_hints
 %{_datadir}/%{name}/modules/hints.desc
+%{_datadir}/%{name}/modules/configuration/hints.ui
 %{_libdir}/%{name}/modules/hints.so
 %lang(de) %{_datadir}/%{name}/modules/translations/hints_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/hints_fr.qm
@@ -829,9 +880,18 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %lang(pl) %{_datadir}/%{name}/modules/translations/hints_pl.qm
 
 #module_mail
-%{_datadir}/%{name}/modules/mail.desc
-%{_libdir}/%{name}/modules/mail.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/mail_pl.qm
+#%{_datadir}/%{name}/modules/mail.desc
+#%{_libdir}/%{name}/modules/mail.so
+#%lang(pl) %{_datadir}/%{name}/modules/translations/mail_pl.qm
+
+#module_history
+%{_datadir}/%{name}/modules/history.desc
+%{_datadir}/%{name}/modules/configuration/history.ui
+%{_libdir}/%{name}/modules/history.so
+%lang(de) %{_datadir}/%{name}/modules/translations/history_de.qm
+%lang(fr) %{_datadir}/%{name}/modules/translations/history_fr.qm
+%lang(it) %{_datadir}/%{name}/modules/translations/history_it.qm
+%lang(pl) %{_datadir}/%{name}/modules/translations/history_pl.qm
 
 #module_migration
 %{_datadir}/%{name}/modules/migration.desc
@@ -842,21 +902,22 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %lang(pl) %{_datadir}/%{name}/modules/translations/migration_pl.qm
 
 #module_osdhints_notify
-%dir %{_datadir}/%{name}/modules/data/osdhints_notify
-%{_datadir}/%{name}/modules/data/osdhints_notify/*.png
-%{_datadir}/%{name}/modules/osdhints_notify.desc
-%{_libdir}/%{name}/modules/osdhints_notify.so
+#%dir %{_datadir}/%{name}/modules/data/osdhints_notify
+#%{_datadir}/%{name}/modules/data/osdhints_notify/*.png
+#%{_datadir}/%{name}/modules/osdhints_notify.desc
+#%{_libdir}/%{name}/modules/osdhints_notify.so
 
 #module_profiles
 %{_datadir}/%{name}/modules/profiles.desc
 %{_libdir}/%{name}/modules/profiles.so
-%lang(de) %{_datadir}/%{name}/modules/translations/profiles_de.qm
+#%lang(de) %{_datadir}/%{name}/modules/translations/profiles_de.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/profiles_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/profiles_pl.qm
 
 #module_screenshot
 %dir %{_datadir}/%{name}/modules/data/screenshot
 %{_datadir}/%{name}/modules/screenshot.desc
+%{_datadir}/%{name}/modules/configuration/screenshot.ui
 %{_datadir}/%{name}/modules/data/screenshot/camera.png
 %{_datadir}/%{name}/modules/data/screenshot/camera_small.png
 %{_libdir}/%{name}/modules/screenshot.so
@@ -864,6 +925,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_sms
 %{_datadir}/%{name}/modules/sms.desc
+%{_datadir}/%{name}/modules/configuration/sms.ui
 %{_libdir}/%{name}/modules/sms.so
 %lang(de) %{_datadir}/%{name}/modules/translations/sms_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/sms_fr.qm
@@ -871,9 +933,10 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 %lang(pl) %{_datadir}/%{name}/modules/translations/sms_pl.qm
 
 #module_tabs
-%dir %{_datadir}/%{name}/modules/data/tabs
-%{_datadir}/%{name}/modules/data/tabs/*
+#%dir %{_datadir}/%{name}/modules/data/tabs
+#%{_datadir}/%{name}/modules/data/tabs/*
 %{_datadir}/%{name}/modules/tabs.desc
+%{_datadir}/%{name}/modules/configuration/tabs.ui
 %{_libdir}/%{name}/modules/tabs.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/tabs_pl.qm
 
@@ -887,6 +950,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_voice
 %{_datadir}/%{name}/modules/voice.desc
+%{_datadir}/%{name}/modules/configuration/voice.ui
 %{_libdir}/%{name}/modules/voice.so
 %lang(de) %{_datadir}/%{name}/modules/translations/voice_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/voice_fr.qm
@@ -921,6 +985,7 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_docking
 %{_datadir}/%{name}/modules/docking.desc
+%{_datadir}/%{name}/modules/configuration/docking.ui
 %lang(de) %{_datadir}/%{name}/modules/translations/docking_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/docking_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/docking_it.qm
@@ -928,9 +993,11 @@ rm -f %{buildroot}%{_datadir}/pixmaps/%{name}-256.png
 
 #module_notify
 %{_datadir}/%{name}/modules/notify.desc
+%{_datadir}/%{name}/modules/configuration/notify.ui
 
 #module_sound
 %{_datadir}/%{name}/modules/sound.desc
+%{_datadir}/%{name}/modules/configuration/sound.ui
 
 #----------
 
