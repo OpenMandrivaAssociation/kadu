@@ -684,7 +684,7 @@ export CXXFLAGS="%{optflags}"
 sed -i -e 's/^Icon=%{name}.png$/Icon=%{name}/g' %{buildroot}%{_datadir}/applnk/Internet/*
 
 desktop-file-install \
-	--dir %{SOURCE1} %{buildroot}%{_datadir}/applications/*
+	--dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 rm -rf `find %{buildroot} -name CVS`
 
