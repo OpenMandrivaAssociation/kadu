@@ -5,7 +5,7 @@
 %define		_dcopexport_ver			0.11.3-20071129-0.6.0
 %define		_exec_notify_ver		20070101
 %define		_ext_info_ver			2.0beta12
-%define		_falfpver			20071225
+%define		_falf_ver			20071225
 %define		_filedesc_ver			20071221
 %define		_filtering_ver			20080108
 %define		_firewall_ver			0.7.3
@@ -60,7 +60,7 @@ Source21: 	http://www.kadu.net/~blysk/weather-%{_weather_ver}.tar.bz2
 Source22: 	http://www.kadu.net/download/modules_extra/xmms_mediaplayer/xmms_mediaplayer-%{_xmms_ver}.tar.bz2
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{_xosd_notify_ver}.tar.bz2
 Source30:	http://www.kadu.net/~joi/advanced_userlist/packages/advanced_userlist-%{_advanced_userlist}.tar.bz2
-Source31:	http://www.kadu.net/download/modules_extra/falf_mediaplayer/falf_mediaplayer-%{_falfpver}.tar.bz2
+Source31:	http://www.kadu.net/download/modules_extra/falf_mediaplayer/falf_mediaplayer-%{_falf_ver}.tar.bz2
 Source32:	http://misiek.jah.pl/assets/2007/12/27/agent-%{_agent_ver}.tar.gz
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
 Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{_mediaplayer_ver}.tar.bz2
@@ -78,6 +78,7 @@ Patch0:		%{name}-config-enable-modular-build.patch
 Patch2: 	%{name}-makefile-disable-desktop-file.patch
 Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
+Patch6:		%{name}-0.6.0-rc1-voice-gsm-fixes.patch
 URL:		http://www.kadu.net
 BuildRequires:	libalsa-devel		>= 1.0.13
 BuildRequires:	gettext-devel		>= 0.14.6-5
@@ -305,50 +306,41 @@ Mediaplayer module for kadu.
 %lang(pl) %{_datadir}/%{name}/modules/translations/mediaplayer_pl.qm
 
 #module_amarok
-%package 	module-mediaplayer-amarok
+%package 	module-mediaplayer_amarok
 Summary:	Amarok module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name}-module-mediaplayer = %{version}-%{release}
 Obsoletes:	%{name}-module-amarok
 Requires:	amarok
 
-%description 	module-mediaplayer-amarok
+%description 	module-mediaplayer_amarok
 Module which allows showing in status description information about
 the song currently played in Amarok.
 
-%files 		module-mediaplayer-amarok
+%files 		module-mediaplayer_amarok
 %defattr(-,root,root)
-#%doc modules/amarok/{README,ChangeLog}
-#%dir %{_datadir}/%{name}/modules/data/amarok
-#%{_datadir}/%{name}/modules/data/amarok/*
 %{_datadir}/%{name}/modules/amarok_mediaplayer.desc
-#%{_libdir}/%{name}/modules/amarok.so
 %{_libdir}/%{name}/modules/amarok_mediaplayer.so
-#%lang(pl) %{_datadir}/%{name}/modules/translations/amarok_pl.qm
-#%lang(de) %{_datadir}/%{name}/modules/translations/amarok_de.qm
 
 #module_falfp
-#%package	module-mediaplayer-falfp
-#Summary:	Falf module for Kadu
-#Group:		Networking/Instant messaging
-#Requires:	%{name}-module-mediaplayer = %{version}-%{release}
-#Obsoletes:	%{name}-module-falf
-#Requires:	falf >= 1.0
+%package	module-mediaplayer_falf
+Summary:	Falf player odule for Kadu
+Group:		Networking/Instant messaging
+Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+Obsoletes:	%{name}-module-falfp
+Requires:	falf >= 1.0
 
-#%description	module-mediaplayer-falfp
-#Module which allows showing in status description information about
-#the song currently played in Falf player.
+%description	module-mediaplayer_falf
+Module which allows showing in status description information about
+the song currently played in Falf player.
 
-#%files		module-mediaplayer-falfp
-#%defattr(-,root,root)
-#%dir %{_datadir}/%{name}/modules/data/falfp
-#%{_datadir}/%{name}/modules/data/falfp/*.png
-#%{_datadir}/%{name}/modules/falfp.desc
-#%{_libdir}/%{name}/modules/falfp.so
-#%lang(pl) %{_datadir}/%{name}/modules/translations/falfp_pl.qm
+%files		module-mediaplayer_falf
+%defattr(-,root,root)
+%{_datadir}/%{name}/modules/falf_mediaplayer.desc
+%{_libdir}/%{name}/modules/falf_mediaplayer.so
 
 #module_xmms
-%package 	module-mediaplayer-xmms
+%package 	module-mediaplayer_xmms
 Summary:	XMMS module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name}-module-mediaplayer = %{version}-%{release}
@@ -356,18 +348,14 @@ Obsoletes:	%{name}-module-xmms
 Requires:	xmms
 BuildRequires:	libxmms-devel
 
-%description 	module-mediaplayer-xmms
+%description 	module-mediaplayer_xmms
 Module which allows showing in status description information about
 the song currently played in XMMS.
 
-%files 		module-mediaplayer-xmms
+%files 		module-mediaplayer_xmms
 %defattr(-,root,root)
-#%doc modules/xmms/{README,ChangeLog}
-#%dir %{_datadir}/%{name}/modules/data/xmms
-#%{_datadir}/%{name}/modules/data/xmms/*
 %{_datadir}/%{name}/modules/xmms_mediaplayer.desc
 %{_libdir}/%{name}/modules/xmms_mediaplayer.so
-#%lang(pl) %{_datadir}/%{name}/modules/translations/xmms_pl.qm
 
 #module_miastoplusa_sms
 %package	module-miastoplusa_sms
@@ -541,8 +529,6 @@ Notification by XOSD module.
 %defattr(-,root,root)
 %doc modules/xosd_notify/{README,ChangeLog}
 %dir %{_libdir}/%{name}/modules/bin/xosd_notify
-#%dir %{_datadir}/%{name}/modules/data/xosd_notify
-#%{_datadir}/%{name}/modules/data/xosd_notify/xosdblue.png
 %{_datadir}/%{name}/modules/xosd_notify.desc
 %{_datadir}/%{name}/modules/configuration/xosd_notify.ui
 %{_libdir}/%{name}/modules/xosd_notify.so
@@ -648,7 +634,7 @@ tar xjf %{SOURCE21} -C modules
 tar xjf %{SOURCE22} -C modules
 #tar xjf %{SOURCE23} -C modules
 #tar xjf %{SOURCE30} -C modules
-#tar xjf %{SOURCE31} -C modules
+tar xjf %{SOURCE31} -C modules
 tar xzf %{SOURCE32} -C modules
 #tar xjf %{SOURCE33} -C modules
 tar xjf %{SOURCE35} -C modules
@@ -670,14 +656,20 @@ popd
 #%patch2 -p1 -b .%{name}-makefile-disable-desktop-file.patch
 #%patch4 -p1 -b .%{name}-use-alsa-by-default.patch
 #%patch5 -p1 -b .%{name}-disbale-ext_sound-autoload.patch
+%patch6 -p1 -b .voice
 
 %build
+export CXXFLAGS="%{optflags}"
+
 %{__sed} -i 's,dataPath("kadu/modules/*,("%{_libdir}/kadu/modules/,g' kadu-core/modules.cpp
 
 %configure2_5x \
 	--enable-pheaders \
 	--with-existing-libgadu \
 	--disable-autodownload \
+	--enable-final \
+	--enable-voice \
+	--disable-debug \
 	--enable-dist-info=Mandriva
 
 %make
@@ -687,13 +679,12 @@ popd
 
 %makeinstall_std
 
-#install -D -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/%{name}.desktop
 %multiarch_binaries %{buildroot}%{_bindir}/kadu-config
 
 sed -i -e 's/^Icon=%{name}.png$/Icon=%{name}/g' %{buildroot}%{_datadir}/applnk/Internet/*
 
 desktop-file-install \
-	--dir %{buildroot}%{_datadir}/applications/ %{buildroot}%{_datadir}/applnk/Internet/*
+	--dir %{SOURCE1} %{buildroot}%{_datadir}/applications/*
 
 rm -rf `find %{buildroot} -name CVS`
 
@@ -736,15 +727,15 @@ rm -rf `find %{buildroot} -name CVS`
 %dir %{_datadir}/%{name}/themes/sounds
 %{_datadir}/%{name}/syntax
 %{_datadir}/pixmaps/*.png
-%{_datadir}/%{name}/HISTORY
-%{_datadir}/%{name}/README
-%{_datadir}/%{name}/AUTHORS
-%{_datadir}/%{name}/ChangeLog
-%{_datadir}/%{name}/COPYING
-%{_datadir}/%{name}/THANKS
+%exclude %{_datadir}/%{name}/HISTORY
+%exclude %{_datadir}/%{name}/README
+%exclude %{_datadir}/%{name}/AUTHORS
+%exclude %{_datadir}/%{name}/ChangeLog
+%exclude %{_datadir}/%{name}/COPYING
+%exclude %{_datadir}/%{name}/THANKS
+%exclude %{_datadir}/applnk/Internet/kadu.desktop
 %{_datadir}/%{name}/configuration/dialog-look-chat-advanced.ui
 %{_datadir}/%{name}/configuration/dialog.ui
-/usr/share/applnk/Internet/kadu.desktop
 
 #module_account_management
 %{_datadir}/%{name}/modules/account_management.desc
