@@ -7,21 +7,21 @@
 %define		_ext_info_ver			2.0beta12
 %define		_falf_ver			20071225
 %define		_filedesc_ver			20071221
-%define		_filtering_ver			20080108
+%define		_filtering_ver			20080129
 %define		_firewall_ver			0.7.3
 %define		_iwait4u_ver			1.3
-%define		_led_notify_ver			0.15
+%define		_led_notify_ver			0.18
 %define		_mail_ver			current
-%define		_mediaplayer_ver		20080104
+%define		_mediaplayer_ver		20080129
 %define		_miastoplusa_sms_ver		0.6-1.3.9
 %define		_osdhints_notify_ver		0.3.2.3
-%define		_pcspeaker_ver			current
+%define		_pcspeaker_ver			0.6.0.3
 %define		_powerkadu_ver			20070506
 %define		_profiles_ver			0.3.1
 %define		_screenshot_ver			20080104
 %define		_spellchecker_ver		20071230
 %define		_tabs_ver			1.1.3
-%define		_weather_ver			3.10
+%define		_weather_ver			3.13
 %define		_xmms_ver			20080116
 %define		_xosd_notify_ver		20070111
 
@@ -46,11 +46,11 @@ Source7: 	http://www.kadu.net/download/modules_extra/filedesc/filedesc-%{_filede
 Source8: 	http://alan.umcs.lublin.pl/~pinkworm/filtering/filtering-%{_filtering_ver}.tar.bz2
 Source9:	http://www.kadu.net/~dorr/kadu-firewall-%{_firewall_ver}.tar.bz2
 Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{_iwait4u_ver}.tar.gz
-Source11: 	http://www.kadu.net/~blysk/led_notify-%{_led_notify_ver}.tar.bz2
+Source11: 	http://kadu.net/~blysk/led_notify-%{_led_notify_ver}.tar.bz2
 Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{_mail_ver}.tar.gz
 Source13: 	http://www.kadu.net/~patryk/miastoplusa_sms/miastoplusa_sms-%{_miastoplusa_sms_ver}.tar.gz
 Source14: 	http://www.kadu.net/~pan_wojtas/osdhints_notify/download/kadu-osdhints_notify-%{_osdhints_notify_ver}-kadu-0.6.tar.gz
-Source15: 	http://kadu.net/~dorr/pcspeaker_%{_pcspeaker_ver}.tar.gz
+Source15:	http://www.kadu.net/~dorr/kadu-pcspeaker-%{_pcspeaker_ver}.tar.bz2
 Source16: 	http://www.kadu.net/~patryk/powerkadu/powerkadu-%{_powerkadu_ver}.tar.gz
 Source17: 	http://www.kadu.net/~dorr/kadu-profiles-%{_profiles_ver}.tar.bz2
 Source18: 	http://www.kadu.net/download/modules_extra/screenshot/screenshot-%{_screenshot_ver}.tar.bz2
@@ -624,7 +624,7 @@ tar xjf %{SOURCE11} -C modules
 tar xzf %{SOURCE12} -C modules
 tar xzf %{SOURCE13} -C modules
 #tar xzf %{SOURCE14} -C modules
-#tar xzf %{SOURCE15} -C modules
+tar xjf %{SOURCE15} -C modules
 #tar xzf %{SOURCE16} -C modules
 tar xjf %{SOURCE17} -C modules
 tar xjf %{SOURCE18} -C modules
