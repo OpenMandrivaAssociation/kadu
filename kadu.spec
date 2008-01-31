@@ -14,7 +14,7 @@
 %define		_mail_ver			current
 %define		_mediaplayer_ver		20080129
 %define		_miastoplusa_sms_ver		0.6-1.3.9
-%define		_osdhints_notify_ver		0.3.2.3
+%define		_osdhints_notify_ver		0.4.0.1
 %define		_pcspeaker_ver			0.6.0.3
 %define		_powerkadu_ver			20070506
 %define		_profiles_ver			0.3.1
@@ -49,7 +49,7 @@ Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{_iwai
 Source11: 	http://kadu.net/~blysk/led_notify-%{_led_notify_ver}.tar.bz2
 Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{_mail_ver}.tar.gz
 Source13: 	http://www.kadu.net/~patryk/miastoplusa_sms/miastoplusa_sms-%{_miastoplusa_sms_ver}.tar.gz
-Source14: 	http://www.kadu.net/~pan_wojtas/osdhints_notify/download/kadu-osdhints_notify-%{_osdhints_notify_ver}-kadu-0.6.tar.gz
+Source14:	http://www.kadu.net/~dorr/kadu-osdhints_notify-%{_osdhints_notify_ver}.tar.bz2
 Source15:	http://www.kadu.net/~dorr/kadu-pcspeaker-%{_pcspeaker_ver}.tar.bz2
 Source16: 	http://www.kadu.net/~patryk/powerkadu/powerkadu-%{_powerkadu_ver}.tar.gz
 Source17: 	http://www.kadu.net/~dorr/kadu-profiles-%{_profiles_ver}.tar.bz2
@@ -135,9 +135,6 @@ This module shows who from contact list is hiding against us.
 
 %files 		module-agent
 %defattr(-,root,root)
-#%doc modules/spy/ChangeLog
-#%dir %{_datadir}/%{name}/modules/data/agent
-#%{_datadir}/%{name}/modules/data/spy/spy32.png
 %{_datadir}/%{name}/modules/agent.desc
 %{_libdir}/%{name}/modules/agent.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/agent_pl.qm
@@ -160,8 +157,6 @@ aRts sound server support.
 %dir %{_libdir}/%{name}/modules/bin/
 %dir %{_libdir}/%{name}/modules/bin/arts_sound
 %{_libdir}/%{name}/modules/bin/arts_sound/arts_connector
-
-
 
 #module-ao_sound
 %package 	module-ao_sound
@@ -395,22 +390,23 @@ Network Audio System support.
 %{_libdir}/%{name}/modules/nas_sound.so
 
 #module_pcspeaker
-#%package 	module-pcspeaker
-#Summary:	PC-Speaker support
-#Group:		Networking/Instant messaging
-#Requires:	%{name} = %{version}-%{release}
+%package 	module-pcspeaker
+Summary:	PC-Speaker support
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
 
-#%description 	module-pcspeaker
-#PC-Speaker support module.
+%description 	module-pcspeaker
+PC-Speaker support module.
 
-#%files		module-pcspeaker
-#%defattr(-,root,root)
-#%doc modules/pcspeaker/Changelog
-#%{_datadir}/%{name}/modules/pcspeaker.desc
-#%{_libdir}/%{name}/modules/pcspeaker.so
-#%lang(de) %{_datadir}/%{name}/modules/translations/pcspeaker_de.qm
-#%lang(it) %{_datadir}/%{name}/modules/translations/pcspeaker_it.qm
-#%lang(pl) %{_datadir}/%{name}/modules/translations/pcspeaker_pl.qm
+%files		module-pcspeaker
+%defattr(-,root,root)
+%doc modules/pcspeaker/ChangeLog
+%{_datadir}/%{name}/modules/configuration/pcspeaker.ui
+%{_datadir}/%{name}/modules/pcspeaker.desc
+%{_libdir}/%{name}/modules/pcspeaker.so
+%lang(de) %{_datadir}/%{name}/modules/translations/pcspeaker_de.qm
+%lang(it) %{_datadir}/%{name}/modules/translations/pcspeaker_it.qm
+%lang(pl) %{_datadir}/%{name}/modules/translations/pcspeaker_pl.qm
 
 #module_powerkadu
 #%package	module-powerkadu
@@ -611,32 +607,59 @@ Nuvola icon theme for kadu created by David Vignoni.
 %prep
 
 %setup -qn %{name}
+#amarok
 tar xjf %{SOURCE2} -C modules
+#ao_sound
 tar xjf %{SOURCE3} -C modules
+#dcopexport
 tar xjf %{SOURCE4} -C modules
+#exec_notify
 #tar xjf %{SOURCE5} -C modules
+#ext_info
 #tar xjf %{SOURCE6} -C modules
+#filedesc
 tar xjf %{SOURCE7} -C modules
+#filtering
 tar xjf %{SOURCE8} -C modules
+#firewall
 tar xjf %{SOURCE9} -C modules
+#iwait4u
 #tar xzf %{SOURCE10} -C modules
+#led_notify
 tar xjf %{SOURCE11} -C modules
+#mail
 tar xzf %{SOURCE12} -C modules
+#miastoplusa_sms
 tar xzf %{SOURCE13} -C modules
-#tar xzf %{SOURCE14} -C modules
+#osd_hints_notify
+tar xjf %{SOURCE14} -C modules
+#pcspeaker
 tar xjf %{SOURCE15} -C modules
+#powerkadu
 #tar xzf %{SOURCE16} -C modules
+#profiles
 tar xjf %{SOURCE17} -C modules
+#screenshot
 tar xjf %{SOURCE18} -C modules
+#spellchecker
 tar xjf %{SOURCE19} -C modules
+#tabs
 tar xjf %{SOURCE20} -C modules
+#weather
 tar xjf %{SOURCE21} -C modules
+#xmms
 tar xjf %{SOURCE22} -C modules
+#xosd_hints
 #tar xjf %{SOURCE23} -C modules
+#adavanced_iserlist
 #tar xjf %{SOURCE30} -C modules
+#falf
 tar xjf %{SOURCE31} -C modules
+#agent
 tar xzf %{SOURCE32} -C modules
+#xqf
 #tar xjf %{SOURCE33} -C modules
+#mediaplayer
 tar xjf %{SOURCE35} -C modules
 
 tar xjf %{SOURCE24} -C varia/themes/icons
@@ -893,10 +916,11 @@ rm -rf `find %{buildroot} -name CVS`
 %lang(pl) %{_datadir}/%{name}/modules/translations/migration_pl.qm
 
 #module_osdhints_notify
-#%dir %{_datadir}/%{name}/modules/data/osdhints_notify
-#%{_datadir}/%{name}/modules/data/osdhints_notify/*.png
-#%{_datadir}/%{name}/modules/osdhints_notify.desc
-#%{_libdir}/%{name}/modules/osdhints_notify.so
+%dir %{_datadir}/%{name}/modules/data/osdhints_notify
+%{_datadir}/%{name}/modules/configuration/osdhints_notify.ui
+%{_datadir}/%{name}/modules/data/osdhints_notify/*.png
+%{_datadir}/%{name}/modules/osdhints_notify.desc
+%{_libdir}/%{name}/modules/osdhints_notify.so
 
 #module_profiles
 %{_datadir}/%{name}/modules/profiles.desc
