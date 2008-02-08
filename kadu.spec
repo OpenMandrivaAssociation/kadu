@@ -402,7 +402,7 @@ PC-Speaker support module.
 
 %files		module-pcspeaker
 %defattr(-,root,root)
-%doc modules/pcspeaker/ChangeLog
+%doc modules/pcspeaker/Changelog
 %{_datadir}/%{name}/modules/configuration/pcspeaker.ui
 %{_datadir}/%{name}/modules/pcspeaker.desc
 %{_libdir}/%{name}/modules/pcspeaker.so
