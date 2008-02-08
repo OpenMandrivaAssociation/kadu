@@ -65,7 +65,7 @@ Source31:	http://www.kadu.net/download/modules_extra/falf_mediaplayer/falf_media
 Source32:	http://misiek.jah.pl/assets/2007/12/27/agent-%{agent_ver}.tar.gz
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
 Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{mediaplayer_ver}.tar.bz2
-Source36:	http://kadu.net/~patryk/mime_tex/mime_tex-%{_mime_tex_ver}.tar.bz2
+Source36:	http://kadu.net/~patryk/mime_tex/mime_tex-%{mime_tex_ver}.tar.bz2
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
