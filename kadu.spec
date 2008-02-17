@@ -67,7 +67,7 @@ Source32:	http://misiek.jah.pl/assets/2007/12/27/agent-%{agent_ver}.tar.gz
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
 Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{mediaplayer_ver}.tar.bz2
 Source36:	http://kadu.net/~patryk/mime_tex/mime_tex-%{mime_tex_ver}.tar.bz2
-#Source37:	http://kadu.jarzebski.pl/water_notify-%{water_notify_ver}.tar.bz2
+Source37:	http://kadu.jarzebski.pl/water_notify-%{water_notify_ver}.tar.bz2
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
@@ -83,6 +83,7 @@ Patch2: 	%{name}-makefile-disable-desktop-file.patch
 Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.0-rc1-voice-gsm-fixes.patch
+Patch7:		water_notify-libs.patch
 URL:		http://www.kadu.net
 BuildRequires:	libalsa-devel		>= 1.0.13
 BuildRequires:	gettext-devel		>= 0.14.6-5
@@ -393,6 +394,24 @@ Network Audio System support.
 %{_datadir}/%{name}/modules/nas_sound.desc
 %{_libdir}/%{name}/modules/nas_sound.so
 
+#module_notify_water
+%package	module-notify-water
+Summary:	Notification by Water Plugin in Compiz
+Group:		Applications/Communications
+BuildRequires:	dbus-devel
+Requires:	%{name} = %{version}-%{release}
+Requires:	compiz
+
+%description	module-notify-water
+Notification by water plugin in Compiz.
+
+%files	module-notify-water
+%defattr(-,root,root)
+%{_datadir}/%{name}/modules/water_notify.desc
+%{_datadir}/%{name}/modules/configuration/water_notify.ui
+%{_libdir}/%{name}/modules/water_notify.so
+%lang(pl) %{_datadir}/%{name}/modules/translations/water_notify_pl.qm
+
 #module_pcspeaker
 %package 	module-pcspeaker
 Summary:	PC-Speaker support
@@ -667,6 +686,8 @@ tar xzf %{SOURCE32} -C modules
 tar xjf %{SOURCE35} -C modules
 #mime_tex
 #tar xjf %{SOURCE36} -C modules
+#water_notify
+tar -xjf %{SOURCE37} -C modules
 
 tar xjf %{SOURCE24} -C varia/themes/icons
 tar xjf %{SOURCE25} -C varia/themes/icons
@@ -686,9 +707,13 @@ popd
 #%patch4 -p1 -b .%{name}-use-alsa-by-default.patch
 #%patch5 -p1 -b .%{name}-disbale-ext_sound-autoload.patch
 %patch6 -p1 -b .voice
+%patch7 -p1 -b .water
+
+%{__sed} -i 's/module_firewall=n/module_firewall=m/' .config
+%{__sed} -i 's/module_water_notify=n/module_water_notify=m/' .config
 
 %build
-export CXXFLAGS="%{optflags}"
+export CXXFLAGS="%{optflags} -DDBUS_API_SUBJECT_TO_CHANGE"
 
 %{__sed} -i 's,dataPath("kadu/modules/*,("%{_libdir}/kadu/modules/,g' kadu-core/modules.cpp
 
@@ -878,9 +903,7 @@ rm -rf `find %{buildroot} -name CVS`
 %lang(pl) %{_datadir}/%{name}/modules/translations/filtering_pl.qm
 
 #module_firewall
-#%dir %{_datadir}/%{name}/modules/data/firewall
-#%{_datadir}/%{name}/modules/firewall.desc
-#%{_datadir}/%{name}/modules/data/firewall/firewall.png
+%{_datadir}/%{name}/modules/firewall.desc
 %{_datadir}/%{name}/modules/configuration/firewall.ui
 %{_libdir}/%{name}/modules/firewall.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/firewall_pl.qm
@@ -923,6 +946,7 @@ rm -rf `find %{buildroot} -name CVS`
 
 #module_osdhints_notify
 %dir %{_datadir}/%{name}/modules/data/osdhints_notify
+%exclude %{_datadir}/%{name}/modules/data/osdhints_notify/License
 %{_datadir}/%{name}/modules/configuration/osdhints_notify.ui
 %{_datadir}/%{name}/modules/data/osdhints_notify/*.png
 %{_datadir}/%{name}/modules/osdhints_notify.desc
