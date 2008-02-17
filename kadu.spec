@@ -879,7 +879,7 @@ rm -rf `find %{buildroot} -name CVS`
 
 #module_firewall
 #%dir %{_datadir}/%{name}/modules/data/firewall
-%{_datadir}/%{name}/modules/firewall.desc
+#%{_datadir}/%{name}/modules/firewall.desc
 #%{_datadir}/%{name}/modules/data/firewall/firewall.png
 %{_datadir}/%{name}/modules/configuration/firewall.ui
 %{_libdir}/%{name}/modules/firewall.so
