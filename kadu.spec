@@ -397,7 +397,7 @@ Network Audio System support.
 #module_notify_water
 %package	module-notify-water
 Summary:	Notification by Water Plugin in Compiz
-Group:		Applications/Communications
+Group:		Networking/Instant messaging
 BuildRequires:	dbus-devel
 Requires:	%{name} = %{version}-%{release}
 Requires:	compiz
