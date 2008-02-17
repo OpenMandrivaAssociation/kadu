@@ -1,4 +1,4 @@
-%define		agent_ver			0.4.3
+%define		agent_ver			0.4.4
 %define		amarok_ver			20071220
 %define		advanced_userlist		20070101
 %define		ao_sound_ver			20060424
@@ -7,21 +7,22 @@
 %define		ext_info_ver			2.0beta12
 %define		falf_ver			20071225
 %define		filedesc_ver			20080104
-%define		filtering_ver			20080129
-%define		firewall_ver			0.7.3
+%define		filtering_ver			20080204
+%define		firewall_ver			0.7.5
 %define		iwait4u_ver			1.3
 %define		led_notify_ver			0.18
 %define		mail_ver			0.3.2
-%define		mediaplayer_ver			20080129
+%define		mediaplayer_ver			20080210
 %define		miastoplusa_sms_ver		0.6-1.3.9
 %define		mime_tex_ver			1.4.1
-%define		osdhints_notify_ver		0.4.0.1
+%define		osdhints_notify_ver		0.4.0.5
 %define		pcspeaker_ver			0.6.0.3
 %define		powerkadu_ver			20070506
 %define		profiles_ver			0.3.1
 %define		screenshot_ver			20080104
 %define		spellchecker_ver		20071230
-%define		tabs_ver			1.1.3
+%define		tabs_ver			1.1.4
+%define		water_notify_ver		0.1.1
 %define		weather_ver			3.13
 %define		xmms_ver			20080116
 %define		xosd_notify_ver			20070111
@@ -45,18 +46,18 @@ Source5: 	http://www.kadu.net/~joi/exec_notify/packages/exec_notify-%{exec_notif
 Source6: 	http://www.kadu.net/~dzwiedziu/pub/ext_info-%{ext_info_ver}.tar.bz2
 Source7: 	http://www.kadu.net/download/modules_extra/filedesc/filedesc-%{filedesc_ver}.tar.bz2
 Source8: 	http://alan.umcs.lublin.pl/~pinkworm/filtering/filtering-%{filtering_ver}.tar.bz2
-Source9:	http://www.kadu.net/~dorr/kadu-firewall-%{firewall_ver}.tar.bz2
+Source9:	http://www.kadu.net/~dorr/moduly/kadu-firewall-%{firewall_ver}.tar.bz2
 Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{iwait4u_ver}.tar.gz
 Source11: 	http://kadu.net/~blysk/led_notify-%{led_notify_ver}.tar.bz2
 Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{mail_ver}.tar.bz2
 Source13: 	http://www.kadu.net/~patryk/miastoplusa_sms/miastoplusa_sms-%{miastoplusa_sms_ver}.tar.gz
-Source14:	http://www.kadu.net/~dorr/kadu-osdhints_notify-%{osdhints_notify_ver}.tar.bz2
-Source15:	http://www.kadu.net/~dorr/kadu-pcspeaker-%{pcspeaker_ver}.tar.bz2
+Source14:	http://www.kadu.net/~dorr/moduly/kadu-osdhints_notify-%{osdhints_notify_ver}.tar.bz2
+Source15:	http://www.kadu.net/~dorr/moduly/kadu-pcspeaker-%{pcspeaker_ver}.tar.bz2
 Source16: 	http://www.kadu.net/~patryk/powerkadu/powerkadu-%{powerkadu_ver}.tar.gz
-Source17: 	http://www.kadu.net/~dorr/kadu-profiles-%{profiles_ver}.tar.bz2
+Source17: 	http://www.kadu.net/~dorr/moduly/kadu-profiles-%{profiles_ver}.tar.bz2
 Source18: 	http://www.kadu.net/download/modules_extra/screenshot/screenshot-%{screenshot_ver}.tar.bz2
 Source19: 	http://scripts.one.pl/spellchecker/devel/0.5.0/spellchecker-%{spellchecker_ver}.tar.bz2
-Source20: 	http://kadu.net/~arvenil/tabs/download/0.6.0/kadu-tabs-%{tabs_ver}.tar.bz2
+Source20: 	http://kadu.net/~arvenil/tabs/download/%{version}/%{tabs_ver}/kadu-tabs-%{tabs_ver}.tar.bz2
 Source21: 	http://www.kadu.net/~blysk/weather-%{weather_ver}.tar.bz2
 Source22: 	http://www.kadu.net/download/modules_extra/xmms_mediaplayer/xmms_mediaplayer-%{xmms_ver}.tar.bz2
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{xosd_notify_ver}.tar.bz2
@@ -66,6 +67,7 @@ Source32:	http://misiek.jah.pl/assets/2007/12/27/agent-%{agent_ver}.tar.gz
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
 Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{mediaplayer_ver}.tar.bz2
 Source36:	http://kadu.net/~patryk/mime_tex/mime_tex-%{mime_tex_ver}.tar.bz2
+#Source37:	http://kadu.jarzebski.pl/water_notify-%{water_notify_ver}.tar.bz2
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
