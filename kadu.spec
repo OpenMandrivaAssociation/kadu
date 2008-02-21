@@ -81,7 +81,6 @@ Source29:	http://www.kadu.net/download/additions/kadu-theme-nuvola-22.tar.gz
 Source34:	http://www.kadu.net/download/additions/kadu-0.6-theme-tango-16.tar.gz
 
 Patch0:		%{name}-config-enable-modular-build.patch
-Patch2: 	%{name}-makefile-disable-desktop-file.patch
 Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.0-rc1-voice-gsm-fixes.patch
@@ -721,10 +720,9 @@ mv $file `echo $file | sed -e s/kadu-theme-//g -e s/[_-]//g`
 done
 popd
 
-%patch0 -p1 -b .%{name}-config-enable-modular-build.patch
-#%patch2 -p1 -b .%{name}-makefile-disable-desktop-file.patch
-#%patch4 -p1 -b .%{name}-use-alsa-by-default.patch
-#%patch5 -p1 -b .%{name}-disbale-ext_sound-autoload.patch
+%patch0 -p1 -b .config
+%patch4 -p1 -b .alsa
+%patch5 -p1 -b .ext_sound
 %patch6 -p1 -b .voice
 %patch7 -p1 -b .water
 
