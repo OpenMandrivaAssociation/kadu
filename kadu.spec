@@ -15,7 +15,8 @@
 %define		mediaplayer_ver			20080210
 %define		miastoplusa_sms_ver		0.6-1.3.9
 %define		mime_tex_ver			1.4.1
-%define		osdhints_notify_ver		0.4.0.5
+%define		osdhints_notify_ver		0.4.0.9
+%define		panelkadu_ver			0.6-beta2
 %define		pcspeaker_ver			0.6.0.3
 %define		powerkadu_ver			20070506
 %define		profiles_ver			0.3.1
@@ -27,7 +28,7 @@
 %define		xmms_ver			20080116
 %define		xosd_notify_ver			20070111
 
-%define prel rc3
+%define prel rc4
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
@@ -68,6 +69,7 @@ Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
 Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{mediaplayer_ver}.tar.bz2
 Source36:	http://kadu.net/~patryk/mime_tex/mime_tex-%{mime_tex_ver}.tar.bz2
 Source37:	http://kadu.jarzebski.pl/water_notify-%{water_notify_ver}.tar.bz2
+Source38:	http://www.ultr.pl/kadu/panelkadu-%{panelkadu_ver}.tar.gz
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
@@ -405,12 +407,28 @@ Requires:	compiz
 %description	module-notify-water
 Notification by water plugin in Compiz.
 
-%files	module-notify-water
+%files		module-notify-water
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/water_notify.desc
 %{_datadir}/%{name}/modules/configuration/water_notify.ui
 %{_libdir}/%{name}/modules/water_notify.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/water_notify_pl.qm
+
+#module_panelkadu
+%package	module-panelkadu
+Summary:	Module which makes Kadu look and behave like a panel
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
+
+%description	module-panelkadu
+Module which makes Kadu look and behave like a panel.
+
+%files		module-panelkadu
+%defattr(-,root,root)
+%{_datadir}/%{name}/modules/panelkadu.desc
+%{_datadir}/%{name}/modules/configuration/panelkadu.ui
+%{_libdir}/%{name}/modules/panelkadu.so
+%lang(pl) %{_modules_data_dir}/translations/panelkadu_pl.qm
 
 #module_pcspeaker
 %package 	module-pcspeaker
@@ -687,7 +705,8 @@ tar xjf %{SOURCE35} -C modules
 #mime_tex
 #tar xjf %{SOURCE36} -C modules
 #water_notify
-tar -xjf %{SOURCE37} -C modules
+tar xjf %{SOURCE37} -C modules
+tar xzf %{SOURCE39} -C modules
 
 tar xjf %{SOURCE24} -C varia/themes/icons
 tar xjf %{SOURCE25} -C varia/themes/icons
@@ -711,6 +730,7 @@ popd
 
 %{__sed} -i 's/module_firewall=n/module_firewall=m/' .config
 %{__sed} -i 's/module_water_notify=n/module_water_notify=m/' .config
+%{__sed} -i 's/module_panelkadu=n/module_panelkadu=m/' .config
 
 %build
 export CXXFLAGS="%{optflags} -DDBUS_API_SUBJECT_TO_CHANGE"
