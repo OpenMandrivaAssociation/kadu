@@ -706,7 +706,7 @@ tar xjf %{SOURCE35} -C modules
 #tar xjf %{SOURCE36} -C modules
 #water_notify
 tar xjf %{SOURCE37} -C modules
-tar xzf %{SOURCE39} -C modules
+tar xzf %{SOURCE38} -C modules
 
 tar xjf %{SOURCE24} -C varia/themes/icons
 tar xjf %{SOURCE25} -C varia/themes/icons
