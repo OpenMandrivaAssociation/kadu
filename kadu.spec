@@ -1,42 +1,73 @@
-%define		agent_ver			0.4.4
-%define		amarok_ver			20071220
-%define		advanced_userlist		20070101
-%define		ao_sound_ver			20060424
-%define		dcopexport_ver			0.11.3-20071129-0.6.0
-%define		exec_notify_ver			20070111
-%define		ext_info_ver			2.0beta12
-%define		falf_ver			20071225
-%define		filedesc_ver			20080104
-%define		filtering_ver			20080204
-%define		firewall_ver			0.7.5
-%define		iwait4u_ver			1.3
-%define		led_notify_ver			0.18
-%define		mail_ver			0.3.2
-%define		mediaplayer_ver			20080210
-%define		miastoplusa_sms_ver		0.6-1.3.9
-%define		mime_tex_ver			1.4.1
-%define		osdhints_notify_ver		0.4.0.9
-%define		panelkadu_ver			0.6-beta2
-%define		pcspeaker_ver			0.6.0.3
-%define		powerkadu_ver			20070506
-%define		profiles_ver			0.3.1
-%define		screenshot_ver			20080104
-%define		spellchecker_ver		20071230
-%define		tabs_ver			1.1.4
-%define		water_notify_ver		0.1.1
-%define		weather_ver			3.13
-%define		xmms_ver			20080116
-%define		xosd_notify_ver			20070111
+############### Define versions ####################
+%define		agent_ver		0.4.4
+%define		amarok_ver		20071220
+%define		advanced_userlist	20070101
+%define		ao_sound_ver		20060424
+%define		dcopexport_ver		0.11.3-20071129-0.6.0
+%define		exec_notify_ver		20070111
+%define		ext_info_ver		2.0beta12
+%define		falf_ver		20071225
+%define		filedesc_ver		20080104
+%define		filtering_ver		20080204
+%define		firewall_ver		0.7.5
+%define		iwait4u_ver		1.3
+%define		led_notify_ver		0.18
+%define		mail_ver		0.3.2
+%define		mediaplayer_ver		20080210
+%define		miastoplusa_sms_ver	0.6-1.3.9
+%define		mime_tex_ver		1.4.1
+%define		osdhints_notify_ver	0.4.0.9
+%define		panelkadu_ver		0.6-beta2
+%define		pcspeaker_ver		0.6.0.3
+%define		powerkadu_ver		20070506
+%define		profiles_ver		0.3.1
+%define		screenshot_ver		20080104
+%define		spellchecker_ver	20071230
+%define		tabs_ver		1.1.4
+%define		water_notify_ver	0.1.1
+%define		weather_ver		3.13
+%define		xmms_ver		20080116
+%define		xosd_notify_ver		20070111
 
-%define prel rc4
+################ Enable modules #######################
+%define		build_agent			1
+%define		build_amarok			1
+%define		build_adavanced_userlist	0
+%define		build_ao_sound			1
+%define		build_dcopexport		1
+%define		build_exec_notify		0
+%define		build_ext_info			1
+%define		build_falf			1
+%define		build_filedesc			1
+%define		build_filtering			1
+%define		build_firewall			1
+%define		build_iwait4u			1
+%define		build_led_notify		1
+%define		build_mail			1
+%define		build_mediaplayer		1
+%define		build_miastoplusa_sms		1
+%define		build_mime_tex			0
+%define		build_osdhints_notify		1
+%define		build_panelkadu			1
+%define		build_pcspeaker			1
+%define		build_powerkadu			0
+%define		build_profiles			1
+%define		build_screenshot		1
+%define 	build_spellchecker		1
+%define		build_tabs			1
+%define		build_water_notify		1
+%define		build_weather			1
+%define 	build_xmms			1
+%define		build_xosd_notify		1
+####################################################
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.6.0
-Release:	%mkrel 0.%{prel}.1
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Instant messaging
-Source0:	http://kadu.net/download/stable/%{name}-%{version}-%{prel}.tar.bz2
+Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 
 #Modules sources
@@ -129,7 +160,7 @@ documentation needed to develop application with kadu.
 
 #----------Modules----------
 
-#module_agent
+%if %build_agent
 %package 	module-agent
 Summary:	Spy module for Kadu
 Group:		Networking/Instant messaging
@@ -144,6 +175,7 @@ This module shows who from contact list is hiding against us.
 %{_datadir}/%{name}/modules/agent.desc
 %{_libdir}/%{name}/modules/agent.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/agent_pl.qm
+%endif
 
 #module-arts_sound
 %package 	module-arts_sound
@@ -164,7 +196,7 @@ aRts sound server support.
 %dir %{_libdir}/%{name}/modules/bin/arts_sound
 %{_libdir}/%{name}/modules/bin/arts_sound/arts_connector
 
-#module-ao_sound
+%if %build_ao_sound
 %package 	module-ao_sound
 Summary:	Module ao_sound for Kadu
 Group:		Networking/Instant messaging
@@ -178,8 +210,9 @@ ao library sound module (ALSA, OSS, ESD, AIX, IRIX, NAS, Sun, NetBSD, OpenBSD).
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/ao_sound.desc
 %{_libdir}/%{name}/modules/ao_sound.so
+%endif
 
-#module_dcopexport
+%if %build_dcopexport
 %package	module-dcopexport
 Summary:	DCOP module for Kadu
 Group:		Networking/Instant messaging
@@ -198,6 +231,7 @@ Exports some functions via DCOP.
 %{_libdir}/%{name}/modules/bin/dcopexport/*
 %{_libdir}/%{name}/modules/dcopexport.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/dcopexport_pl.qm
+%endif
 
 #module_desktop_docking
 %package	module-desktop_docking
@@ -273,7 +307,7 @@ External application sound support module.
 %lang(pl) %{_datadir}/%{name}/modules/translations/ext_sound_pl.qm
 
 	    
-#module_led_notif
+%if %build_led_notify
 %package 	module-led_notify
 Summary:	Notification by LED
 Group:		Networking/Instant messaging
@@ -288,7 +322,9 @@ Notification by keyboard's LED.
 %{_datadir}/%{name}/modules/led_notify.desc
 %{_datadir}/%{name}/modules/configuration/led_notify.ui
 %{_libdir}/%{name}/modules/led_notify.so
+%endif
 
+%if %build_mediaplayer
 %package	module-mediaplayer
 Summary:	Mediaplayer module for kadu
 Group:		Networking/Instant messaging
@@ -305,8 +341,9 @@ Mediaplayer module for kadu.
 %{_datadir}/%{name}/modules/configuration/mediaplayer.ui
 %{_datadir}/%{name}/modules/data/mediaplayer/mediaplayer.png
 %lang(pl) %{_datadir}/%{name}/modules/translations/mediaplayer_pl.qm
+%endif
 
-#module_amarok
+%if %build_amarok
 %package 	module-mediaplayer_amarok
 Summary:	Amarok module for Kadu
 Group:		Networking/Instant messaging
@@ -322,8 +359,9 @@ the song currently played in Amarok.
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/amarok_mediaplayer.desc
 %{_libdir}/%{name}/modules/amarok_mediaplayer.so
+%endif
 
-#module_falfp
+%if %build_falf
 %package	module-mediaplayer_falf
 Summary:	Falf player odule for Kadu
 Group:		Networking/Instant messaging
@@ -339,8 +377,9 @@ the song currently played in Falf player.
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/falf_mediaplayer.desc
 %{_libdir}/%{name}/modules/falf_mediaplayer.so
+%endif
 
-#module_xmms
+%if %build_xmms
 %package 	module-mediaplayer_xmms
 Summary:	XMMS module for Kadu
 Group:		Networking/Instant messaging
@@ -357,8 +396,9 @@ the song currently played in XMMS.
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/xmms_mediaplayer.desc
 %{_libdir}/%{name}/modules/xmms_mediaplayer.so
+%endif
 
-#module_miastoplusa_sms
+%if %build_miastoplusa_sms
 %package	module-miastoplusa_sms
 Summary:	Miasto Plusa SMS Gateway
 Group:		Networking/Instant messaging
@@ -378,6 +418,7 @@ Miasto Plusa SMS Gateway support module.
 %{_datadir}/%{name}/modules/configuration/miastoplusa_sms.ui
 %{_libdir}/%{name}/modules/miastoplusa_sms.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/miastoplusa_sms_pl.qm
+%endif
 
 #module_nas_sound
 %package 	module-nas_sound
@@ -395,25 +436,27 @@ Network Audio System support.
 %{_datadir}/%{name}/modules/nas_sound.desc
 %{_libdir}/%{name}/modules/nas_sound.so
 
-#module_notify_water
-%package	module-notify-water
+%if %build_water_notify
+%package	module-water-notify
 Summary:	Notification by Water Plugin in Compiz
 Group:		Networking/Instant messaging
 BuildRequires:	dbus-devel
 Requires:	%{name} = %{version}-%{release}
 Requires:	compiz
+Obsoletes:	%{name}-module-notify-water
 
-%description	module-notify-water
+%description	module-water-notify
 Notification by water plugin in Compiz.
 
-%files		module-notify-water
+%files		module-water-notify
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/water_notify.desc
 %{_datadir}/%{name}/modules/configuration/water_notify.ui
 %{_libdir}/%{name}/modules/water_notify.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/water_notify_pl.qm
+%endif
 
-#module_panelkadu
+%if %build_panelkadu
 %package	module-panelkadu
 Summary:	Module which makes Kadu look and behave like a panel
 Group:		Networking/Instant messaging
@@ -428,8 +471,9 @@ Module which makes Kadu look and behave like a panel.
 %{_datadir}/%{name}/modules/configuration/panelkadu.ui
 %{_libdir}/%{name}/modules/panelkadu.so
 %lang(pl) %{_modules_data_dir}/translations/panelkadu_pl.qm
+%endif
 
-#module_pcspeaker
+%if %build_pcspeaker
 %package 	module-pcspeaker
 Summary:	PC-Speaker support
 Group:		Networking/Instant messaging
@@ -447,31 +491,33 @@ PC-Speaker support module.
 %lang(de) %{_datadir}/%{name}/modules/translations/pcspeaker_de.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/pcspeaker_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/pcspeaker_pl.qm
+%endif
 
-#module_powerkadu
-#%package	module-powerkadu
-#Summary:	Powerkadu
-#Group:		Networking/Instant messaging
-#Requires:	%{name} = %{version}-%{release}
+%if %build_powerkadu
+%package	module-powerkadu
+Summary:	Powerkadu
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
 
-#%description	module-powerkadu
-#Powerkadu extends capabilities of Kadu.
+%description	module-powerkadu
+Powerkadu extends capabilities of Kadu.
 
-#%files		module-powerkadu
-#%defattr(-,root,root)
-#%dir %{_libdir}/%{name}/modules/bin/powerkadu
-#%dir %{_datadir}/%{name}/modules/data/powerkadu
-#%dir %{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons
-#%{_datadir}/%{name}/modules/data/powerkadu/AU*
-#%{_datadir}/%{name}/modules/data/powerkadu/Ch*
-#%{_datadir}/%{name}/modules/data/powerkadu/*.conf
-#%{_datadir}/%{name}/modules/data/powerkadu/*.png
-#%{_datadir}/%{name}/modules/data/powerkadu/*.data
-#%{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons/*.png
-#%{_datadir}/%{name}/modules/powerkadu.desc
-#%{_libdir}/%{name}/modules/powerkadu.so
-#%{_libdir}/%{name}/modules/bin/powerkadu/mimetex
-#%lang(pl) %{_datadir}/%{name}/modules/translations/powerkadu_pl.qm
+%files		module-powerkadu
+%defattr(-,root,root)
+%dir %{_libdir}/%{name}/modules/bin/powerkadu
+%dir %{_datadir}/%{name}/modules/data/powerkadu
+%dir %{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons
+%{_datadir}/%{name}/modules/data/powerkadu/AU*
+%{_datadir}/%{name}/modules/data/powerkadu/Ch*
+%{_datadir}/%{name}/modules/data/powerkadu/*.conf
+%{_datadir}/%{name}/modules/data/powerkadu/*.png
+%{_datadir}/%{name}/modules/data/powerkadu/*.data
+%{_datadir}/%{name}/modules/data/powerkadu/mime_tex_icons/*.png
+%{_datadir}/%{name}/modules/powerkadu.desc
+%{_libdir}/%{name}/modules/powerkadu.so
+%{_libdir}/%{name}/modules/bin/powerkadu/mimetex
+%lang(pl) %{_datadir}/%{name}/modules/translations/powerkadu_pl.qm
+%endif
 
 #module_speech
 %package 	module-speech
@@ -493,7 +539,7 @@ Speech synthesis support ("powiedz")
 %lang(it) %{_datadir}/%{name}/modules/translations/speech_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/speech_pl.qm
 
-#module_spellchecker
+%if %build_spellchecker
 %package 	module-spellchecker
 Summary:	Aspell module for Kadu
 Group:		Networking/Instant messaging
@@ -513,8 +559,9 @@ Checker of spelling mistakes.
 %{_libdir}/%{name}/modules/spellchecker.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/spellchecker_pl.qm
 %{_datadir}/%{name}/modules/data/spellchecker/config.png
+%endif
 
-#module_weather
+%if %build_weather
 %package 	module-weather
 Summary:	Weather module for Kadu
 Group:		Networking/Instant messaging
@@ -535,6 +582,7 @@ This module shows current weather for you and your contacts.
 %{_datadir}/%{name}/modules/configuration/weather.ui
 %{_libdir}/%{name}/modules/weather.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/weather_pl.qm
+%endif
 
 #module_wmaker_docking
 %package	module-wmaker_docking
@@ -551,6 +599,7 @@ WindowMaker docking module.
 %{_datadir}/%{name}/modules/wmaker_docking.desc
 %{_libdir}/%{name}/modules/wmaker_docking.so
 
+%if %build_xosd_notify
 %package	module-xosd_notify
 Summary: 	Notification by XOSD
 Group:		Networking/Instant messaging
@@ -569,6 +618,7 @@ Notification by XOSD module.
 %{_datadir}/%{name}/modules/configuration/xosd_notify.ui
 %{_libdir}/%{name}/modules/xosd_notify.so
 %{_libdir}/%{name}/modules/bin/xosd_notify/gtkfontdialog
+%endif
 
 #module_xqf
 #%package 	module-xqf
@@ -647,65 +697,95 @@ Nuvola icon theme for kadu created by David Vignoni.
 %prep
 
 %setup -qn %{name}
-#amarok
+%if %build_amarok
 tar xjf %{SOURCE2} -C modules
-#ao_sound
+%endif
+%if %build_ao_sound
 tar xjf %{SOURCE3} -C modules
-#dcopexport
+%endif
+%if %build_dcopexport
 tar xjf %{SOURCE4} -C modules
-#exec_notify
-#tar xjf %{SOURCE5} -C modules
-#ext_info
-#tar xjf %{SOURCE6} -C modules
-#filedesc
+%endif
+%if %build_exec_notify
+tar xjf %{SOURCE5} -C modules
+%endif
+%if %build_ext_info
+tar xjf %{SOURCE6} -C modules
+%endif
+%if %build_filedesc
 tar xjf %{SOURCE7} -C modules
-#filtering
+%endif
+%if %build_filtering
 tar xjf %{SOURCE8} -C modules
-#firewall
+%endif
+%if %build_firewall
 tar xjf %{SOURCE9} -C modules
-#iwait4u
-#tar xzf %{SOURCE10} -C modules
-#led_notify
+%endif
+%if %build_iwait4u
+tar xzf %{SOURCE10} -C modules
+%endif
+%if %build_led_notify
 tar xjf %{SOURCE11} -C modules
-#mail
+%endif
+%if %build_mail
 tar xjf %{SOURCE12} -C modules
-#miastoplusa_sms
+%endif
+%if %build_miastoplusa_sms
 tar xzf %{SOURCE13} -C modules
-#osd_hints_notify
+%endif
+%if %build_osdhints_notify
 tar xjf %{SOURCE14} -C modules
-#pcspeaker
+%endif
+%if %build_pcspeaker
 tar xjf %{SOURCE15} -C modules
-#powerkadu
-#tar xzf %{SOURCE16} -C modules
-#profiles
+%endif
+%if %build_powerkadu
+tar xzf %{SOURCE16} -C modules
+%endif
+%if %build_profiles
 tar xjf %{SOURCE17} -C modules
-#screenshot
+%endif
+%if %build_screenshot
 tar xjf %{SOURCE18} -C modules
-#spellchecker
+%endif
+%if %build_spellchecker
 tar xjf %{SOURCE19} -C modules
-#tabs
+%endif
+%if %build_tabs
 tar xjf %{SOURCE20} -C modules
-#weather
+%endif
+%if %build_weather
 tar xjf %{SOURCE21} -C modules
-#xmms
+%endif
+%if %build_xmms
 tar xjf %{SOURCE22} -C modules
-#xosd_hints
-#tar xjf %{SOURCE23} -C modules
-#adavanced_iserlist
-#tar xjf %{SOURCE30} -C modules
-#falf
+%endif
+%if %build_xosd_notify
+tar xjf %{SOURCE23} -C modules
+%endif
+%if %build_adavanced_userlist
+tar xjf %{SOURCE30} -C modules
+%endif
+%if %build_falf
 tar xjf %{SOURCE31} -C modules
-#agent
+%endif
+%if %build_agent
 tar xzf %{SOURCE32} -C modules
+%endif
 #xqf
 #tar xjf %{SOURCE33} -C modules
-#mediaplayer
+%if %build_mediaplayer
 tar xjf %{SOURCE35} -C modules
-#mime_tex
-#tar xjf %{SOURCE36} -C modules
-#water_notify
+%endif
+%if %build_mime_tex
+tar xjf %{SOURCE36} -C modules
+%endif
+%if %build_water_notify
 tar xjf %{SOURCE37} -C modules
+%endif
+%if %build_panelkadu
 tar xzf %{SOURCE38} -C modules
+%endif
 
 tar xjf %{SOURCE24} -C varia/themes/icons
 tar xjf %{SOURCE25} -C varia/themes/icons
