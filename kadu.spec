@@ -8,6 +8,7 @@
 %define		anonymous_check_ver	0.2
 %define		audacious_ver		20080224
 %define		auto_hide_ver		0.2.1
+%define		autostatus_ver		0.1
 %define		cenzor_ver		0.2
 %define		dcopexport_ver		0.11.3-20071129-0.6.0
 %define		exec_notify_ver		20070111
@@ -15,24 +16,25 @@
 %define		falf_ver		20071225
 %define		filedesc_ver		20080104
 %define		filtering_ver		20080224
-%define		firewall_ver		0.7.5
+%define		firewall_ver		0.7.5.1
+%define		globalhotkeys_ver	0.6.0-1
 %define		iwait4u_ver		1.3
-%define		last_seen_ver		0.1
+%define		last_seen_ver		0.1.1
 %define		led_notify_ver		0.18
 %define		mail_ver		0.3.3
 %define		mediaplayer_ver		20080224
 %define		miastoplusa_sms_ver	0.6-1.3.9
-%define		mime_tex_ver		1.4.1
-%define		osdhints_notify_ver	0.4.0.9
-%define		panelkadu_ver		0.6-beta2
+%define		mime_tex_ver		1.4.1.1
+%define		osdhints_notify_ver	0.4.2
+%define		panelkadu_ver		0.6.0-1
 %define		parser_extender_ver	0.1.1
 %define		pcspeaker_ver		0.6.0.3
-%define		powerkadu_ver		2.0.1
+%define		powerkadu_ver		2.0.4
 %define		profiles_ver		0.3.1
 %define		screenshot_ver		20080104
 %define		spellchecker_ver	20071230
 %define		split_messages_ver	0.2
-%define		tabs_ver		1.1.5
+%define		tabs_ver		1.1.6
 %define		water_notify_ver	0.1.1
 %define		weather_ver		3.13
 %define		word_fix_ver		0.3
@@ -46,9 +48,10 @@
 %define		build_anonymous_check		1
 %define		build_antistring		1
 %define		build_ao_sound			1
-%define		build_arts_sound		1
+%define		build_arts_sound		0
 %define		build_audacious			0
 %define		build_auto_hide			1
+%define		build_autostatus		1
 %define		build_cenzor			1
 %define		build_dcopexport		1
 %define		build_desktop_docking		1
@@ -59,6 +62,7 @@
 %define		build_filedesc			1
 %define		build_filtering			1
 %define		build_firewall			1
+%define		build_globalhotkeys		1
 %define		build_iwait4u			0
 %define		build_last_seen			1
 %define		build_led_notify		1
@@ -97,10 +101,11 @@
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
-Version:	0.6.0
+Version:	0.6.0.1
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Instant messaging
+URL:		http://www.kadu.net
 Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 
@@ -144,6 +149,8 @@ Source44:	http://www.kadu.net/~dorr/moduly/kadu-parser_extender-%{parser_extende
 Source45:	http://www.kadu.net/~dorr/moduly/kadu-split_messages-%{split_messages_ver}.tar.bz2
 Source46:	http://www.kadu.net/~dorr/moduly/kadu-word_fix-%{word_fix_ver}.tar.bz2
 Source47:	http://www.kadu.net/~dorr/moduly/kadu-last_seen-%{last_seen_ver}.tar.bz2
+Source49:	http://www.kadu.net/~dorr/moduly/kadu-autostatus-%{autostatus_ver}.tar.bz2
+Source50:	http://www.ultr.pl/kadu/globalhotkeys-%{globalhotkeys_ver}.tar.gz
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
@@ -159,7 +166,6 @@ Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.0-rc1-voice-gsm-fixes.patch
 Patch7:		water_notify-libs.patch
-URL:		http://www.kadu.net
 BuildRequires:	libalsa-devel		>= 1.0.13
 BuildRequires:	gettext-devel		>= 0.14.6-5
 BuildRequires:	libgadu-devel 		>= 1.7
@@ -170,6 +176,12 @@ BuildRequires:	qt3-devel 		>= 3.3.6
 BuildRequires:	libopenssl-devel	>= 0.9.8d-3
 BuildRequires:	desktop-file-utils
 Requires: 	qt3-common 		>= 3.3.7
+%if !%build_arts_sound
+Obsoletes:	kadu-module-arts_sound < 0.6.0.1
+%endif
+%if !%build_xosd_notify
+Obsoletes:	kadu-module-xosd_notify < 0.6.0.1
+%endif
 Obsoletes:	%{name}-module-xqf < 0.6.0
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
@@ -185,15 +197,15 @@ Static modules are:
 - notify
 - sound
 
-%package	devel
+%package devel
 Summary:	Kadu development libary
 Group:		Development/C
 
-%description 	devel
+%description devel
 The kadu-devel package contains the header files and some
 documentation needed to develop application with kadu.
 
-%files 		devel
+%files devel
 %defattr(-,root,root)
 %multiarch %{multiarch_bindir}/kadu-config
 %{_bindir}/kadu-config
@@ -205,16 +217,16 @@ documentation needed to develop application with kadu.
 #----------Modules----------
 
 %if %build_agent
-%package 	module-agent
+%package module-agent
 Summary:	Spy module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Obsoletes:	kadu-module-spy
 
-%description 	module-agent
+%description module-agent
 This module shows who from contact list is hiding against us.
 
-%files 		module-agent
+%files module-agent
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/agent.desc
 %{_libdir}/%{name}/modules/agent.so
@@ -222,15 +234,15 @@ This module shows who from contact list is hiding against us.
 %endif
 
 %if %build_anonymous_check
-%package	module-anonymous_check
+%package module-anonymous_check
 Summary:	Automatic lookup of an interlocutor in public directory
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-anonymous_check
+%description module-anonymous_check
 Automatic lookup of an interlocutor in public directory.
 
-%files		module-anonymous_check
+%files module-anonymous_check
 %defattr(-,root,root)
 %{_libdir}/%{name}/modules/anonymous_check.so
 %{_datadir}/%{name}/modules/anonymous_check.desc
@@ -239,15 +251,15 @@ Automatic lookup of an interlocutor in public directory.
 %endif
 
 %if %build_antistring
-%package	module-antistring
+%package module-antistring
 Summary:	Antistring module for %{name}
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-antistring
+%description module-antistring
 Antistring module.
 
-%files		module-antistring
+%files module-antistring
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/antistring
 %{_libdir}/%{name}/modules/antistring.so
@@ -258,33 +270,33 @@ Antistring module.
 %endif
 
 %if %build_ao_sound
-%package 	module-ao_sound
+%package module-ao_sound
 Summary:	Module ao_sound for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 BuildRequires:  libao-devel
 
-%description 	module-ao_sound
+%description module-ao_sound
 ao library sound module (ALSA, OSS, ESD, AIX, IRIX, NAS, Sun, NetBSD, OpenBSD).
 
-%files 		module-ao_sound
+%files module-ao_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/ao_sound.desc
 %{_libdir}/%{name}/modules/ao_sound.so
 %endif
 
 %if %build_arts_sound
-%package 	module-arts_sound
+%package module-arts_sound
 Summary:	Arts module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires:	arts
 BuildRequires:	libarts-devel
 
-%description 	module-arts_sound
+%description module-arts_sound
 aRts sound server support.
 
-%files		module-arts_sound
+%files module-arts_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/arts_sound.desc
 %{_libdir}/%{name}/modules/arts_sound.so
@@ -294,15 +306,15 @@ aRts sound server support.
 %endif
 
 %if %build_auto_hide
-%package	module-auto_hide
+%package module-auto_hide
 Summary:	Auto hide Kadu window
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-auto_hide
+%description module-auto_hide
 Auto hide Kadu window.
 
-%files		module-auto_hide
+%files module-auto_hide
 %defattr(-,root,root)
 %{_libdir}/%{name}/modules/auto_hide.so
 %{_datadir}/%{name}/modules/auto_hide.desc
@@ -310,16 +322,33 @@ Auto hide Kadu window.
 %lang(pl) %{_datadir}/%{name}/modules/translations/auto_hide_pl.qm
 %endif
 
+%if %build_autostatus
+%package module-autostatus
+Summary:	Automatic status change module for kadu
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
+
+%description module-autostatus
+Automatic status change module for kadu.
+
+%files module-autostatus
+%defattr(-,root,root)
+%{_libdir}/%{name}/modules/autostatus.so
+%{_datadir}/%{name}/modules/autostatus.desc
+%{_datadir}/%{name}/modules/configuration/autostatus.ui
+%lang(pl) %{_datadir}/%{name}/modules/translations/autostatus_pl.qm
+%endif
+
 %if %build_cenzor
-%package	module-cenzor
+%package module-cenzor
 Summary:	Censor module for %{name}
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-cenzor
+%description module-cenzor
 Censor module for %{name}.
 
-%files		module-cenzor
+%files module-cenzor
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/cenzor
 %{_libdir}/%{name}/modules/cenzor.so
@@ -330,16 +359,16 @@ Censor module for %{name}.
 %endif
 
 %if %build_dcopexport
-%package	module-dcopexport
+%package module-dcopexport
 Summary:	DCOP module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 BuildRequires:	kdelibs-devel
 
-%description	module-dcopexport
+%description module-dcopexport
 Exports some functions via DCOP.
 
-%files		module-dcopexport
+%files module-dcopexport
 %defattr(-,root,root)
 %dir %{_libdir}/%{name}/modules/bin/dcopexport
 %dir %{_datadir}/%{name}/modules/data/dcopexport
@@ -351,15 +380,15 @@ Exports some functions via DCOP.
 %endif
 
 %if %build_desktop_docking
-%package	module-desktop_docking
+%package module-desktop_docking
 Summary:	Always on top window docking
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-desktop_docking
+%description module-desktop_docking
 Always on top window docking module.
 
-%files		module-desktop_docking
+%files module-desktop_docking
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/desktop_docking.desc
 %{_datadir}/%{name}/modules/configuration/desktop_docking.ui
@@ -371,15 +400,15 @@ Always on top window docking module.
 %endif
 
 #module_dsp_sound
-%package	module-dsp_sound
+%package module-dsp_sound
 Summary:	OSS sound module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-dsp_sound
+%description module-dsp_sound
 Direct /dev/dsp sound support (Open Sound System).
 
-%files		module-dsp_sound
+%files module-dsp_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/dsp_sound.desc
 %{_datadir}/%{name}/modules/configuration/dsp_sound.ui
@@ -390,32 +419,32 @@ Direct /dev/dsp sound support (Open Sound System).
 %lang(pl) %{_datadir}/%{name}/modules/translations/dsp_sound_pl.qm
 
 %if %build_esd_sound
-%package 	module-esd_sound
+%package module-esd_sound
 Summary:	ESD sound module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires:	esound
 BuildRequires:	libesound-devel
 
-%description 	module-esd_sound
+%description module-esd_sound
 ESD sound server support.
 
-%files 		module-esd_sound
+%files module-esd_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/esd_sound.desc
 %{_libdir}/%{name}/modules/esd_sound.so
 %endif
 
 #module_ext_sound
-%package        module-ext_sound
+%package module-ext_sound
 Summary:        External application sound support
 Group:          Networking/Instant messaging
 Requires:       %{name} = %{version}-%{release}
 
-%description    module-ext_sound
+%description module-ext_sound
 External application sound support module.
 
-%files          module-ext_sound
+%files module-ext_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/ext_sound.desc
 %{_datadir}/%{name}/modules/configuration/ext_sound.ui
@@ -425,16 +454,33 @@ External application sound support module.
 %lang(it) %{_datadir}/%{name}/modules/translations/ext_sound_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/ext_sound_pl.qm
 
+%if %build_globalhotkeys
+%package module-globalhotkeys
+Summary:	Hotkeys support for kadu
+Group:          Networking/Instant messaging
+Requires:       %{name} = %{version}-%{release}
+
+%description module-globalhotkeys
+Hotkeys support for kadu.
+
+%files module-globalhotkeys
+%defattr(-,root,root)
+%{_libdir}/%{name}/modules/globalhotkeys.so
+%{_datadir}/%{name}/modules/configuration/globalhotkeys.ui
+%{_datadir}/%{name}/modules/globalhotkeys.desc
+%lang(pl) %{_datadir}/%{name}/modules/translations/globalhotkeys_pl.qm
+%endif
+
 %if %build_last_seen
-%package 	module-last_seen
+%package module-last_seen
 Summary:	Last seen module for %{name}
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-last_seen
+%description module-last_seen
 Last seen module for %{name}.
 
-%files		module-last_seen
+%files module-last_seen
 %defattr(-,root,root)
 %{_libdir}/%{name}/modules/last_seen.so
 %{_datadir}/%{name}/modules/last_seen.desc
@@ -442,15 +488,15 @@ Last seen module for %{name}.
 %endif
 	    
 %if %build_led_notify
-%package 	module-led_notify
+%package module-led_notify
 Summary:	Notification by LED
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-led_notify
+%description module-led_notify
 Notification by keyboard's LED.
 
-%files		module-led_notify
+%files module-led_notify
 %defattr(-,root,root)
 %doc modules/led_notify/Changelog
 %{_datadir}/%{name}/modules/led_notify.desc
@@ -459,15 +505,15 @@ Notification by keyboard's LED.
 %endif
 
 %if %build_mediaplayer
-%package	module-mediaplayer
+%package module-mediaplayer
 Summary:	Mediaplayer module for kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-mediaplayer
+%description module-mediaplayer
 Mediaplayer module for kadu.
 
-%files		module-mediaplayer
+%files module-mediaplayer
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/mediaplayer
 %{_libdir}/%{name}/modules/mediaplayer.so
@@ -478,91 +524,95 @@ Mediaplayer module for kadu.
 %endif
 
 %if %build_amarok
-%package 	module-mediaplayer_amarok
+%package module-mediaplayer_amarok
 Summary:	Amarok module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+Requires:	%{name}-module-autostatus = %{version}-%{release}
 Obsoletes:	%{name}-module-amarok
 Requires:	amarok
 
-%description 	module-mediaplayer_amarok
+%description module-mediaplayer_amarok
 Module which allows showing in status description information about
 the song currently played in Amarok.
 
-%files 		module-mediaplayer_amarok
+%files module-mediaplayer_amarok
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/amarok_mediaplayer.desc
 %{_libdir}/%{name}/modules/amarok_mediaplayer.so
 %endif
 
 %if %build_audacious
-%package	module-mediaplayer_audacious
+%package module-mediaplayer_audacious
 Summary:	Support audacious status
 Group:		Networking/Instant messaging
 BuildRequires:	audacious-devel
 BuildRequires:	dbus-glib-devel
 Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+Requires:	%{name}-module-autostatus = %{version}-%{release}
 Requires:	audacious
 
-%description	module-mediaplayer_audacious
+%description module-mediaplayer_audacious
 Module which allows showing in status description information about
 the song currently played in audacious.
 
-%files		module-mediaplayer_audacious
+%files module-mediaplayer_audacious
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/audacious_mediaplayer.desc
 %{_libdir}/%{name}/modules/audacious_mediaplayer.so
 %endif
 
 %if %build_falf
-%package	module-mediaplayer_falf
+%package module-mediaplayer_falf
 Summary:	Falf player odule for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+Requires:	%{name}-module-autostatus = %{version}-%{release}
 Obsoletes:	%{name}-module-falfp
 Requires:	falf >= 1.0
 
-%description	module-mediaplayer_falf
+%description module-mediaplayer_falf
 Module which allows showing in status description information about
 the song currently played in Falf player.
 
-%files		module-mediaplayer_falf
+%files module-mediaplayer_falf
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/falf_mediaplayer.desc
 %{_libdir}/%{name}/modules/falf_mediaplayer.so
 %endif
 
 %if %build_xmms
-%package 	module-mediaplayer_xmms
+%package module-mediaplayer_xmms
 Summary:	XMMS module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name}-module-mediaplayer = %{version}-%{release}
+Requires:	%{name}-module-autostatus = %{version}-%{release}
 Obsoletes:	%{name}-module-xmms
 Requires:	xmms
 BuildRequires:	libxmms-devel
 
-%description 	module-mediaplayer_xmms
+%description module-mediaplayer_xmms
 Module which allows showing in status description information about
 the song currently played in XMMS.
 
-%files 		module-mediaplayer_xmms
+%files module-mediaplayer_xmms
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/xmms_mediaplayer.desc
 %{_libdir}/%{name}/modules/xmms_mediaplayer.so
 %endif
 
 %if %build_miastoplusa_sms
-%package	module-miastoplusa_sms
+%package module-miastoplusa_sms
 Summary:	Miasto Plusa SMS Gateway
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 BuildRequires:	libcurl-devel
 BuildRequires:	libopenssl-devel
 
-%description	module-miastoplusa_sms
+%description module-miastoplusa_sms
 Miasto Plusa SMS Gateway support module.
 
-%files		module-miastoplusa_sms
+%files module-miastoplusa_sms
 %defattr(-,root,root)
 %doc modules/miastoplusa_sms/ChangeLog
 %dir %{_datadir}/%{name}/modules/data/miastoplusa_sms
@@ -574,15 +624,15 @@ Miasto Plusa SMS Gateway support module.
 %endif
 
 %if %build_mime_tex
-%package	module-mime_tex
+%package module-mime_tex
 Summary:	Mathematical TeX formulas for %{name}
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-mime_tex
+%description module-mime_tex
 Mathematical TeX formulas for %{name}.
 
-%files		module-mime_tex
+%files module-mime_tex
 %defattr(-,root,root)
 %dir %{_libdir}/%{name}/modules/bin/mime_tex
 %dir %{_datadir}/%{name}/modules/data/mime_tex
@@ -599,32 +649,32 @@ Mathematical TeX formulas for %{name}.
 %endif
 
 %if %build_nas_sound
-%package 	module-nas_sound
+%package module-nas_sound
 Summary:	NAS sound module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires:	nas
 BuildRequires:	libnas-devel
 
-%description 	module-nas_sound
+%description module-nas_sound
 Network Audio System support.
 
-%files		 module-nas_sound
+%files module-nas_sound
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/nas_sound.desc
 %{_libdir}/%{name}/modules/nas_sound.so
 %endif
 
 %if %build_panelkadu
-%package	module-panelkadu
+%package module-panelkadu
 Summary:	Module which makes Kadu look and behave like a panel
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-panelkadu
+%description module-panelkadu
 Module which makes Kadu look and behave like a panel.
 
-%files		module-panelkadu
+%files module-panelkadu
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/panelkadu.desc
 %{_datadir}/%{name}/modules/configuration/panelkadu.ui
@@ -633,15 +683,15 @@ Module which makes Kadu look and behave like a panel.
 %endif
 
 %if %build_parser_extender
-%package	module-parser_extender
+%package module-parser_extender
 Summary:	Module to extend Kadu Parser
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-parser_extender
+%description module-parser_extender
 Module to extend Kadu Parser.
 
-%files		module-parser_extender
+%files module-parser_extender
 %defattr(-,root,root)
 %{_libdir}/%{name}/modules/parser_extender.so
 %{_datadir}/%{name}/modules/parser_extender.desc
@@ -650,15 +700,15 @@ Module to extend Kadu Parser.
 %endif
 
 %if %build_pcspeaker
-%package 	module-pcspeaker
+%package module-pcspeaker
 Summary:	PC-Speaker support
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description 	module-pcspeaker
+%description module-pcspeaker
 PC-Speaker support module.
 
-%files		module-pcspeaker
+%files module-pcspeaker
 %defattr(-,root,root)
 %doc modules/pcspeaker/Changelog
 %{_datadir}/%{name}/modules/configuration/pcspeaker.ui
@@ -670,7 +720,7 @@ PC-Speaker support module.
 %endif
 
 %if %build_powerkadu
-%package	module-powerkadu
+%package module-powerkadu
 Summary:	Powerkadu
 Group:		Networking/Instant messaging
 Requires:	%{name}-module-anonymous_check = %{version}-%{release}
@@ -681,10 +731,10 @@ Requires:	%{name}-module-parser_extender = %{version}-%{release}
 Requires:	%{name}-module-split_messages = %{version}-%{release}
 Requires:	%{name}-module-word_fix = %{version}-%{release}
 
-%description	module-powerkadu
+%description module-powerkadu
 Powerkadu extends capabilities of Kadu.
 
-%files		module-powerkadu
+%files module-powerkadu
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/powerkadu
 %{_datadir}/%{name}/modules/data/powerkadu/AU*
@@ -696,16 +746,16 @@ Powerkadu extends capabilities of Kadu.
 %endif
 
 %if %build_speech
-%package 	module-speech
+%package module-speech
 Summary:	Speech synthesis support
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires:	powiedz
 
 %description	module-speech
-Speech synthesis support ("powiedz")
+Speech synthesis support ("powiedz").
 
-%files 		module-speech
+%files module-speech
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/speech.desc
 %{_datadir}/%{name}/modules/configuration/speech.ui
@@ -717,17 +767,17 @@ Speech synthesis support ("powiedz")
 %endif
 
 %if %build_spellchecker
-%package 	module-spellchecker
+%package module-spellchecker
 Summary:	Aspell module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires:	aspell
 BuildRequires:	libaspell-devel
 
-%description 	module-spellchecker
+%description module-spellchecker
 Checker of spelling mistakes.
 
-%files 		module-spellchecker
+%files module-spellchecker
 %defattr(-,root,root)
 %doc modules/spellchecker/{README,TODO,ChangeLog}
 %dir %{_datadir}/%{name}/modules/data/spellchecker
@@ -739,16 +789,16 @@ Checker of spelling mistakes.
 %endif
 
 %if %build_split_messages
-%package	module-split_messages
+%package module-split_messages
 Summary:	Automaticaly split too long messages in %{name}
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires:	aspell
 
-%description	module-split_messages
+%description module-split_messages
 Automaticaly split too long messages in %{name}.
 
-%files		module-split_messages
+%files module-split_messages
 %defattr(-,root,root)
 %{_libdir}/%{name}/modules/split_messages.so
 %{_datadir}/%{name}/modules/split_messages.desc
@@ -757,7 +807,7 @@ Automaticaly split too long messages in %{name}.
 %endif
 
 %if %build_water_notify
-%package	module-water-notify
+%package module-water-notify
 Summary:	Notification by Water Plugin in Compiz
 Group:		Networking/Instant messaging
 BuildRequires:	dbus-devel
@@ -765,10 +815,10 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	compiz
 Obsoletes:	%{name}-module-notify-water
 
-%description	module-water-notify
+%description module-water-notify
 Notification by water plugin in Compiz.
 
-%files		module-water-notify
+%files module-water-notify
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/water_notify.desc
 %{_datadir}/%{name}/modules/configuration/water_notify.ui
@@ -777,15 +827,15 @@ Notification by water plugin in Compiz.
 %endif
 
 %if %build_weather
-%package 	module-weather
+%package module-weather
 Summary:	Weather module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description 	module-weather
+%description module-weather
 This module shows current weather for you and your contacts.
 
-%files		module-weather
+%files module-weather
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/weather
 %dir %{_datadir}/%{name}/modules/data/weather/icons
@@ -800,28 +850,28 @@ This module shows current weather for you and your contacts.
 %endif
 
 %if %build_wmaker_docking
-%package	module-wmaker_docking
+%package module-wmaker_docking
 Summary: 	WindowMaker docking module
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires: 	WindowMaker
 
-%description 	module-wmaker_docking
+%description module-wmaker_docking
 WindowMaker docking module.
 
-%files		module-wmaker_docking
+%files module-wmaker_docking
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/wmaker_docking.desc
 %{_libdir}/%{name}/modules/wmaker_docking.so
 %endif
 
 %if %build_word_fix
-%package	module-word_fix
+%package module-word_fix
 Summary:	Automatic word replacement module for %{name}
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 
-%description	module-word_fix
+%description module-word_fix
 Automatic word replacement module for %{name}.
 
 %files		module-word_fix
@@ -835,17 +885,17 @@ Automatic word replacement module for %{name}.
 %endif
 
 %if %build_xosd_notify
-%package	module-xosd_notify
+%package module-xosd_notify
 Summary: 	Notification by XOSD
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
-BuildRequires: 	libgtk+-devel
+BuildRequires: 	gtk2-devel
 BuildRequires: 	libxosd-devel
 
 %description module-xosd_notify
 Notification by XOSD module.
 
-%files		module-xosd_notify
+%files module-xosd_notify
 %defattr(-,root,root)
 %doc modules/xosd_notify/{README,ChangeLog}
 %dir %{_libdir}/%{name}/modules/bin/xosd_notify
@@ -856,17 +906,17 @@ Notification by XOSD module.
 %endif
 
 %if %build_xqf
-%package 	module-xqf
+%package module-xqf
 Summary:	XQF module for Kadu
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
 Requires:	xqf
 
-%description 	module-xqf
+%description module-xqf
 Module which allows showing in status description information about
 the game and ip of a gameserver currently played.
 
-%files 		module-xqf
+%files module-xqf
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/qf.desc
 %{_libdir}/%{name}/modules/qf.so
@@ -875,17 +925,17 @@ the game and ip of a gameserver currently played.
 #----------Icons----------
 
 %if %build_icons_crystal
-%package	icons_crystal
+%package icons_crystal
 Summary: 	Crystal icons for Kadu
 Group:		Networking/Instant messaging
 License:	LGPLv2+
 Requires:	%{name} = %{version}-%{release}
 
-%description 	icons_crystal
+%description icons_crystal
 Crystal icon theme for kadu created by arcisz.
 
 #icons_crystal
-%files		icons_crystal
+%files icons_crystal
 %defattr(-,root,root)
 %doc varia/themes/icons/crystal16/README
 %dir %{_datadir}/%{name}/themes/icons/crystal16
@@ -895,16 +945,16 @@ Crystal icon theme for kadu created by arcisz.
 %endif
 
 %if %build_icons_glass
-%package	icons_glass
+%package icons_glass
 Summary: 	Glass icons for Kadu
 Group:		Networking/Instant messaging
 License:	GPLv2+
 Requires:	%{name} = %{version}-%{release}
 
-%description 	icons_glass
+%description icons_glass
 Glass icon theme for kadu created by Mariusz Waluga.
 
-%files		icons_glass
+%files icons_glass
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/themes/icons/glass16
 %dir %{_datadir}/%{name}/themes/icons/glass22
@@ -913,16 +963,16 @@ Glass icon theme for kadu created by Mariusz Waluga.
 %endif
 
 %if %build_icons_nuvola
-%package	icons_nuvola
+%package icons_nuvola
 Summary: 	Nuvola icons for Kadu
 Group:		Networking/Instant messaging
 License:	LGPLv2+
 Requires:	%{name} = %{version}-%{release}
 
-%description 	icons_nuvola
+%description icons_nuvola
 Nuvola icon theme for kadu created by David Vignoni.
 
-%files		icons_nuvola
+%files icons_nuvola
 %defattr(-,root,root)
 %doc varia/themes/icons/nuvola16/Copyright
 %dir %{_datadir}/%{name}/themes/icons/nuvola16
@@ -932,32 +982,32 @@ Nuvola icon theme for kadu created by David Vignoni.
 %endif
 
 %if %build_icons_oxygen
-%package	icons_oxygen
+%package icons_oxygen
 Summary: 	Oxygen icons for Kadu
 Group:		Networking/Instant messaging
 License:	GPLv2+
 Requires:	%{name} = %{version}-%{release}
 
-%description 	icons_oxygen
+%description icons_oxygen
 Oxygen icon theme for kadu.
 
-%files		icons_oxygen
+%files icons_oxygen
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/themes/icons/oxygen16
 %{_datadir}/%{name}/themes/icons/oxygen16/*
 %endif
 
 %if %build_icons_tango
-%package	icons_tango
+%package icons_tango
 Summary: 	Tango icons for Kadu
 Group:		Networking/Instant messaging
 License:	GPLv2+
 Requires:	%{name} = %{version}-%{release}
 
-%description 	icons_tango
+%description icons_tango
 Tango icon theme for kadu.
 
-%files		icons_tango
+%files icons_tango
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/themes/icons/tango16
 %{_datadir}/%{name}/themes/icons/tango16/*
@@ -983,6 +1033,10 @@ tar xjf %{SOURCE3} -C modules
 %if %build_audacious
 tar xjf %{SOURCE39} -C modules
 %{__sed} -i 's/module_audacious_mediaplayer=n/module_audacious_mediaplayer=m/' .config
+%endif
+%if %build_autostatus
+tar xf %{SOURCE49} -C modules
+%{__sed} -i 's/module_autostatus=n/module_autostatus=m/' .config
 %endif
 %if %build_dcopexport
 tar xjf %{SOURCE4} -C modules
@@ -1012,6 +1066,10 @@ tar xjf %{SOURCE8} -C modules
 %if %build_firewall
 tar xjf %{SOURCE9} -C modules
 %{__sed} -i 's/module_firewall=n/module_firewall=m/' .config
+%endif
+%if %build_globalhotkeys
+tar xf %{SOURCE50} -C modules
+%{__sed} -i 's/module_globalhotkeys=n/module_globalhotkeys=m/' .config
 %endif
 %if %build_iwait4u
 tar xzf %{SOURCE10} -C modules
@@ -1132,8 +1190,6 @@ tar xjf %{SOURCE43} -C modules
 tar xjf %{SOURCE44} -C modules
 %{__sed} -i 's/module_parser_extender=n/module_parser_extender=m/' .config
 %endif
-
-
 %if %build_split_messages
 tar xjf %{SOURCE45} -C modules
 %{__sed} -i 's/module_split_messages=n/module_split_messages=m/' .config
