@@ -1194,39 +1194,32 @@ tar xjf %{SOURCE44} -C modules
 tar xjf %{SOURCE45} -C modules
 %{__sed} -i 's/module_split_messages=n/module_split_messages=m/' .config
 %endif
-
 %if %build_word_fix
 tar xjf %{SOURCE46} -C modules
 %{__sed} -i 's/module_word_fix=n/module_word_fix=m/' .config
 %endif
-
 %if %build_last_seen
 tar xjf %{SOURCE47} -C modules
 %{__sed} -i 's/module_last_seen=n/module_last_seen=m/' .config
 %endif
-
 %if %build_icons_crystal
 tar xjf %{SOURCE24} -C varia/themes/icons
 tar xjf %{SOURCE25} -C varia/themes/icons
 %endif
-
 %if %build_icons_glass
 tar xzf %{SOURCE26} -C varia/themes/icons
 tar xzf %{SOURCE27} -C varia/themes/icons
 %{__sed} -i 's/icons_glass16=n/icons_glass16=y/' .config
 %{__sed} -i 's/icons_glass22=n/icons_glass22=y/' .config
 %endif
-
 %if %build_icons_nuvola
 tar xzf %{SOURCE28} -C varia/themes/icons
 tar xzf %{SOURCE29} -C varia/themes/icons
 %endif
-
 %if %build_icons_oxygen
 tar xzf %{SOURCE48} -C varia/themes/icons
 %{__sed} -i 's/icons_oxygen16=n/icons_oxygen16=y/' .config
 %endif
-
 %if %build_icons_tango
 tar xzf %{SOURCE34} -C varia/themes/icons
 %{__sed} -i 's/icons_tango16=n/icons_tango16=y/' .config
@@ -1247,6 +1240,9 @@ popd
 export CXXFLAGS="%{optflags} -DDBUS_API_SUBJECT_TO_CHANGE"
 
 %{__sed} -i 's,dataPath("kadu/modules/*,("%{_libdir}/kadu/modules/,g' kadu-core/modules.cpp
+%if %mdkversion >= 200900
+%define _disable_ld_no_undefined 1
+%endif
 
 %configure2_5x \
 	--enable-pheaders \
@@ -1268,7 +1264,8 @@ export CXXFLAGS="%{optflags} -DDBUS_API_SUBJECT_TO_CHANGE"
 
 sed -i -e 's/^Icon=%{name}.png$/Icon=%{name}/g' %{buildroot}%{_datadir}/applnk/Internet/*
 
-desktop-file-install \
+# (tpg) use vendoir for 2007.1
+desktop-file-install --vendor="" \
 	--dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 rm -rf `find %{buildroot} -name CVS`
