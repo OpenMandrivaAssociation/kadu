@@ -1181,7 +1181,6 @@ tar xjf %{SOURCE41} -C modules
 tar xjf %{SOURCE42} -C modules
 %{__sed} -i 's/module_auto_hide=n/module_auto_hide=m/' .config
 %endif
-
 %if %build_cenzor
 tar xjf %{SOURCE43} -C modules
 %{__sed} -i 's/module_cenzor=n/module_cenzor=m/' .config
@@ -1240,9 +1239,6 @@ popd
 export CXXFLAGS="%{optflags} -DDBUS_API_SUBJECT_TO_CHANGE"
 
 %{__sed} -i 's,dataPath("kadu/modules/*,("%{_libdir}/kadu/modules/,g' kadu-core/modules.cpp
-%if %mdkversion >= 200900
-%define _disable_ld_no_undefined 1
-%endif
 
 %configure2_5x \
 	--enable-pheaders \
