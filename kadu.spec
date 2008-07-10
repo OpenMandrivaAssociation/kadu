@@ -10,6 +10,7 @@
 %define		auto_hide_ver		0.2.1
 %define		autostatus_ver		0.1
 %define		cenzor_ver		0.2
+%define		desc_history_ver	1.1
 %define		dcopexport_ver		0.11.3-20071129-0.6.0
 %define		exec_notify_ver		20070111
 %define		ext_info_ver		2.0beta12
@@ -25,7 +26,7 @@
 %define		mediaplayer_ver		20080224
 %define		miastoplusa_sms_ver	0.6-1.3.9
 %define		mime_tex_ver		1.4.1.1
-%define		osdhints_notify_ver	0.4.2
+%define		osdhints_notify_ver	0.4.3
 %define		panelkadu_ver		0.6.0-1
 %define		parser_extender_ver	0.1.1
 %define		pcspeaker_ver		0.6.0.3
@@ -54,6 +55,7 @@
 %define		build_autostatus		1
 %define		build_cenzor			1
 %define		build_dcopexport		1
+%define		build_desc_history		1
 %define		build_desktop_docking		1
 %define		build_esd_sound			1
 %define		build_exec_notify		0
@@ -151,6 +153,7 @@ Source46:	http://www.kadu.net/~dorr/moduly/kadu-word_fix-%{word_fix_ver}.tar.bz2
 Source47:	http://www.kadu.net/~dorr/moduly/kadu-last_seen-%{last_seen_ver}.tar.bz2
 Source49:	http://www.kadu.net/~dorr/moduly/kadu-autostatus-%{autostatus_ver}.tar.bz2
 Source50:	http://www.ultr.pl/kadu/globalhotkeys-%{globalhotkeys_ver}.tar.gz
+Source51:	http://myslenice.one.pl/~boogie/desc_history/desc_history-%{_desc_history_ver}.tar.bz2
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
@@ -377,6 +380,24 @@ Exports some functions via DCOP.
 %{_libdir}/%{name}/modules/bin/dcopexport/*
 %{_libdir}/%{name}/modules/dcopexport.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/dcopexport_pl.qm
+%endif
+
+%if %build_desc_history
+%package module-desc_history
+Summary:	History for status descriptions
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
+
+%description module-desc_history
+History for status descriptions for kadu.
+
+%files module-desc_history
+%defattr(-,root,root)
+%{_datadir}/%{name}/modules/desc_history.desc
+%{_datadir}/%{name}/modules/configuration/desc_history.ui
+%{_libdir}/%{name}/modules/desc_history.so
+%lang(pl) %{_datadir}/%{name}/modules/translations/desc_history_pl.qm
+
 %endif
 
 %if %build_desktop_docking
@@ -1020,18 +1041,18 @@ Tango icon theme for kadu.
 
 %setup -qn %{name}
 %if %build_amarok
-tar xjf %{SOURCE2} -C modules
+tar xf %{SOURCE2} -C modules
 %{__sed} -i 's/module_amarok_mediaplayer=n/module_amarok_mediaplayer=m/' .config
 %endif
 %if %build_ao_sound
-tar xjf %{SOURCE3} -C modules
+tar xf %{SOURCE3} -C modules
 %{__sed} -i 's/module_ao_sound=n/module_ao_sound=m/' .config
 %endif
 %if %build_arts_sound
 %{__sed} -i 's/module_arts_sound=n/module_arts_sound=m/' .config
 %endif
 %if %build_audacious
-tar xjf %{SOURCE39} -C modules
+tar xf %{SOURCE39} -C modules
 %{__sed} -i 's/module_audacious_mediaplayer=n/module_audacious_mediaplayer=m/' .config
 %endif
 %if %build_autostatus
@@ -1039,8 +1060,12 @@ tar xf %{SOURCE49} -C modules
 %{__sed} -i 's/module_autostatus=n/module_autostatus=m/' .config
 %endif
 %if %build_dcopexport
-tar xjf %{SOURCE4} -C modules
+tar xf %{SOURCE4} -C modules
 %{__sed} -i 's/module_dcopexport=n/module_dcopexport=m/' .config
+%endif
+%if %build_desc_history
+tar xf %{SOURCE51} -C modules
+%{__sed} -i 's/module_desc_history=n/module_desc_history=m/' .config
 %endif
 %if %build_desktop_docking
 %{__sed} -i 's/module_desktop_docking=n/module_desktop_docking=m/' .config
@@ -1049,22 +1074,22 @@ tar xjf %{SOURCE4} -C modules
 %{__sed} -i 's/module_esd_sound=n/module_esd_sound=m/' .config
 %endif
 %if %build_exec_notify
-tar xjf %{SOURCE5} -C modules
+tar xf %{SOURCE5} -C modules
 %{__sed} -i 's/module_exec_notify=n/module_exec_notify=m/' .config
 %endif
 %if %build_ext_info
-tar xjf %{SOURCE6} -C modules
+tar xf %{SOURCE6} -C modules
 %endif
 %if %build_filedesc
-tar xjf %{SOURCE7} -C modules
+tar xf %{SOURCE7} -C modules
 %{__sed} -i 's/module_filedesc=n/module_filedesc=m/' .config
 %endif
 %if %build_filtering
-tar xjf %{SOURCE8} -C modules
+tar xf %{SOURCE8} -C modules
 %{__sed} -i 's/module_filtering=n/module_filtering=m/' .config
 %endif
 %if %build_firewall
-tar xjf %{SOURCE9} -C modules
+tar xf %{SOURCE9} -C modules
 %{__sed} -i 's/module_firewall=n/module_firewall=m/' .config
 %endif
 %if %build_globalhotkeys
@@ -1072,155 +1097,153 @@ tar xf %{SOURCE50} -C modules
 %{__sed} -i 's/module_globalhotkeys=n/module_globalhotkeys=m/' .config
 %endif
 %if %build_iwait4u
-tar xzf %{SOURCE10} -C modules
+tar xf %{SOURCE10} -C modules
 %{__sed} -i 's/module_iwait4u=n/module_iwait4u=m/' .config
 %endif
 %if %build_led_notify
-tar xjf %{SOURCE11} -C modules
+tar xf %{SOURCE11} -C modules
 %{__sed} -i 's/module_led_notify=n/module_led_notify=m/' .config
 %endif
 %if %build_mail
-tar xjf %{SOURCE12} -C modules
+tar xf %{SOURCE12} -C modules
 %{__sed} -i 's/module_mail=n/module_mail=m/' .config
 %endif
 %if %build_miastoplusa_sms
-tar xzf %{SOURCE13} -C modules
+tar xf %{SOURCE13} -C modules
 %{__sed} -i 's/module_miastoplusa_sms=n/module_miastoplusa_sms=m/' .config
 %endif
 %if %build_nas_sound
 %{__sed} -i 's/module_nas_sound=n/module_nas_sound=m/' .config
 %endif
 %if %build_osdhints_notify
-tar xjf %{SOURCE14} -C modules
+tar xf %{SOURCE14} -C modules
 %{__sed} -i 's/module_osdhints_notify=n/module_osdhints_notify=m/' .config
 %endif
 %if %build_pcspeaker
-tar xjf %{SOURCE15} -C modules
+tar xf %{SOURCE15} -C modules
 %{__sed} -i 's/module_pcspeaker=n/module_pcspeaker=m/' .config
 %endif
 %if %build_powerkadu
-tar xjf %{SOURCE16} -C modules
+tar xf %{SOURCE16} -C modules
 %{__sed} -i 's/module_powerkadu=n/module_powerkadu=m/' .config
 %endif
 %if %build_profiles
-tar xjf %{SOURCE17} -C modules
+tar xf %{SOURCE17} -C modules
 %{__sed} -i 's/module_profiles=n/module_profiles=m/' .config
 %endif
 %if %build_screenshot
-tar xjf %{SOURCE18} -C modules
+tar xf %{SOURCE18} -C modules
 %{__sed} -i 's/module_screenshot=n/module_screenshot=m/' .config
 %endif
 %if %build_speech
 %{__sed} -i 's/module_speech=n/module_speech=m/' .config
 %endif
 %if %build_spellchecker
-tar xjf %{SOURCE19} -C modules
+tar xf %{SOURCE19} -C modules
 %{__sed} -i 's/module_spellchecker=n/module_spellchecker=m/' .config
 %endif
 %if %build_tabs
-tar xjf %{SOURCE20} -C modules
+tar xf %{SOURCE20} -C modules
 %{__sed} -i 's/module_tabs=n/module_tabs=m/' .config
 %endif
 %if %build_weather
-tar xjf %{SOURCE21} -C modules
+tar xf %{SOURCE21} -C modules
 %{__sed} -i 's/module_weather=n/module_weather=m/' .config
 %endif
 %if %build_wmaker_docking
 %{__sed} -i 's/module_wmaker_docking=n/module_wmaker_docking=m/' .config
 %endif
 %if %build_xmms
-tar xjf %{SOURCE22} -C modules
+tar xf %{SOURCE22} -C modules
 %{__sed} -i 's/module_xmms_mediaplayer=n/module_xmms_mediaplayer=m/' .config
 %endif
 %if %build_xosd_notify
-tar xjf %{SOURCE23} -C modules
+tar xf %{SOURCE23} -C modules
 %{__sed} -i 's/module_xosd_notify=n/module_xosd_notify=m/' .config
 %endif
 %if %build_adavanced_userlist
-tar xjf %{SOURCE30} -C modules
+tar xf %{SOURCE30} -C modules
 %{__sed} -i 's/module_advanced_userlist=n/module_advanced_userlist=m/' .config
 %endif
 %if %build_falf
-tar xjf %{SOURCE31} -C modules
+tar xf %{SOURCE31} -C modules
 %{__sed} -i 's/module_falf_mediaplayer=n/module_falf_mediaplayer=m/' .config
 %endif
 %if %build_agent
-tar xzf %{SOURCE32} -C modules
+tar xf %{SOURCE32} -C modules
 %{__sed} -i 's/module_agent=n/module_agent=m/' .config
 %endif
 %if %build_xqf
-tar xjf %{SOURCE33} -C modules
+tar xf %{SOURCE33} -C modules
 %endif
 %if %build_mediaplayer
-tar xjf %{SOURCE35} -C modules
+tar xf %{SOURCE35} -C modules
 %{__sed} -i 's/module_mediaplayer=n/module_mediaplayer=m/' .config
 %endif
 %if %build_mime_tex
-tar xjf %{SOURCE36} -C modules
+tar xf %{SOURCE36} -C modules
 %{__sed} -i 's/module_mime_tex=n/module_mime_tex=m/' .config
 %endif
 %if %build_water_notify
-tar xjf %{SOURCE37} -C modules
+tar xf %{SOURCE37} -C modules
 %{__sed} -i 's/module_water_notify=n/module_water_notify=m/' .config
 %endif
 %if %build_panelkadu
-tar xzf %{SOURCE38} -C modules
+tar xf %{SOURCE38} -C modules
 %{__sed} -i 's/module_panelkadu=n/module_panelkadu=m/' .config
 %endif
-
 %if %build_antistring
-tar xjf %{SOURCE40} -C modules
+tar xf %{SOURCE40} -C modules
 %{__sed} -i 's/module_antistring=n/module_antistring=m/' .config
 %endif
-
 %if %build_anonymous_check
-tar xjf %{SOURCE41} -C modules
+tar xf %{SOURCE41} -C modules
 %{__sed} -i 's/module_anonymous_check=n/module_anonymous_check=m/' .config
 %endif
 %if %build_auto_hide
-tar xjf %{SOURCE42} -C modules
+tar xf %{SOURCE42} -C modules
 %{__sed} -i 's/module_auto_hide=n/module_auto_hide=m/' .config
 %endif
 %if %build_cenzor
-tar xjf %{SOURCE43} -C modules
+tar xf %{SOURCE43} -C modules
 %{__sed} -i 's/module_cenzor=n/module_cenzor=m/' .config
 %endif
 %if %build_parser_extender
-tar xjf %{SOURCE44} -C modules
+tar xf %{SOURCE44} -C modules
 %{__sed} -i 's/module_parser_extender=n/module_parser_extender=m/' .config
 %endif
 %if %build_split_messages
-tar xjf %{SOURCE45} -C modules
+tar xf %{SOURCE45} -C modules
 %{__sed} -i 's/module_split_messages=n/module_split_messages=m/' .config
 %endif
 %if %build_word_fix
-tar xjf %{SOURCE46} -C modules
+tar xf %{SOURCE46} -C modules
 %{__sed} -i 's/module_word_fix=n/module_word_fix=m/' .config
 %endif
 %if %build_last_seen
-tar xjf %{SOURCE47} -C modules
+tar xf %{SOURCE47} -C modules
 %{__sed} -i 's/module_last_seen=n/module_last_seen=m/' .config
 %endif
 %if %build_icons_crystal
-tar xjf %{SOURCE24} -C varia/themes/icons
-tar xjf %{SOURCE25} -C varia/themes/icons
+tar xf %{SOURCE24} -C varia/themes/icons
+tar xf %{SOURCE25} -C varia/themes/icons
 %endif
 %if %build_icons_glass
-tar xzf %{SOURCE26} -C varia/themes/icons
-tar xzf %{SOURCE27} -C varia/themes/icons
+tar xf %{SOURCE26} -C varia/themes/icons
+tar xf %{SOURCE27} -C varia/themes/icons
 %{__sed} -i 's/icons_glass16=n/icons_glass16=y/' .config
 %{__sed} -i 's/icons_glass22=n/icons_glass22=y/' .config
 %endif
 %if %build_icons_nuvola
-tar xzf %{SOURCE28} -C varia/themes/icons
-tar xzf %{SOURCE29} -C varia/themes/icons
+tar xf %{SOURCE28} -C varia/themes/icons
+tar xf %{SOURCE29} -C varia/themes/icons
 %endif
 %if %build_icons_oxygen
-tar xzf %{SOURCE48} -C varia/themes/icons
+tar xf %{SOURCE48} -C varia/themes/icons
 %{__sed} -i 's/icons_oxygen16=n/icons_oxygen16=y/' .config
 %endif
 %if %build_icons_tango
-tar xzf %{SOURCE34} -C varia/themes/icons
+tar xf %{SOURCE34} -C varia/themes/icons
 %{__sed} -i 's/icons_tango16=n/icons_tango16=y/' .config
 %endif
 
