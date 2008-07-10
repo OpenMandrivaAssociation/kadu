@@ -153,7 +153,7 @@ Source46:	http://www.kadu.net/~dorr/moduly/kadu-word_fix-%{word_fix_ver}.tar.bz2
 Source47:	http://www.kadu.net/~dorr/moduly/kadu-last_seen-%{last_seen_ver}.tar.bz2
 Source49:	http://www.kadu.net/~dorr/moduly/kadu-autostatus-%{autostatus_ver}.tar.bz2
 Source50:	http://www.ultr.pl/kadu/globalhotkeys-%{globalhotkeys_ver}.tar.gz
-Source51:	http://myslenice.one.pl/~boogie/desc_history/desc_history-%{_desc_history_ver}.tar.bz2
+Source51:	http://myslenice.one.pl/~boogie/desc_history/desc_history-%{desc_history_ver}.tar.bz2
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
