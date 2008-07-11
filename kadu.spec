@@ -387,6 +387,7 @@ Exports some functions via DCOP.
 Summary:	History for status descriptions
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
+BuildRequires:	sqlite3-devel
 
 %description module-desc_history
 History for status descriptions for kadu.
