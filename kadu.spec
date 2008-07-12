@@ -104,7 +104,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.6.0.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -1260,18 +1260,12 @@ popd
 %patch7 -p1 -b .water
 
 %build
-export CXXFLAGS="%{optflags} -DDBUS_API_SUBJECT_TO_CHANGE"
-
-%{__sed} -i 's,dataPath("kadu/modules/*,("%{_libdir}/kadu/modules/,g' kadu-core/modules.cpp
-
 %configure2_5x \
 	--enable-pheaders \
+	--enable-dist-info="Mandriva" \
 	--with-existing-libgadu \
 	--disable-autodownload \
-	--enable-final \
-	--enable-voice \
-	--disable-debug \
-	--enable-dist-info=Mandriva
+	--disable-debug
 
 %make
 	
