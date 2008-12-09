@@ -103,8 +103,8 @@
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
-Version:	0.6.0.2
-Release:	%mkrel 3
+Version:	0.6.5
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -170,22 +170,23 @@ Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.0-rc1-voice-gsm-fixes.patch
 Patch7:		water_notify-libs.patch
 BuildRequires:	libalsa-devel		>= 1.0.13
-BuildRequires:	gettext-devel		>= 0.14.6-5
+#BuildRequires:	gettext-devel		>= 0.14.6-5
 BuildRequires:	libgadu-devel 		>= 1.7
 BuildRequires:	libgsm-devel		>= 1.0.10-11
 BuildRequires:	libsndfile-devel 	>= 1.0.17
 BuildRequires:	X11-devel		>= 7.1.0
-BuildRequires:	qt3-devel 		>= 3.3.6
+BuildRequires:	qt4-devel 		>= 4.2.0
 BuildRequires:	libopenssl-devel	>= 0.9.8d-3
-BuildRequires:	desktop-file-utils
-Requires: 	qt3-common 		>= 3.3.7
+BuildRequires:	libpng-devel
+#BuildRequires:	desktop-file-utils
 %if !%build_arts_sound
-Obsoletes:	kadu-module-arts_sound < 0.6.0.1
+#Obsoletes:	kadu-module-arts_sound < 0.6.0.1
 %endif
 %if !%build_xosd_notify
-Obsoletes:	kadu-module-xosd_notify < 0.6.0.1
+#Obsoletes:	kadu-module-xosd_notify < 0.6.0.1
 %endif
-Obsoletes:	%{name}-module-xqf < 0.6.0
+#Obsoletes:	%{name}-module-xqf < 0.6.0
+BuildRequires:	cmake
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -1039,7 +1040,6 @@ Tango icon theme for kadu.
 #--------------------------------------------------------------
 
 %prep
-
 %setup -qn %{name}
 %if %build_amarok
 tar xf %{SOURCE2} -C modules
@@ -1254,18 +1254,20 @@ mv $file `echo $file | sed -e s/kadu-theme-//g -e s/[_-]//g`
 done
 popd
 
-%patch4 -p1 -b .alsa
-%patch5 -p1 -b .ext_sound
-%patch6 -p1 -b .voice
-%patch7 -p1 -b .water
+#%patch4 -p1 -b .alsa
+#%patch5 -p1 -b .ext_sound
+#%patch6 -p1 -b .voice
+#%patch7 -p1 -b .water
 
 %build
-%configure2_5x \
-	--enable-pheaders \
-	--enable-dist-info="Mandriva" \
-	--with-existing-libgadu \
-	--disable-autodownload \
-	--disable-debug
+#configure2_5x \
+#	--enable-pheaders \
+#	--enable-dist-info="Mandriva" \
+#	--with-existing-libgadu \
+#	--disable-autodownload \
+#	--disable-debug
+
+%cmake -DCMAKE_USE_PTHREADS:BOOL=ON -DBUILD_DESCRIPTION="%vendor"
 
 %make
 	
@@ -1278,8 +1280,7 @@ popd
 
 sed -i -e 's/^Icon=%{name}.png$/Icon=%{name}/g' %{buildroot}%{_datadir}/applnk/Internet/*
 
-# (tpg) use vendoir for 2007.1
-desktop-file-install --vendor="" \
+desktop-file-install \
 	--dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 rm -rf `find %{buildroot} -name CVS`
