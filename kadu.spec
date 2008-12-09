@@ -1267,7 +1267,7 @@ popd
 #	--disable-autodownload \
 #	--disable-debug
 
-%cmake -DCMAKE_USE_PTHREADS:BOOL=ON -DBUILD_DESCRIPTION="%vendor"
+%cmake -DCMAKE_USE_PTHREADS:BOOL=ON -DBUILD_DESCRIPTION="%vendor" -DENABLE_AUTODOWNLOAD:BOOL=OFF
 
 %make
 	
