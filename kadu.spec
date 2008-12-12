@@ -1,9 +1,7 @@
 ############### Define versions ####################
 %define		agent_ver		0.5
 %define		amarok_ver		20071220
-%define		advanced_userlist	20070101
 %define		anonymous_ver		0.2
-%define		ao_sound_ver		20060424
 %define		anonymous_check_ver	0.2
 %define		audacious_ver		20080224
 %define		cenzor_ver		0.3
@@ -102,7 +100,6 @@ Source1:	%{name}.desktop
 
 #Modules sources
 Source2: 	http://www.kadu.net/download/modules_extra/amarok_mediaplayer/amarok_mediaplayer-%{amarok_ver}.tar.bz2
-Source3: 	http://www.kadu.net/~joi/ao_sound/packages/ao_sound-%{ao_sound_ver}.tar.bz2
 Source4: 	http://alan.umcs.lublin.pl/~pinkworm/dcopexport/dcopexport-%{dcopexport_ver}.tar.bz2
 Source6: 	http://www.kadu.net/~dzwiedziu/pub/ext_info-%{ext_info_ver}.tar.bz2
 Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{iwait4u_ver}.tar.gz
@@ -115,7 +112,6 @@ Source20: 	http://kadu.net/~arvenil/tabs/download/%{version}/%{tabs_ver}/kadu-mo
 Source21: 	http://www.kadu.net/~blysk/weather-%{weather_ver}.tar.bz2
 Source22: 	http://www.kadu.net/download/modules_extra/xmms_mediaplayer/xmms_mediaplayer-%{xmms_ver}.tar.bz2
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{xosd_notify_ver}.tar.bz2
-Source30:	http://www.kadu.net/~joi/advanced_userlist/packages/advanced_userlist-%{advanced_userlist}.tar.bz2
 Source31:	http://www.kadu.net/download/modules_extra/falf_mediaplayer/falf_mediaplayer-%{falf_ver}.tar.bz2
 Source32:	http://www.kadu.net/~dorr/moduly/kadu-agent-%{agent_ver}.tar.bz2
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
@@ -1021,7 +1017,6 @@ tar xf %{SOURCE2} -C modules
 %{__sed} -i 's/module_amarok_mediaplayer=./module_amarok_mediaplayer=m/' .config
 %endif
 %if %build_ao_sound
-tar xf %{SOURCE3} -C modules
 %{__sed} -i 's/module_ao_sound=./module_ao_sound=m/' .config
 %endif
 %if %build_arts_sound
@@ -1382,8 +1377,8 @@ rm -rf `find %{buildroot} -name CVS`
 %lang(pl) %{_datadir}/%{name}/modules/translations/encryption_pl.qm
 
 #module_exec_notify
-#%{_datadir}/%{name}/modules/exec_notify.desc
-#%{_libdir}/%{name}/modules/exec_notify.so
+%{_datadir}/%{name}/modules/exec_notify.desc
+%{_libdir}/%{name}/modules/libexec_notify.so
 
 #module_ext_info
 #%dir %{_datadir}/%{name}/modules/data/ext_info
