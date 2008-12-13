@@ -1,8 +1,7 @@
 ############### Define versions ####################
 %define		agent_ver		0.5
 %define		amarok_ver		20071220
-%define		anonymous_ver		0.2
-%define		anonymous_check_ver	0.2
+%define		anonymous_check_ver	0.6.5.1
 %define		audacious_ver		20080224
 %define		cenzor_ver		0.3
 %define		desc_history_ver	1.1
@@ -15,7 +14,7 @@
 %define		mail_ver		0.3.3
 %define		mediaplayer_ver		20080224
 %define		miastoplusa_sms_ver	0.6-1.3.9
-%define		mime_tex_ver		1.4.1.1
+%define		mime_tex_ver		0.6.5.1
 %define		osdhints_notify_ver	0.5pre
 %define		panelkadu_ver		0.6.5-2
 %define		powerkadu_ver		2.1.1
@@ -40,7 +39,7 @@
 %define		build_autostatus		1
 %define		build_cenzor			1
 %define		build_dcopexport		0
-%define		build_desc_history		1
+%define		build_desc_history		0
 %define		build_desktop_docking		1
 %define		build_esd_sound			0
 %define		build_exec_notify		1
@@ -72,7 +71,7 @@
 %define		build_tabs			1
 %define		build_qt4_sound			0
 %define		build_water_notify		0
-%define		build_weather			1
+%define		build_weather			0
 %define		build_wmaker_docking		0
 %define		build_word_fix			1
 %define 	build_xmms			0
@@ -172,16 +171,16 @@ Static modules are:
 - notify
 - sound
 
-%package devel
-Summary:	Kadu development libary
-Group:		Development/C
+#%package devel
+#Summary:	Kadu development libary
+#Group:		Development/C
 
-%description devel
-The kadu-devel package contains the header files and some
-documentation needed to develop application with kadu.
+#%description devel
+#The kadu-devel package contains the header files and some
+#documentation needed to develop application with kadu.
 
-%files devel
-%defattr(-,root,root)
+#%files devel
+#%defattr(-,root,root)
 #multiarch %{multiarch_bindir}/kadu-config
 #%{_bindir}/kadu-config
 #%dir %{_includedir}/kadu
@@ -219,10 +218,10 @@ Automatic lookup of an interlocutor in public directory.
 
 %files module-anonymous_check
 %defattr(-,root,root)
-#%{_libdir}/%{name}/modules/anonymous_check.so
-#%{_datadir}/%{name}/modules/anonymous_check.desc
-#%{_datadir}/%{name}/modules/configuration/anonymous_check.ui
-#%{_datadir}/%{name}/modules/translations/anonymous_check.qm
+%{_libdir}/%{name}/modules/libanonymous_check.so
+%{_datadir}/%{name}/modules/anonymous_check.desc
+%{_datadir}/%{name}/modules/configuration/anonymous_check.ui
+%{_datadir}/%{name}/modules/translations/anonymous_check.qm
 %endif
 
 %if %build_antistring
@@ -430,16 +429,16 @@ ESD sound server support.
 %endif
 
 #module_ext_sound
-%package module-ext_sound
-Summary:        External application sound support
-Group:          Networking/Instant messaging
-Requires:       %{name} = %{version}-%{release}
+#%package module-ext_sound
+#Summary:        External application sound support
+#Group:          Networking/Instant messaging
+#Requires:       %{name} = %{version}-%{release}
 
-%description module-ext_sound
-External application sound support module.
+#%description module-ext_sound
+#External application sound support module.
 
-%files module-ext_sound
-%defattr(-,root,root)
+#%files module-ext_sound
+#%defattr(-,root,root)
 #%{_datadir}/%{name}/modules/ext_sound.desc
 #%{_datadir}/%{name}/modules/configuration/ext_sound.ui
 #%{_libdir}/%{name}/modules/ext_sound.so
@@ -628,18 +627,18 @@ Mathematical TeX formulas for %{name}.
 
 %files module-mime_tex
 %defattr(-,root,root)
-#%dir %{_libdir}/%{name}/modules/bin/mime_tex
-#%dir %{_datadir}/%{name}/modules/data/mime_tex
-#%dir %{_datadir}/%{name}/modules/data/mime_tex/editor_icons
-#%dir %{_datadir}/%{name}/modules/data/mime_tex/mime_tex_icons
-#%{_libdir}/%{name}/modules/bin/mime_tex/mimetex
-#%{_libdir}/%{name}/modules/mime_tex.so
-#%{_datadir}/%{name}/modules/mime_tex.desc
-#%{_datadir}/%{name}/modules/configuration/mime_tex.ui
-#%{_datadir}/%{name}/modules/data/mime_tex/*.png
-#%{_datadir}/%{name}/modules/data/mime_tex/editor_icons/*.png
-#%{_datadir}/%{name}/modules/data/mime_tex/mime_tex_icons/*.png
-#%lang(pl) %{_datadir}/%{name}/modules/translations/mime_tex_pl.qm
+%dir %{_libdir}/%{name}/modules/bin/mime_tex
+%dir %{_datadir}/%{name}/modules/data/mime_tex
+%dir %{_datadir}/%{name}/modules/data/mime_tex/editor_icons
+%dir %{_datadir}/%{name}/modules/data/mime_tex/mime_tex_icons
+%{_libdir}/%{name}/modules/bin/mime_tex/mimetex
+%{_libdir}/%{name}/modules/libmime_tex.so
+%{_datadir}/%{name}/modules/mime_tex.desc
+%{_datadir}/%{name}/modules/configuration/mime_tex.ui
+%{_datadir}/%{name}/modules/data/mime_tex/*.png
+%{_datadir}/%{name}/modules/data/mime_tex/editor_icons/*.png
+%{_datadir}/%{name}/modules/data/mime_tex/mime_tex_icons/*.png
+%lang(pl) %{_datadir}/%{name}/modules/translations/mime_tex_pl.qm
 %endif
 
 %if %build_nas_sound
@@ -1249,6 +1248,11 @@ desktop-file-install \
 	--dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 rm -rf `find %{buildroot} -name CVS`
+
+#(tpg) cmake stuff is weird...
+if [ "x%{_lib}" != "xlib" ]; then
+    mv %{buildroot}%{_prefix}/lib %{buildroot}%{_libdir}
+fi
 
 %if %mdkversion < 200900
 %post
