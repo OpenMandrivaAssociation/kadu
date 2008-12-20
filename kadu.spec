@@ -13,11 +13,11 @@
 %define		led_notify_ver		0.21
 %define		mail_ver		0.3.3
 %define		mediaplayer_ver		20080224
-%define		miastoplusa_sms_ver	0.6-1.3.9
 %define		mime_tex_ver		0.6.5.1
 %define		osdhints_notify_ver	0.5pre
 %define		panelkadu_ver		0.6.5-2
 %define		powerkadu_ver		2.1.1
+%define		plus_pl_sms_ver		0.6.5.1
 %define		sent_history_ver	0.6.5-3
 %define		split_messages_ver	0.3
 %define		tabs_ver		1.2.1
@@ -54,13 +54,13 @@
 %define		build_led_notify		1
 %define		build_mail			0
 %define		build_mediaplayer		0
-%define		build_miastoplusa_sms		0
 %define		build_mime_tex			1
 %define		build_nas_sound			0
 %define		build_osdhints_notify		1
 %define		build_panelkadu			1
 %define		build_parser_extender		1
 %define		build_pcspeaker			0
+%define		build_plus_pl_sms		1
 %define		build_powerkadu			1
 %define		build_profiles			1
 %define		build_screenshot		1
@@ -90,7 +90,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.6.5
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -104,7 +104,7 @@ Source6: 	http://www.kadu.net/~dzwiedziu/pub/ext_info-%{ext_info_ver}.tar.bz2
 Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{iwait4u_ver}.tar.gz
 Source11: 	http://kadu.net/~blysk/led_notify-%{led_notify_ver}.tar.bz2
 Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{mail_ver}.tar.bz2
-Source13: 	http://www.kadu.net/~patryk/miastoplusa_sms/miastoplusa_sms-%{miastoplusa_sms_ver}.tar.gz
+Source13:	http://kadu.net/~patryk/plus_pl_sms/plus_pl_sms-%{plus_pl_sms_ver}.tar.bz2
 Source14:	http://www.kadu.net/~dorr/moduly/kadu-osdhints_notify-%{osdhints_notify_ver}.tar.bz2
 Source16: 	http://www.kadu.net/~dorr/moduly/kadu-powerkadu-%{powerkadu_ver}.tar.bz2
 Source20: 	http://kadu.net/~arvenil/tabs/download/%{version}/%{tabs_ver}/kadu-module-tabs-%{tabs_ver}.tar.bz2
@@ -594,28 +594,6 @@ the song currently played in XMMS.
 %{_libdir}/%{name}/modules/xmms_mediaplayer.so
 %endif
 
-%if %build_miastoplusa_sms
-%package module-miastoplusa_sms
-Summary:	Miasto Plusa SMS Gateway
-Group:		Networking/Instant messaging
-Requires:	%{name} = %{version}-%{release}
-BuildRequires:	libcurl-devel
-BuildRequires:	libopenssl-devel
-
-%description module-miastoplusa_sms
-Miasto Plusa SMS Gateway support module.
-
-%files module-miastoplusa_sms
-%defattr(-,root,root)
-%doc modules/miastoplusa_sms/ChangeLog
-%dir %{_datadir}/%{name}/modules/data/miastoplusa_sms
-%{_datadir}/%{name}/modules/data/miastoplusa_sms/*
-%{_datadir}/%{name}/modules/miastoplusa_sms.desc
-%{_datadir}/%{name}/modules/configuration/miastoplusa_sms.ui
-%{_libdir}/%{name}/modules/miastoplusa_sms.so
-%lang(pl) %{_datadir}/%{name}/modules/translations/miastoplusa_sms_pl.qm
-%endif
-
 %if %build_mime_tex
 %package module-mime_tex
 Summary:	Mathematical TeX formulas for %{name}
@@ -712,6 +690,29 @@ PC-Speaker support module.
 %lang(pl) %{_datadir}/%{name}/modules/translations/pcspeaker_pl.qm
 %endif
 
+%if %build_plus_pl_sms
+%package module-plus_pl_sms
+Summary:	Miasto Plusa SMS Gateway
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
+Obsoletes:	%{name}-module-miastoplusa_sms < 0.6.5
+Provides:	%{name}-module-miastoplusa_sms
+BuildRequires:	libcurl-devel
+BuildRequires:	libopenssl-devel
+
+%description module-plus_pl_sms
+Miasto Plusa SMS Gateway support module.
+
+%files module-plus_pl_sms
+%defattr(-,root,root)
+%dir %{_datadir}/%{name}/modules/data/plus_pl_sms
+%{_libdir}/%{name}/modules/libplus_pl_sms.so
+%{_datadir}/%{name}/modules/configuration/plus_pl_sms.ui
+%{_datadir}/%{name}/modules/data/plus_pl_sms/curl-ca-bundle.crt
+%{_datadir}/%{name}/modules/plus_pl_sms.desc
+%lang(pl) %{_datadir}/%{name}/modules/translations/plus_pl_sms_pl.qm
+%endif
+
 %if %build_powerkadu
 %package module-powerkadu
 Summary:	Powerkadu
@@ -773,12 +774,10 @@ Checker of spelling mistakes.
 %files module-spellchecker
 %defattr(-,root,root)
 %doc modules/spellchecker/{README,ChangeLog}
-#%dir %{_datadir}/%{name}/modules/data/spellchecker
 %{_datadir}/%{name}/modules/spellchecker.desc
 %{_datadir}/%{name}/modules/configuration/spellchecker.ui
 %{_libdir}/%{name}/modules/libspellchecker.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/spellchecker_pl.qm
-#%{_datadir}/%{name}/modules/data/spellchecker/config.png
 %endif
 
 %if %build_split_messages
@@ -1073,9 +1072,9 @@ tar xf %{SOURCE11} -C modules
 tar xf %{SOURCE12} -C modules
 %{__sed} -i 's/module_mail=./module_mail=m/' .config
 %endif
-%if %build_miastoplusa_sms
+%if %build_plus_pl_sms
 tar xf %{SOURCE13} -C modules
-%{__sed} -i 's/module_miastoplusa_sms=./module_miastoplusa_sms=m/' .config
+%{__sed} -i 's/module_plus_pl_sms=./module_plus_pl_sms=m/' .config
 %endif
 %if %build_nas_sound
 %{__sed} -i 's/module_nas_sound=./module_nas_sound=m/' .config
@@ -1230,8 +1229,11 @@ popd
 sed -i -e 's#set (LIBDIR ${CMAKE_INSTALL_PREFIX}/lib)#set (LIBDIR %{_libdir})#' CMakeLists.txt
 sed -i -e 's@#define DETAILED.*@#define DETAILED_VERSION "%{name}-%{version}-%{release}"@' kadu-config.h.cmake
 
+# change sounds path
+sed -i -e 's#share/kadu/themes/sound#share/kadu/themes/sounds#g' varia/themes/sounds/CMakeLists.txt
 
 %define _disable_ld_no_undefined 1
+%define Werror_cflags %nil
 
 %cmake -DCMAKE_USE_PTHREADS:BOOL=ON -DBUILD_DESCRIPTION="%vendor" -DENABLE_AUTDOWNLOAD:BOOL=OFF -DCMAKE_BUILD_TYPE=Debug
 
@@ -1517,9 +1519,9 @@ fi
 %{_datadir}/%{name}/themes/emoticons/penguins/*
 
 #sounds_default
-%dir %{_datadir}/%{name}/themes/sound
-%dir %{_datadir}/%{name}/themes/sound/default
-%{_datadir}/%{name}/themes/sound/default/*
+%dir %{_datadir}/%{name}/themes/sounds
+%dir %{_datadir}/%{name}/themes/sounds/default
+%{_datadir}/%{name}/themes/sounds/default/*
 %lang(de) %{_datadir}/%{name}/modules/translations/sound_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/sound_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/sound_it.qm
