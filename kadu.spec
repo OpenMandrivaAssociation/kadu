@@ -62,7 +62,8 @@
 %define		build_pcspeaker			0
 %define		build_plus_pl_sms		1
 %define		build_powerkadu			1
-%define		build_profiles			1
+# (tpg) disable it for now
+%define		build_profiles			0
 %define		build_screenshot		1
 %define		build_sent_history		1
 %define		build_speech			0
@@ -89,8 +90,8 @@
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
-Version:	0.6.5
-Release:	%mkrel 2
+Version:	0.6.5.2
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -139,6 +140,7 @@ Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.5-voice-gsm-fixes.patch
 Patch7:		water_notify-libs.patch
+Patch8:		kadu-0.6.5.2-gcc44.patch
 BuildRequires:	libalsa-devel		>= 1.0.13
 #BuildRequires:	gettext-devel		>= 0.14.6-5
 BuildRequires:	libgadu-devel 		>= 1.8
@@ -157,6 +159,7 @@ BuildRequires:	desktop-file-utils
 %endif
 #Obsoletes:	%{name}-module-xqf < 0.6.0
 BuildRequires:	cmake
+BuildRequires:	qca-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -1218,6 +1221,7 @@ popd
 #%patch5 -p1 -b .ext_sound
 %patch6 -p1 -b .voice
 #%patch7 -p1 -b .water
+%patch8 -p0
 
 %build
 #(tpg) disable notifications about upstream updates
@@ -1230,15 +1234,22 @@ sed -i -e 's#set (LIBDIR ${CMAKE_INSTALL_PREFIX}/lib)#set (LIBDIR %{_libdir})#' 
 sed -i -e 's@#define DETAILED.*@#define DETAILED_VERSION "%{name}-%{version}-%{release}"@' kadu-config.h.cmake
 
 # change sounds path
-sed -i -e 's#share/kadu/themes/sound#share/kadu/themes/sounds#g' varia/themes/sounds/CMakeLists.txt
+#sed -i -e 's#share/kadu/themes/sound#share/kadu/themes/sounds#g' varia/themes/sounds/CMakeLists.txt
 
 %define _disable_ld_no_undefined 1
 %define Werror_cflags %nil
 
-%cmake -DCMAKE_USE_PTHREADS:BOOL=ON -DBUILD_DESCRIPTION="%vendor" -DENABLE_AUTDOWNLOAD:BOOL=OFF -DCMAKE_BUILD_TYPE=Debug
+%cmake \
+    -DCMAKE_USE_PTHREADS:BOOL=ON \
+    -DBUILD_DESCRIPTION="%vendor" \
+    -DENABLE_AUTDOWNLOAD:BOOL=OFF \
+%if "%{_lib}" == "lib64"
+    -DLIB_SUFFIX=64 \
+%endif
+    -DCMAKE_USE_PTHREADS:BOOL=ON
 
-%make VERBOSE=1
-	
+%make
+
 %install
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
@@ -1292,7 +1303,7 @@ fi
 %dir %{_datadir}/%{name}/themes/emoticons
 %dir %{_datadir}/%{name}/themes/icons
 %{_datadir}/%{name}/syntax
-%{_datadir}/pixmaps/*.png
+%{_iconsdir}/hicolor/*/apps/*.png
 %exclude %{_datadir}/%{name}/HISTORY
 %exclude %{_datadir}/%{name}/README
 %exclude %{_datadir}/%{name}/AUTHORS
@@ -1350,6 +1361,7 @@ fi
 %dir %{_datadir}/%{name}/modules/data/config_wizard
 %{_datadir}/%{name}/modules/config_wizard.desc
 %{_libdir}/%{name}/modules/libconfig_wizard.so
+%{_datadir}/%{name}/modules/data/config_wizard/*
 %lang(de) %{_datadir}/%{name}/modules/translations/config_wizard_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/config_wizard_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/config_wizard_it.qm
@@ -1418,6 +1430,10 @@ fi
 #%{_libdir}/%{name}/modules/iwait4u.so
 #%lang(pl) %{_datadir}/%{name}/modules/translations/iwait4u_pl.qm
 
+#module_idle
+%{_datadir}/%{name}/modules/idle.desc
+%{_libdir}/%{name}/modules/libidle.so
+
 #module_hints
 %{_datadir}/%{name}/modules/hints.desc
 %{_datadir}/%{name}/modules/configuration/hints.ui
@@ -1459,9 +1475,11 @@ fi
 %{_libdir}/%{name}/modules/libosdhints_notify.so
 
 #module_profiles
+%if %build_profiles
 %{_datadir}/%{name}/modules/profiles.desc
 %{_libdir}/%{name}/modules/libprofiles.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/profiles_pl.qm
+%endif
 
 #module_screenshot
 %{_datadir}/%{name}/modules/screenshot.desc
