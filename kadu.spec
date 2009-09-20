@@ -1,28 +1,29 @@
 ############### Define versions ####################
 %define		agent_ver		0.5
 %define		amarok_ver		20071220
-%define		anonymous_check_ver	0.6.5.1
+%define		anonymous_check_ver	0.6.5.3-1
 %define		audacious_ver		20080224
 %define		cenzor_ver		0.3
 %define		desc_history_ver	1.1
 %define		dcopexport_ver		0.11.3-20071129-0.6.0
 %define		ext_info_ver		2.0beta12
 %define		falf_ver		20071225
-%define		globalhotkeys_ver	0.6.5-7
+%define		globalhotkeys_ver	0.6.5-12
 %define		iwait4u_ver		1.3
 %define		led_notify_ver		0.21
-%define		mail_ver		0.3.3
+%define		kde_notify_ver		0.3.2
+%define		mail_ver		0.3.6
 %define		mediaplayer_ver		20080224
-%define		mime_tex_ver		0.6.5.1
+%define		mime_tex_ver		0.6.5.3
 %define		osdhints_notify_ver	0.5pre
-%define		panelkadu_ver		0.6.5-2
-%define		powerkadu_ver		2.1.1
-%define		plus_pl_sms_ver		0.6.5.1
-%define		sent_history_ver	0.6.5-3
+%define		panelkadu_ver		0.6.5-5
+%define		powerkadu_ver		2.1.2
+%define		plus_pl_sms_ver		0.6.5.3-3
+%define		sent_history_ver	0.6.5-5
 %define		split_messages_ver	0.3
-%define		tabs_ver		1.2.1
-%define		water_notify_ver	0.1.1
-%define		weather_ver		3.13
+%define		tabs_ver		1.2.5
+%define		water_notify_ver	0.2.1
+%define		weather_ver		3.15
 %define		xmms_ver		20080116
 %define		xosd_notify_ver		20070111
 
@@ -50,9 +51,10 @@
 %define		build_firewall			1
 %define		build_globalhotkeys		1
 %define		build_iwait4u			0
+%define		build_kde_notify		1
 %define		build_last_seen			1
 %define		build_led_notify		1
-%define		build_mail			0
+%define		build_mail			1
 %define		build_mediaplayer		0
 %define		build_mime_tex			1
 %define		build_nas_sound			0
@@ -63,7 +65,7 @@
 %define		build_plus_pl_sms		1
 %define		build_powerkadu			1
 # (tpg) disable it for now
-%define		build_profiles			0
+%define		build_profiles			1
 %define		build_screenshot		1
 %define		build_sent_history		1
 %define		build_speech			0
@@ -71,8 +73,8 @@
 %define		build_split_messages		1
 %define		build_tabs			1
 %define		build_qt4_sound			0
-%define		build_water_notify		0
-%define		build_weather			0
+%define		build_water_notify		1
+%define		build_weather			1
 %define		build_wmaker_docking		0
 %define		build_word_fix			1
 %define 	build_xmms			0
@@ -90,7 +92,7 @@
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
-Version:	0.6.5.2
+Version:	0.6.5.3
 Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Instant messaging
@@ -108,7 +110,7 @@ Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{mail_ver}.tar.bz2
 Source13:	http://kadu.net/~patryk/plus_pl_sms/plus_pl_sms-%{plus_pl_sms_ver}.tar.bz2
 Source14:	http://www.kadu.net/~dorr/moduly/kadu-osdhints_notify-%{osdhints_notify_ver}.tar.bz2
 Source16: 	http://www.kadu.net/~dorr/moduly/kadu-powerkadu-%{powerkadu_ver}.tar.bz2
-Source20: 	http://kadu.net/~arvenil/tabs/download/%{version}/%{tabs_ver}/kadu-module-tabs-%{tabs_ver}.tar.bz2
+Source20: 	http://kadu.net/~arvenil/tabs/download/%{version}/%{tabs_ver}/kadu-tabs-%{tabs_ver}.tar.bz2
 Source21: 	http://www.kadu.net/~blysk/weather-%{weather_ver}.tar.bz2
 Source22: 	http://www.kadu.net/download/modules_extra/xmms_mediaplayer/xmms_mediaplayer-%{xmms_ver}.tar.bz2
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{xosd_notify_ver}.tar.bz2
@@ -117,7 +119,7 @@ Source32:	http://www.kadu.net/~dorr/moduly/kadu-agent-%{agent_ver}.tar.bz2
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
 Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{mediaplayer_ver}.tar.bz2
 Source36:	http://kadu.net/~patryk/mime_tex/mime_tex-%{mime_tex_ver}.tar.bz2
-Source37:	http://kadu.jarzebski.pl/water_notify-%{water_notify_ver}.tar.bz2
+Source37:	http://kadu.jarzebski.pl/kadu-water_notify-%{water_notify_ver}.tar.bz2
 Source38:	http://www.ultr.pl/kadu/panelkadu-%{panelkadu_ver}.tar.gz
 Source39:	http://www.kadu.net/download/modules_extra/audacious_mediaplayer/audacious_mediaplayer-%{audacious_ver}.tar.bz2
 Source41:	http://kadu.net/~patryk/anonymous_check/anonymous_check-%{anonymous_check_ver}.tar.bz2
@@ -125,6 +127,7 @@ Source45:	http://www.kadu.net/~dorr/moduly/kadu-split_messages-%{split_messages_
 Source50:	http://www.ultr.pl/kadu/globalhotkeys-%{globalhotkeys_ver}.tar.gz
 Source51:	http://myslenice.one.pl/~boogie/desc_history/desc_history-%{desc_history_ver}.tar.bz2
 Source52:	http://www.ultr.pl/kadu/senthistory-%{sent_history_ver}.tar.gz
+Source53:	http://www.kadu.net/~dorr/moduly/kde_notify-%{kde_notify_ver}.tar.gz
 
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
@@ -140,7 +143,6 @@ Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.5-voice-gsm-fixes.patch
 Patch7:		water_notify-libs.patch
-Patch8:		kadu-0.6.5.2-gcc44.patch
 BuildRequires:	libalsa-devel		>= 1.0.13
 #BuildRequires:	gettext-devel		>= 0.14.6-5
 BuildRequires:	libgadu-devel 		>= 1.8
@@ -467,6 +469,22 @@ Hotkeys support for kadu.
 %lang(pl) %{_datadir}/%{name}/modules/translations/globalhotkeys_pl.qm
 %endif
 
+%if %build_kde_notify
+%package module-kde4-notify
+Summary:	Notification for KDE4
+Group:		Networking/Instant messaging
+Requires:	%{name} = %{version}-%{release}
+
+%description module-kde4-notify
+Notification for KDE4.
+
+%files module-kde4-notify
+%defattr(-,root,root)
+%{_datadir}/%{name}/modules/kde_notify.desc
+%{_datadir}/%{name}/modules/configuration/kde_notify.ui
+%{_libdir}/%{name}/modules/libkde_notify.so
+%endif
+
 %if %build_last_seen
 %package module-last_seen
 Summary:	Last seen module for %{name}
@@ -482,7 +500,7 @@ Last seen module for %{name}.
 %{_datadir}/%{name}/modules/last_seen.desc
 %lang(pl) %{_datadir}/%{name}/modules/translations/last_seen_pl.qm
 %endif
-	    
+
 %if %build_led_notify
 %package module-led_notify
 Summary:	Notification by LED
@@ -817,7 +835,7 @@ Notification by water plugin in Compiz.
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/water_notify.desc
 %{_datadir}/%{name}/modules/configuration/water_notify.ui
-#%{_libdir}/%{name}/modules/water_notify.so
+%{_libdir}/%{name}/modules/libwater_notify.so
 %lang(pl) %{_datadir}/%{name}/modules/translations/water_notify_pl.qm
 %endif
 
@@ -832,16 +850,16 @@ This module shows current weather for you and your contacts.
 
 %files module-weather
 %defattr(-,root,root)
-#%dir %{_datadir}/%{name}/modules/data/weather
-#%dir %{_datadir}/%{name}/modules/data/weather/icons
-#%{_datadir}/%{name}/modules/data/weather/icons/*
-#%{_datadir}/%{name}/modules/data/weather/interia.ini
-#%{_datadir}/%{name}/modules/data/weather/onetweather.ini
-#%{_datadir}/%{name}/modules/data/weather/pfweather.ini
-#%{_datadir}/%{name}/modules/weather.desc
-#%{_datadir}/%{name}/modules/configuration/weather.ui
-#%{_libdir}/%{name}/modules/weather.so
-#%lang(pl) %{_datadir}/%{name}/modules/translations/weather_pl.qm
+%dir %{_datadir}/%{name}/modules/data/weather
+%dir %{_datadir}/%{name}/modules/data/weather/icons
+%{_datadir}/%{name}/modules/data/weather/icons/*
+%{_datadir}/%{name}/modules/data/weather/interia.ini
+%{_datadir}/%{name}/modules/data/weather/onetweather.ini
+%{_datadir}/%{name}/modules/data/weather/pfweather.ini
+%{_datadir}/%{name}/modules/weather.desc
+%{_datadir}/%{name}/modules/configuration/weather.ui
+%{_libdir}/%{name}/modules/libweather.so
+%lang(pl) %{_datadir}/%{name}/modules/translations/weather_pl.qm
 %endif
 
 %if %build_wmaker_docking
@@ -1067,6 +1085,10 @@ tar xf %{SOURCE50} -C modules
 tar xf %{SOURCE10} -C modules
 %{__sed} -i 's/module_iwait4u=./module_iwait4u=m/' .config
 %endif
+%if %build_kde_notify
+tar xf %{SOURCE53} -C modules
+%{__sed} -i 's/module_kde_notify=n/module_kde_notify=m/' .config
+%endif
 %if %build_led_notify
 tar xf %{SOURCE11} -C modules
 %{__sed} -i 's/module_led_notify=./module_led_notify=m/' .config
@@ -1221,7 +1243,6 @@ popd
 #%patch5 -p1 -b .ext_sound
 %patch6 -p1 -b .voice
 #%patch7 -p1 -b .water
-%patch8 -p0
 
 %build
 #(tpg) disable notifications about upstream updates
@@ -1444,10 +1465,10 @@ fi
 %lang(pl) %{_datadir}/%{name}/modules/translations/hints_pl.qm
 
 #module_mail
-#%{_datadir}/%{name}/modules/mail.desc
-#%{_libdir}/%{name}/modules/mail.so
-#%{_datadir}/%{name}/modules/configuration/mail.ui
-#%lang(pl) %{_datadir}/%{name}/modules/translations/mail_pl.qm
+%{_datadir}/%{name}/modules/mail.desc
+%{_libdir}/%{name}/modules/libmail.so
+%{_datadir}/%{name}/modules/configuration/mail.ui
+%lang(pl) %{_datadir}/%{name}/modules/translations/mail_pl.qm
 
 #module_history
 %{_datadir}/%{name}/modules/history.desc
