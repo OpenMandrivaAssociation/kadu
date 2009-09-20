@@ -1265,7 +1265,7 @@ sed -i -e 's@#define DETAILED.*@#define DETAILED_VERSION "%{name}-%{version}-%{r
     -DBUILD_DESCRIPTION="%vendor" \
     -DENABLE_AUTDOWNLOAD:BOOL=OFF \
 %if "%{_lib}" == "lib64"
-    -DLIB_SUFFIX=64 \
+    -DLIB_SUFFIX_64:BOOL=ON \
 %endif
     -DCMAKE_USE_PTHREADS:BOOL=ON
 
@@ -1285,8 +1285,11 @@ rm -rf `find %{buildroot} -name CVS`
 
 #(tpg) cmake stuff is weird...
 if [ "x%{_lib}" != "xlib" ]; then
-    mv %{buildroot}%{_prefix}/lib %{buildroot}%{_libdir}
+    cp -af %{buildroot}%{_prefix}/lib/kadu %{buildroot}%{_libdir}
+    sleep 1
+    rm -rf %{buildroot}%{_prefix}/lib/kadu
 fi
+
 
 %if %mdkversion < 200900
 %post
