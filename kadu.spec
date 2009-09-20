@@ -161,7 +161,7 @@ BuildRequires:	desktop-file-utils
 %endif
 #Obsoletes:	%{name}-module-xqf < 0.6.0
 BuildRequires:	cmake
-BuildRequires:	qca-devel
+BuildRequires:	qca2-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
