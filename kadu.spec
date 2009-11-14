@@ -1022,7 +1022,7 @@ Tango icon theme for kadu.
 %prep
 %setup -qn %{name}
 %if %build_amarok
-%{__sed} -i 's/module_amarok_mediaplayer=./module_amarok_mediaplayer=m/' .config
+%{__sed} -i 's/module_amarok2_mediaplayer=./module_amarok2_mediaplayer=m/' .config
 %endif
 %if %build_ao_sound
 %{__sed} -i 's/module_ao_sound=./module_ao_sound=m/' .config
