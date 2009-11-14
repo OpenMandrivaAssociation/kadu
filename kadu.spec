@@ -520,7 +520,7 @@ Mediaplayer module for kadu.
 %files module-mediaplayer
 %defattr(-,root,root)
 %dir %{_datadir}/%{name}/modules/data/mediaplayer
-%{_libdir}/%{name}/modules/mediaplayer.so
+%{_libdir}/%{name}/modules/libmediaplayer.so
 %{_datadir}/%{name}/modules/mediaplayer.desc
 %{_datadir}/%{name}/modules/configuration/mediaplayer.ui
 %{_datadir}/%{name}/modules/data/mediaplayer/mediaplayer.png
@@ -563,7 +563,7 @@ the song currently played in audacious.
 %files module-mediaplayer_audacious
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/audacious_mediaplayer.desc
-%{_libdir}/%{name}/modules/audacious_mediaplayer.so
+%{_libdir}/%{name}/modules/libaudacious_mediaplayer.so
 %endif
 
 %if %build_falf
