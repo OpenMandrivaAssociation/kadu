@@ -1,19 +1,15 @@
 ############### Define versions ####################
 %define		agent_ver		0.5
-%define		amarok_ver		20071220
 %define		anonymous_check_ver	0.6.5.3-1
-%define		audacious_ver		20080224
 %define		cenzor_ver		0.3
 %define		desc_history_ver	1.1
 %define		dcopexport_ver		0.11.3-20071129-0.6.0
 %define		ext_info_ver		2.0beta12
-%define		falf_ver		20071225
 %define		globalhotkeys_ver	0.6.5-12
 %define		iwait4u_ver		1.3
 %define		led_notify_ver		0.21
 %define		kde_notify_ver		0.3.2
 %define		mail_ver		0.3.6
-%define		mediaplayer_ver		20080224
 %define		mime_tex_ver		0.6.5.3
 %define		osdhints_notify_ver	0.5pre
 %define		panelkadu_ver		0.6.5-5
@@ -29,13 +25,13 @@
 
 ################ Enable modules #######################
 %define		build_agent			1
-%define		build_amarok			0
+%define		build_amarok			1
 %define		build_adavanced_userlist	1
 %define		build_anonymous_check		1
 %define		build_antistring		1
 %define		build_ao_sound			0
 %define		build_arts_sound		0
-%define		build_audacious			0
+%define		build_audacious			1
 %define		build_auto_hide			1
 %define		build_autostatus		1
 %define		build_cenzor			1
@@ -55,7 +51,7 @@
 %define		build_last_seen			1
 %define		build_led_notify		1
 %define		build_mail			1
-%define		build_mediaplayer		0
+%define		build_mediaplayer		1
 %define		build_mime_tex			1
 %define		build_nas_sound			0
 %define		build_osdhints_notify		1
@@ -64,7 +60,6 @@
 %define		build_pcspeaker			0
 %define		build_plus_pl_sms		1
 %define		build_powerkadu			1
-# (tpg) disable it for now
 %define		build_profiles			1
 %define		build_screenshot		1
 %define		build_sent_history		1
@@ -93,7 +88,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.6.5.3
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -101,7 +96,6 @@ Source0:	http://kadu.net/download/stable/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 
 #Modules sources
-Source2: 	http://www.kadu.net/download/modules_extra/amarok_mediaplayer/amarok_mediaplayer-%{amarok_ver}.tar.bz2
 Source4: 	http://alan.umcs.lublin.pl/~pinkworm/dcopexport/dcopexport-%{dcopexport_ver}.tar.bz2
 Source6: 	http://www.kadu.net/~dzwiedziu/pub/ext_info-%{ext_info_ver}.tar.bz2
 Source10: 	http://www.kadu.net/~pan_wojtas/iwait4u/download/kadu-iwait4u-%{iwait4u_ver}.tar.gz
@@ -112,16 +106,12 @@ Source14:	http://www.kadu.net/~dorr/moduly/kadu-osdhints_notify-%{osdhints_notif
 Source16: 	http://www.kadu.net/~dorr/moduly/kadu-powerkadu-%{powerkadu_ver}.tar.bz2
 Source20: 	http://kadu.net/~arvenil/tabs/download/%{version}/%{tabs_ver}/kadu-tabs-%{tabs_ver}.tar.bz2
 Source21: 	http://www.kadu.net/~blysk/weather-%{weather_ver}.tar.bz2
-Source22: 	http://www.kadu.net/download/modules_extra/xmms_mediaplayer/xmms_mediaplayer-%{xmms_ver}.tar.bz2
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{xosd_notify_ver}.tar.bz2
-Source31:	http://www.kadu.net/download/modules_extra/falf_mediaplayer/falf_mediaplayer-%{falf_ver}.tar.bz2
 Source32:	http://www.kadu.net/~dorr/moduly/kadu-agent-%{agent_ver}.tar.bz2
 Source33:	http://tuxwarriors.wz.cz/qf.tar.bz2
-Source35:	http://www.kadu.net/download/modules_extra/mediaplayer/mediaplayer-%{mediaplayer_ver}.tar.bz2
 Source36:	http://kadu.net/~patryk/mime_tex/mime_tex-%{mime_tex_ver}.tar.bz2
 Source37:	http://kadu.jarzebski.pl/kadu-water_notify-%{water_notify_ver}.tar.bz2
 Source38:	http://www.ultr.pl/kadu/panelkadu-%{panelkadu_ver}.tar.gz
-Source39:	http://www.kadu.net/download/modules_extra/audacious_mediaplayer/audacious_mediaplayer-%{audacious_ver}.tar.bz2
 Source41:	http://kadu.net/~patryk/anonymous_check/anonymous_check-%{anonymous_check_ver}.tar.bz2
 Source45:	http://www.kadu.net/~dorr/moduly/kadu-split_messages-%{split_messages_ver}.tar.bz2
 Source50:	http://www.ultr.pl/kadu/globalhotkeys-%{globalhotkeys_ver}.tar.gz
@@ -1032,7 +1022,6 @@ Tango icon theme for kadu.
 %prep
 %setup -qn %{name}
 %if %build_amarok
-tar xf %{SOURCE2} -C modules
 %{__sed} -i 's/module_amarok_mediaplayer=./module_amarok_mediaplayer=m/' .config
 %endif
 %if %build_ao_sound
@@ -1042,7 +1031,6 @@ tar xf %{SOURCE2} -C modules
 %{__sed} -i 's/module_arts_sound=./module_arts_sound=m/' .config
 %endif
 %if %build_audacious
-tar xf %{SOURCE39} -C modules
 %{__sed} -i 's/module_audacious_mediaplayer=./module_audacious_mediaplayer=m/' .config
 %endif
 %if %build_autostatus
@@ -1142,7 +1130,6 @@ tar xf %{SOURCE21} -C modules
 %{__sed} -i 's/module_wmaker_docking=./module_wmaker_docking=m/' .config
 %endif
 %if %build_xmms
-tar xf %{SOURCE22} -C modules
 %{__sed} -i 's/module_xmms_mediaplayer=./module_xmms_mediaplayer=m/' .config
 %endif
 %if %build_xosd_notify
@@ -1153,7 +1140,6 @@ tar xf %{SOURCE23} -C modules
 %{__sed} -i 's/module_advanced_userlist=./module_advanced_userlist=m/' .config
 %endif
 %if %build_falf
-tar xf %{SOURCE31} -C modules
 %{__sed} -i 's/module_falf_mediaplayer=./module_falf_mediaplayer=m/' .config
 %endif
 %if %build_agent
@@ -1164,7 +1150,6 @@ tar xf %{SOURCE32} -C modules
 tar xf %{SOURCE33} -C modules
 %endif
 %if %build_mediaplayer
-tar xf %{SOURCE35} -C modules
 %{__sed} -i 's/module_mediaplayer=./module_mediaplayer=m/' .config
 %endif
 %if %build_mime_tex
