@@ -542,8 +542,8 @@ the song currently played in Amarok.
 
 %files module-mediaplayer_amarok
 %defattr(-,root,root)
-%{_datadir}/%{name}/modules/amarok_mediaplayer.desc
-%{_libdir}/%{name}/modules/amarok_mediaplayer.so
+%{_datadir}/%{name}/modules/amarok2_mediaplayer.desc
+%{_libdir}/%{name}/modules/libamarok2_mediaplayer.so
 %endif
 
 %if %build_audacious
