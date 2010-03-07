@@ -5,10 +5,10 @@
 %define		desc_history_ver	1.1
 %define		dcopexport_ver		0.11.3-20071129-0.6.0
 %define		ext_info_ver		2.0beta12
-%define		globalhotkeys_ver	0.6.5-12
+%define		globalhotkeys_ver	0.6.5-15
 %define		iwait4u_ver		1.3
 %define		led_notify_ver		0.21
-%define		kde_notify_ver		0.3.2
+%define		kde_notify_ver		0.3.4
 %define		mail_ver		0.3.6
 %define		mime_tex_ver		0.6.5.3
 %define		osdhints_notify_ver	0.5pre
@@ -17,7 +17,7 @@
 %define		plus_pl_sms_ver		0.6.5.3-3
 %define		sent_history_ver	0.6.5-5
 %define		split_messages_ver	0.3
-%define		tabs_ver		1.2.5
+%define		tabs_ver		1.2.7
 %define		water_notify_ver	0.2.1
 %define		weather_ver		3.15
 %define		xmms_ver		20080116
@@ -50,8 +50,9 @@
 %define		build_kde_notify		1
 %define		build_last_seen			1
 %define		build_led_notify		1
-%define		build_mail			1
+%define		build_mail			0
 %define		build_mediaplayer		1
+%define		build_mediaplayer_mpris		1
 %define		build_mime_tex			1
 %define		build_nas_sound			0
 %define		build_osdhints_notify		1
@@ -63,11 +64,11 @@
 %define		build_profiles			1
 %define		build_screenshot		1
 %define		build_sent_history		1
-%define		build_speech			0
+%define		build_speech			1
 %define 	build_spellchecker		1
 %define		build_split_messages		1
 %define		build_tabs			1
-%define		build_qt4_sound			0
+%define		build_qt4_sound			1
 %define		build_water_notify		1
 %define		build_weather			1
 %define		build_wmaker_docking		0
@@ -87,8 +88,8 @@
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
-Version:	0.6.5.3
-Release:	%mkrel 4
+Version:	0.6.5.4
+Release:	%mkrel 1
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -104,7 +105,7 @@ Source12: 	http://www.kadu.net/download/modules_mirror/mail-%{mail_ver}.tar.bz2
 Source13:	http://kadu.net/~patryk/plus_pl_sms/plus_pl_sms-%{plus_pl_sms_ver}.tar.bz2
 Source14:	http://www.kadu.net/~dorr/moduly/kadu-osdhints_notify-%{osdhints_notify_ver}.tar.bz2
 Source16: 	http://www.kadu.net/~dorr/moduly/kadu-powerkadu-%{powerkadu_ver}.tar.bz2
-Source20: 	http://kadu.net/~arvenil/tabs/download/%{version}/%{tabs_ver}/kadu-tabs-%{tabs_ver}.tar.bz2
+Source20: 	http://www.kadu.net/~weagle/tabs/kadu-tabs-%{tabs_ver}.tar.bz2
 Source21: 	http://www.kadu.net/~blysk/weather-%{weather_ver}.tar.bz2
 Source23: 	http://www.kadu.net/~joi/xosd_notify/packages/xosd_notify-%{xosd_notify_ver}.tar.bz2
 Source32:	http://www.kadu.net/~dorr/moduly/kadu-agent-%{agent_ver}.tar.bz2
@@ -122,12 +123,14 @@ Source53:	http://www.kadu.net/~dorr/moduly/kde_notify-%{kde_notify_ver}.tar.gz
 #Icons sources
 Source24:	http://www.kadu.net/download/additions/kadu-theme-crystal-16.tar.bz2
 Source25:	http://www.kadu.net/download/additions/kadu-theme-crystal-22.tar.bz2
-Source26:	http://www.kadu.net/download/additions/kadu-0.6-theme-glass-16.tar.gz
-Source27:	http://www.kadu.net/download/additions/kadu-0.6-theme-glass-22.tar.gz
+Source26:	http://www.kadu.net/download/additions/kadu-0.6.5.4-theme-glass-16.tar.gz
+Source27:	http://www.kadu.net/download/additions/kadu-0.6.5.4-theme-glass-22.tar.gz
 Source28:	http://www.kadu.net/download/additions/kadu-theme-nuvola-16.tar.gz
 Source29:	http://www.kadu.net/download/additions/kadu-theme-nuvola-22.tar.gz
-Source34:	http://www.kadu.net/download/additions/kadu-0.6-theme-tango-16.tar.gz
-Source48:	http://www.kadu.net/download/additions/kadu-0.6-theme-oxygen-16.tar.gz
+Source34:	http://www.kadu.net/download/additions/kadu-0.6.5.4-theme-tango-16.tar.gz
+Source48:	http://www.kadu.net/download/additions/kadu-0.6.5.4-theme-oxygen-16.tar.gz
+#emoticons sources
+Source49:	http://www.kadu.net/download/additions/kadu-0.6.5.4-emots-tango.tar.gz
 
 Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
@@ -543,7 +546,9 @@ the song currently played in Amarok.
 %files module-mediaplayer_amarok
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/amarok2_mediaplayer.desc
+%{_datadir}/%{name}/modules/amarok1_mediaplayer.desc
 %{_libdir}/%{name}/modules/libamarok2_mediaplayer.so
+%{_libdir}/%{name}/modules/libamarok1_mediaplayer.so
 %endif
 
 %if %build_audacious
@@ -764,7 +769,7 @@ Speech synthesis support ("powiedz").
 %defattr(-,root,root)
 %{_datadir}/%{name}/modules/speech.desc
 %{_datadir}/%{name}/modules/configuration/speech.ui
-#%{_libdir}/%{name}/modules/speech.so
+%{_libdir}/%{name}/modules/libspeech.so
 %lang(de) %{_datadir}/%{name}/modules/translations/speech_de.qm
 %lang(fr) %{_datadir}/%{name}/modules/translations/speech_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/speech_it.qm
@@ -1152,6 +1157,10 @@ tar xf %{SOURCE33} -C modules
 %if %build_mediaplayer
 %{__sed} -i 's/module_mediaplayer=./module_mediaplayer=m/' .config
 %endif
+%if %build_mediaplayer_mpris
+%{__sed} -i 's/module_mpris_mediaplayer=n/module_mpris_mediaplayer=m/' .config
+%endif
+
 %if %build_mime_tex
 tar xf %{SOURCE36} -C modules
 %{__sed} -i 's/module_mime_tex=./module_mime_tex=m/' .config
@@ -1217,6 +1226,12 @@ tar xf %{SOURCE48} -C varia/themes/icons
 tar xf %{SOURCE34} -C varia/themes/icons
 %{__sed} -i 's/icons_tango16=n/icons_tango16=y/' .config
 %endif
+
+
+#emoticons
+tar xf %{SOURCE49} -C varia/themes/emoticons
+%{__sed} -i 's/emoticons_tango=n/emoticons_tango=y/' .config
+
 
 pushd varia/themes/icons
 for file in kadu-theme*; do
@@ -1290,7 +1305,7 @@ fi
 %clean_icon_cache hicolor
 %endif
 
-%clean 
+%clean
 [ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
 
 %files
@@ -1376,6 +1391,10 @@ fi
 %lang(it) %{_datadir}/%{name}/modules/translations/config_wizard_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/config_wizard_pl.qm
 
+#module_dbus
+%{_datadir}/%{name}/modules/dbus.desc
+%{_libdir}/%{name}/modules/libdbus.so
+
 #module_dcc
 %{_datadir}/%{name}/modules/dcc.desc
 %{_datadir}/%{name}/modules/configuration/dcc.ui
@@ -1453,10 +1472,12 @@ fi
 %lang(pl) %{_datadir}/%{name}/modules/translations/hints_pl.qm
 
 #module_mail
+%if %build_mail
 %{_datadir}/%{name}/modules/mail.desc
 %{_libdir}/%{name}/modules/libmail.so
 %{_datadir}/%{name}/modules/configuration/mail.ui
 %lang(pl) %{_datadir}/%{name}/modules/translations/mail_pl.qm
+%endif
 
 #module_history
 %{_datadir}/%{name}/modules/history.desc
@@ -1466,6 +1487,14 @@ fi
 %lang(fr) %{_datadir}/%{name}/modules/translations/history_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/history_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/history_pl.qm
+
+%if %build_mediaplayer_mpris
+#module_mpris
+%{_datadir}/%{name}/modules/mpris_mediaplayer.desc
+%{_datadir}/%{name}/modules/configuration/mpris_mediaplayer.ui
+%{_libdir}/%{name}/modules/libmpris_mediaplayer.so
+%lang(pl) %{_datadir}/%{name}/modules/translations/mpris_mediaplayer_pl.qm
+%endif
 
 #module_migration
 #%{_datadir}/%{name}/modules/migration.desc
@@ -1537,6 +1566,11 @@ fi
 #%lang(it) %{_datadir}/%{name}/modules/translations/x11_docking_it.qm
 #%lang(pl) %{_datadir}/%{name}/modules/translations/x11_docking_pl.qm
 
+%if %build_qt4_sound
+%{_libdir}/%{name}/modules/libqt4_sound.so
+%{_datadir}/%{name}/modules/qt4_sound.desc
+%endif
+
 #icons_default
 %dir %{_datadir}/%{name}/themes/icons/default
 %{_datadir}/%{name}/themes/icons/default/*
@@ -1544,6 +1578,10 @@ fi
 #emoticons_penguins
 %dir %{_datadir}/%{name}/themes/emoticons/penguins
 %{_datadir}/%{name}/themes/emoticons/penguins/*
+
+#emoticons tango
+%dir %{_datadir}/%{name}/themes/emoticons/tango
+%{_datadir}/%{name}/themes/emoticons/tango/*
 
 #sounds_default
 %dir %{_datadir}/%{name}/themes/sounds
