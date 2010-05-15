@@ -89,7 +89,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.6.5.4
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -760,10 +760,10 @@ Powerkadu extends capabilities of Kadu.
 Summary:	Speech synthesis support
 Group:		Networking/Instant messaging
 Requires:	%{name} = %{version}-%{release}
-Requires:	powiedz
+#Requires:	powiedz
 
 %description	module-speech
-Speech synthesis support ("powiedz").
+Speech synthesis support.
 
 %files module-speech
 %defattr(-,root,root)
