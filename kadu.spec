@@ -136,6 +136,7 @@ Patch4: 	%{name}-use-alsa-by-default.patch
 Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.5-voice-gsm-fixes.patch
 Patch7:		water_notify-libs.patch
+Patch8:		kadu-stath.patch
 BuildRequires:	libalsa-devel		>= 1.0.13
 BuildRequires:	libgadu-devel 		>= 1.8
 BuildRequires:	libgsm-devel		>= 1.0.10-11
@@ -1233,6 +1234,7 @@ popd
 #%patch5 -p1 -b .ext_sound
 %patch6 -p1 -b .voice
 #%patch7 -p1 -b .water
+%patch8 -p0
 
 %build
 #(tpg) disable notifications about upstream updates
