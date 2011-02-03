@@ -89,7 +89,7 @@
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.6.5.4
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2+
 Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
@@ -137,22 +137,13 @@ Patch5: 	%{name}-disbale-ext_sound-autoload.patch
 Patch6:		%{name}-0.6.5-voice-gsm-fixes.patch
 Patch7:		water_notify-libs.patch
 BuildRequires:	libalsa-devel		>= 1.0.13
-#BuildRequires:	gettext-devel		>= 0.14.6-5
 BuildRequires:	libgadu-devel 		>= 1.8
 BuildRequires:	libgsm-devel		>= 1.0.10-11
 BuildRequires:	libsndfile-devel 	>= 1.0.17
-BuildRequires:	X11-devel		>= 7.1.0
 BuildRequires:	qt4-devel 		>= 4.2.0
-BuildRequires:	libopenssl-devel	>= 0.9.8d-3
-BuildRequires:	libpng-devel
+Buildrequires:	libxscrnsaver-devel
+BuildRequires:	libx11-devel
 BuildRequires:	desktop-file-utils
-%if !%build_arts_sound
-#Obsoletes:	kadu-module-arts_sound < 0.6.0.1
-%endif
-%if !%build_xosd_notify
-#Obsoletes:	kadu-module-xosd_notify < 0.6.0.1
-%endif
-#Obsoletes:	%{name}-module-xqf < 0.6.0
 BuildRequires:	cmake
 BuildRequires:	qca2-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -714,7 +705,6 @@ Requires:	%{name} = %{version}-%{release}
 Obsoletes:	%{name}-module-miastoplusa_sms < 0.6.5
 Provides:	%{name}-module-miastoplusa_sms
 BuildRequires:	libcurl-devel
-BuildRequires:	libopenssl-devel
 
 %description module-plus_pl_sms
 Miasto Plusa SMS Gateway support module.
