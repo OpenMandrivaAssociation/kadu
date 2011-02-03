@@ -1274,6 +1274,9 @@ desktop-file-install \
 	--dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 
 rm -rf `find %{buildroot} -name CVS`
+pushd %{buildroot}%{_datadir}/%{name}
+rm -f AUTHORS COPYING ChangeLog HISTORY README THANKS modules/data/osdhints_notify/License
+popd
 
 #(tpg) cmake stuff is weird...
 if [ "x%{_lib}" != "xlib" ]; then
@@ -1313,6 +1316,7 @@ fi
 %dir %{_datadir}/%{name}/configuration
 %dir %{_datadir}/%{name}/translations
 %dir %{_datadir}/%{name}/modules
+%dir %{_datadir}/%{name}/modules/configuration
 %dir %{_datadir}/%{name}/modules/data
 %dir %{_datadir}/%{name}/modules/translations
 %dir %{_datadir}/%{name}/themes
@@ -1320,12 +1324,6 @@ fi
 %dir %{_datadir}/%{name}/themes/icons
 %{_datadir}/%{name}/syntax
 %{_iconsdir}/hicolor/*/apps/*.png
-%exclude %{_datadir}/%{name}/HISTORY
-%exclude %{_datadir}/%{name}/README
-%exclude %{_datadir}/%{name}/AUTHORS
-%exclude %{_datadir}/%{name}/ChangeLog
-%exclude %{_datadir}/%{name}/COPYING
-%exclude %{_datadir}/%{name}/THANKS
 %{_datadir}/%{name}/configuration/dialog-look-chat-advanced.ui
 %{_datadir}/%{name}/configuration/dialog.ui
 
@@ -1498,7 +1496,6 @@ fi
 
 #module_osdhints_notify
 %dir %{_datadir}/%{name}/modules/data/osdhints_notify
-%exclude %{_datadir}/%{name}/modules/data/osdhints_notify/License
 %{_datadir}/%{name}/modules/configuration/osdhints_notify.ui
 %{_datadir}/%{name}/modules/data/osdhints_notify/*.png
 %{_datadir}/%{name}/modules/osdhints_notify.desc
@@ -1539,6 +1536,7 @@ fi
 %lang(fr) %{_datadir}/%{name}/modules/translations/*notify_fr.qm
 %lang(it) %{_datadir}/%{name}/modules/translations/*notify_it.qm
 %lang(pl) %{_datadir}/%{name}/modules/translations/*notify_pl.qm
+%exclude %{_datadir}/%{name}/modules/translations/water_notify_pl.qm
 
 #module_voice
 %{_datadir}/%{name}/modules/voice.desc
