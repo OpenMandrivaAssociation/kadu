@@ -14,6 +14,7 @@ BuildRequires:	idn-devel
 BuildRequires:	qca2-devel
 BuildRequires:	libsndfile-devel
 BuildRequires:	libxscrnsaver-devel
+BuildRequires:	libmpdclient-devel
 
 Patch0:		kadu-0.10.0-build-module.patch
 Obsoletes:	kadu-module-mediaplayer_falf < 0.10.0
