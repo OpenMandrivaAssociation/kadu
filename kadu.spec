@@ -7,11 +7,12 @@ Group:		Networking/Instant messaging
 URL:		http://www.kadu.net
 Source0:	http://download.kadu.im/stable/kadu-%{version}.tar.bz2
 BuildRequires:	cmake
-BuildRequires:	qt4-devel >= 4.2.0
+BuildRequires:	qt4-devel >= 4.7.0
 BuildRequires:	aspell-devel
 BuildRequires:	libgadu-devel >= 1.11.1
 BuildRequires:	idn-devel
 BuildRequires:	qca2-devel
+BuildRequires:	pkgconfig(phonon)
 BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	libxscrnsaver-devel
 BuildRequires:	libmpdclient-devel
