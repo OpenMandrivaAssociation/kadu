@@ -12,7 +12,7 @@ BuildRequires:	aspell-devel
 BuildRequires:	libgadu-devel >= 1.11.1
 BuildRequires:	idn-devel
 BuildRequires:	qca2-devel
-BuildRequires:	libsndfile-devel
+BuildRequires:	pkgconfig(sndfile)
 BuildRequires:	libxscrnsaver-devel
 BuildRequires:	libmpdclient-devel
 
