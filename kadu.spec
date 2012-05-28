@@ -1,3 +1,5 @@
+%define _disable_ld_no_undefined 1
+
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
 Version:	0.11.3
@@ -103,7 +105,7 @@ Static modules are:
 %setup -q
 
 %build
-%cmake
+%cmake -DENABLE_AUTODOWNLOAD:BOOL=OFF
 %make
 
 %install
