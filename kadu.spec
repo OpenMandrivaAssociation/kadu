@@ -2,7 +2,7 @@
 
 Summary:	A Gadu-Gadu client for online messaging
 Name:		kadu
-Version:	0.11.3
+Version:	0.12.1
 Release:	1
 License:	GPLv2+
 Group:		Networking/Instant messaging
