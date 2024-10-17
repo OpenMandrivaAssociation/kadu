@@ -6,7 +6,7 @@ Version:	0.11.3
 Release:	2
 License:	GPLv2+
 Group:		Networking/Instant messaging
-URL:		http://www.kadu.net
+URL:		https://www.kadu.net
 Source0:	http://download.kadu.im/stable/kadu-%{version}.tar.bz2
 BuildRequires:	cmake
 BuildRequires:	qt4-devel >= 4.7.0
